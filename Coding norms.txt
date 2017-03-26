@@ -1,0 +1,11 @@
+
+Language:				Java
+Class Names:			CamelCase
+Method Names:		camelCase
+Variables:				<Discuss>
+Global Constants:		<Discuss>
+Indentation:			<Discuss>
+Paren Location:		<Discuss>
+
+Commit Summaries:	<Discuss>
+
