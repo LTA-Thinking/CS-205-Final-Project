@@ -2,10 +2,18 @@
 Language:				Java
 Class Names:			CamelCase
 Method Names:		camelCase
-Variables:				<Discuss>
-Global Constants:		<Discuss>
-Indentation:			<Discuss>
-Paren Location:		<Discuss>
+Variables:				camelCase
+Global Constants:		CAPS_WITH_UNDERSCORES
+Indentation:			Tabs
+Bracket Location:		On its own line
+Comments:
+	Class Comment - High level idea of what the class does
+	Method Comments - Inputs, Outputs, and a general idea of what it does
 
-Commit Summaries:	<Discuss>
+Commit Summaries:	
+	Include Info on:
+		- Files changed
+		- What was changed
+		- Any new or edited method heads
+	Make sure the program works before you submit.
 
