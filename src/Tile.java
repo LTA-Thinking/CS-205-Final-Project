@@ -13,6 +13,11 @@ public class Tile
 	public static final int T_TYPE = 0,
 								L_TYPE = 1,
 								I_TYPE = 2;
+	
+	public static final int NORTH = 0,
+								EAST = 1,
+								SOUTH = 2,
+								WEST = 3;
 								
 	private ImageView tileIcon;
 	private IntegerProperty xCord = new SimpleIntegerProperty();
@@ -86,6 +91,53 @@ public class Tile
     }
 	
 	/**
+	 * Checks whether the tile has an edge connecting it to the adjacent tile in the direction given.
+	 *
+	 * @param direction The direction to check if an edge exists. In the form of a direction constant from Tile.
+	 */
+	public boolean isConnectedInDirection(int direction)
+	{
+		if(direction == NORTH)
+		{
+			if(type == T_TYPE && (rotation == 0 || rotation == 2 || rotation == 3))
+				return true;
+			else if(type == L_TYPE && (rotation == 0 || rotation == 3))
+				return true;
+			else if(type == I_TYPE && (rotation == 0 || rotation == 2))
+				return true;
+		}
+		else if(direction == EAST)
+		{
+			if(type == T_TYPE && (rotation == 0 || rotation == 1 || rotation == 3))
+				return true;
+			else if(type == L_TYPE && (rotation == 0 || rotation == 1))
+				return true;
+			else if(type == I_TYPE && (rotation == 1 || rotation == 3))
+				return true;
+		}
+		else if(direction == SOUTH)
+		{
+			if(type == T_TYPE && (rotation == 0 || rotation == 1 || rotation == 2))
+				return true;
+			else if(type == L_TYPE && (rotation == 1 || rotation == 2))
+				return true;
+			else if(type == I_TYPE && (rotation == 0 || rotation == 2))
+				return true;
+		}
+		else if(direction == WEST)
+		{
+			if(type == T_TYPE && (rotation == 1 || rotation == 2 || rotation == 3))
+				return true;
+			else if(type == L_TYPE && (rotation == 2 || rotation == 3))
+				return true;
+			else if(type == I_TYPE && (rotation == 1 || rotation == 3))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Returns the current x coordinate of the tile on the board.
 	 */
 	public void getXLocation()
@@ -99,6 +151,16 @@ public class Tile
 	public void getYLocation()
 	{
 		return yCord.get();
+	}
+
+	/**
+	 * Adds the tile to a board to be displayed.
+	 *
+	 * @param b The board that tile should display in.
+	 */
+	public void addToDrawing(Board b)
+	{
+		b.getChildren().add(tileIcon);
 	}
 	
 	/**
