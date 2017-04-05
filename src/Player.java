@@ -1,4 +1,5 @@
 
+import java.util.*;
 import javafx.geometry.Point2D;
 
 /*
@@ -11,9 +12,10 @@ import javafx.geometry.Point2D;
  * @author neal
  */
 public abstract class Player {
-
+    
     private Point2D location;
     private Card[] treasures = new Card[24];
+    private Card currentTreasure;
 
     /**
      * set player's location to the input
@@ -28,6 +30,23 @@ public abstract class Player {
      *
      */
     public abstract void takeTurn();
+    
+    /**
+     * basic on the player's current, this method will return all possible location 
+     * the player can move to
+     * @return 
+     */
+    public ArrayList<Point2D> allPossibleLoc() {
+        ArrayList<Point2D> allPossibleLoc = new ArrayList<>();
+        for (int i = 0; i < 6; ++i) {
+            for (int j = 0; j < 6; ++j) {
+                if (pathExists(new Point2D(i, j))) {
+                    allPossibleLoc.add(new Point2D(i, j));
+                }
+            }
+        }
+        return allPossibleLoc;
+    }
 
     /**
      * take in a location, return true if a path exist from the current location
@@ -36,25 +55,26 @@ public abstract class Player {
      * @param location
      * @return
      */
-    public boolean pathExists(Point2D location){
+    public boolean pathExists(Point2D location) {
         boolean[][] visited = new boolean[7][7];
         return pathExistsHelper(visited, this.location, location);
     }
-    
+
     /**
-     * recursive method help pathExists to find if a path exists from one location 
-     * to another. 
+     * recursive method help pathExists to find if a path exists from one
+     * location to another.
+     *
      * @param visited
      * @param start
      * @param end
-     * @return 
+     * @return
      */
     public boolean pathExistsHelper(boolean[][] visited, Point2D start, Point2D end) {
         int x1 = (int) start.getX();
         int y1 = (int) start.getY();
         int x2 = (int) end.getX();
         int y2 = (int) end.getY();
-
+        
         visited[x1][y1] = true;
         if (y1 < 6) {
             if (!visited[x1][y1 + 1] && board.canMove(start, 'N')) {
@@ -96,7 +116,7 @@ public abstract class Player {
                 }
             }
         }
-
+        
         return false;
     }
 
@@ -118,4 +138,18 @@ public abstract class Player {
         this.location = location;
     }
 
+    /**
+     * @return the currentTreasure
+     */
+    public Card getCurrentTreasure() {
+        return currentTreasure;
+    }
+
+    /**
+     * @param currentTreasure the currentTreasure to set
+     */
+    public void setCurrentTreasure(Card currentTreasure) {
+        this.currentTreasure = currentTreasure;
+    }
+    
 }
