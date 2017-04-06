@@ -41,6 +41,7 @@ public class Tile
 		rotation = r;
 		
 		// TODO: pick imageLocation based on type
+		String imageLocation = "../resources/text.jpg";
 		
 		tileIcon = new ImageView(imageLocation);
 		tileIcon.setFitWidth(Board.SQUARE_SIZE);
@@ -140,7 +141,7 @@ public class Tile
 	/**
 	 * Returns the current x coordinate of the tile on the board.
 	 */
-	public void getXLocation()
+	public int getXLocation()
 	{
 		return xCord.get();
 	}
@@ -148,7 +149,7 @@ public class Tile
 	/**
 	 * Returns the current y coordinate of the tile on the board.
 	 */
-	public void getYLocation()
+	public int getYLocation()
 	{
 		return yCord.get();
 	}
@@ -171,5 +172,29 @@ public class Tile
 	public void removeFromDrawing(Board b)
 	{
 		b.getChildren().remove(tileIcon);
+	}
+	
+	
+	/**
+	 * Returns info about the tile in the form of a string.
+	 */
+	 @Override
+	public String toString()
+	{
+		String output = "Tile Info: ";
+		if(type==T_TYPE)
+			output += "Type: T, ";
+		else if(type == L_TYPE)
+			output += "Type: L, ";
+		else if(type == I_TYPE)
+			output += "Type: I";
+		else
+			output += "Type: Unknown, ";
+		
+		output += "X Cord: " + getXLocation() + ", ";
+		output += "Y Cord: " + getYLocation() + ", ";
+		output += "Rotation: " + rotation + ". ";
+		
+		return output;
 	}
 }
