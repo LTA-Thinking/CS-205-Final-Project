@@ -55,5 +55,6 @@ build.xml
 manifest.mf
 test
 nbproject
+*.class
 
 /bin/
