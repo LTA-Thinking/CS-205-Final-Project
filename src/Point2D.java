@@ -47,4 +47,8 @@ public class Point2D
     }
     
     
+    public boolean equals(Point2D e){
+        return (this.getX() == e.getX() && this.getY() == e.getY());
+    }
+    
 }
