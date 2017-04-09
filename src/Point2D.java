@@ -51,4 +51,8 @@ public class Point2D
         return (this.getX() == e.getX() && this.getY() == e.getY());
     }
     
+    public double distance(Point2D e){
+        return Math.sqrt((this.getX()-e.getX())*(this.getX()-e.getX()) + (this.getY()-e.getY())*(this.getY()-e.getY()));
+    }
+    
 }
