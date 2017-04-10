@@ -161,7 +161,7 @@ public abstract class Player {
      * @param insert
      * @return 
      */
-    public boolean legalMove(Point2D insert){
+    public boolean legalInsert(Point2D insert){
         Point2D lastMove = board.lastMove();
         if(lastMove.getX() == 0 || lastMove.getX() == 6){
             if(lastMove.getY() == insert.getY()){
