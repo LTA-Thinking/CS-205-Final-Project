@@ -1,6 +1,5 @@
 
 import java.util.*;
-import javafx.geometry.Point2D;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +11,8 @@ import javafx.geometry.Point2D;
  * @author neal
  */
 public abstract class Player {
-    
+
+    private Board board;
     private Point2D location;
     private Card[] treasures = new Card[24];
     private Card currentTreasure;
@@ -21,8 +21,10 @@ public abstract class Player {
      * set player's location to the input
      *
      * @param location
+     * @param board
      */
-    public Player(Point2D location) {
+    public Player(Point2D location, Board board) {
+        this.board = board;
         this.location = location;
     }
 
@@ -30,11 +32,12 @@ public abstract class Player {
      *
      */
     public abstract void takeTurn();
-    
+
     /**
-     * basic on the player's current, this method will return all possible location 
-     * the player can move to
-     * @return 
+     * basic on the player's current, this method will return all possible
+     * location the player can move to
+     *
+     * @return
      */
     public ArrayList<Point2D> allPossibleLoc() {
         ArrayList<Point2D> allPossibleLoc = new ArrayList<>();
@@ -70,14 +73,14 @@ public abstract class Player {
      * @return
      */
     public boolean pathExistsHelper(boolean[][] visited, Point2D start, Point2D end) {
-        int x1 = (int) start.getX();
-        int y1 = (int) start.getY();
-        int x2 = (int) end.getX();
-        int y2 = (int) end.getY();
-        
+        int x1 = start.getX();
+        int y1 = start.getY();
+        int x2 = end.getX();
+        int y2 = end.getY();
+
         visited[x1][y1] = true;
         if (y1 < 6) {
-            if (!visited[x1][y1 + 1] && board.canMove(start, 'N')) {
+            if (!visited[x1][y1 + 1] && board.canMove(start, 0)) {
                 if (x1 == x2 && y2 == y1 + 1) {
                     return true;
                 }
@@ -87,7 +90,7 @@ public abstract class Player {
             }
         }
         if (y1 > 1) {
-            if (!visited[x1][y1 - 1] && board.canMove(start, 'S')) {
+            if (!visited[x1][y1 - 1] && board.canMove(start, 2)) {
                 if (x1 == x2 && y2 == y1 + 1) {
                     return true;
                 }
@@ -97,7 +100,7 @@ public abstract class Player {
             }
         }
         if (x1 > 1) {
-            if (!visited[x1][y1 - 1] && board.canMove(start, 'W')) {
+            if (!visited[x1][y1 - 1] && board.canMove(start, 4)) {
                 if (x2 == x1 - 1 && y2 == y1) {
                     return true;
                 }
@@ -107,7 +110,7 @@ public abstract class Player {
             }
         }
         if (y1 < 6) {
-            if (!visited[x1 + 1][y1] && board.canMove(start, 'E')) {
+            if (!visited[x1 + 1][y1] && board.canMove(start, 1)) {
                 if (x2 == x1 + 1 && y2 == y1) {
                     return true;
                 }
@@ -116,7 +119,7 @@ public abstract class Player {
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -152,4 +155,29 @@ public abstract class Player {
         this.currentTreasure = currentTreasure;
     }
     
+    
+    /**
+     * this method will check if the user insert legal or not
+     * @param insert
+     * @return 
+     */
+    public boolean legalMove(Point2D insert){
+        Point2D lastMove = new Point2D(0,3);
+        if(lastMove.getX() == 0 || lastMove.getX() == 6){
+            if(lastMove.getY() == insert.getY()){
+                return false;
+            }else{
+                return true;
+            }
+        }else if(lastMove.getY() == 0 || lastMove.getY() == 6){
+            if(lastMove.getX() == insert.getX()){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }
