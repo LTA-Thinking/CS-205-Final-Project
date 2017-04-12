@@ -1,6 +1,7 @@
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  * This class contains the information on a tile in the game. 
@@ -35,13 +36,13 @@ public class Tile
 	 * @param y The y coordinate on the board for the tile to be located.
 	 * @param r The amount of times the tile should be rotated 90degs CW.
 	 */
-	public Tile(Board b,int t,int x,int y,int r)
+	public Tile(Pane b,int t,int x,int y,int r)
 	{
 		type = t;
 		rotation = r;
 		
 		// TODO: pick imageLocation based on type
-		String imageLocation = "../resources/text.jpg";
+		String imageLocation = "test.jpg";
 		
 		tileIcon = new ImageView(imageLocation);
 		tileIcon.setFitWidth(Board.SQUARE_SIZE);
@@ -153,13 +154,21 @@ public class Tile
 	{
 		return yCord.get();
 	}
+	
+	/**
+	 * Returns the type of the tile.
+	 */
+	public int getType()
+	{
+		return type;
+	}
 
 	/**
 	 * Adds the tile to a board to be displayed.
 	 *
 	 * @param b The board that tile should display in.
 	 */
-	public void addToDrawing(Board b)
+	public void addToDrawing(Pane b)
 	{
 		b.getChildren().add(tileIcon);
 	}
@@ -169,7 +178,7 @@ public class Tile
 	 *
 	 * @param b The board that tile should no longer display on.
 	 */
-	public void removeFromDrawing(Board b)
+	public void removeFromDrawing(Pane b)
 	{
 		b.getChildren().remove(tileIcon);
 	}

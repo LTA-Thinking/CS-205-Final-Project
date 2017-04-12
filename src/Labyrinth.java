@@ -1,6 +1,7 @@
-import javafx.applicatoin.Application;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,8 +16,10 @@ public class Labyrinth extends Application
 {
 	
 	private Board board;
-	private Player playerOne, playerTwo;
+	//private Player playerOne, playerTwo;
 	private Label displayPlayerOneTreasure, displayPlayerTwoTreasure;
+	private Stage primaryStage;
+	private Scene mainGameScene, introScene, promptScene;
 	
 	/**
      * Starts the application, creates the players, and creates the board
@@ -29,8 +32,8 @@ public class Labyrinth extends Application
     {  
 		boolean twoHumans = false;
 		
-		board = new Board(); // Fill in args
-		
+		board = new Board(100,7,7); // Fill in args
+		/*
 		if(twoHumans)
 		{
 			playerOne = new Human();
@@ -38,13 +41,15 @@ public class Labyrinth extends Application
 		}
 		else
 		{
-			playerOne = new Computer();
+			playerOne = new Human();
 			playerTwo = new Computer();
 		}
 		
+		dealCards();
+		*/
 		setupDisplay(primaryStage);
 		
-        takeTurn();
+        //takeTurn();
     }
 	
 	/**
@@ -54,30 +59,47 @@ public class Labyrinth extends Application
 	 */
 	public void setupDisplay(Stage primaryStage)
 	{
-		BorderPane pane = new BorderPane();
-        pane.setCenter(board);
+		//***********Main Game Scene**************
+		
+		BorderPane mainPane = new BorderPane();
+        mainPane.setCenter(board);
 		
 		HBox rotateButtons = new HBox();
 		
-		Button rotateLeft = new Button();
-		Button rotateRight = new Button();
+		Button rotateLeft = new Button("L");
+		Button rotateRight = new Button("R");
 		
-		rotateButtons.add(rotateLeft);
-		rotateButtons.add(rotateRight);
+		rotateButtons.getChildren().add(rotateLeft);
+		rotateButtons.getChildren().add(rotateRight);
+		
+		displayPlayerOneTreasure = new Label("TEST");
+		displayPlayerTwoTreasure = new Label("TEST");
 		
 		VBox sidePanel = new VBox();
-		sidePanel.add(board.getUnusedTile());
-		sidePanel.add(rotateButtons);
-		sidePanel.add(new Label("Player One:");
-		sidePanel.add(displayPlayerOneTreasure);
-		sidePanel.add(new Label("Player Two:");
-		sidePanel.add(displayPlayerTwoTreasure);
+		//sidePanel.getChildren().add(board.getUnusedTile());
+		new Tile(sidePanel,0,0,0,0);
 		
-		pane.setEast(sidePanel);
+		sidePanel.getChildren().add(rotateButtons);
+		sidePanel.getChildren().add(new Label("Player One:"));
+		sidePanel.getChildren().add(displayPlayerOneTreasure);
+		sidePanel.getChildren().add(new Label("Player Two:"));
+		sidePanel.getChildren().add(displayPlayerTwoTreasure);
 		
-		Scene scene = new Scene(pane);
+		mainPane.setRight(sidePanel);
 		
-		primaryStage.setScene(scene);
+		mainGameScene = new Scene(mainPane);
+		
+		//**************************************
+		
+		//****************Intro scene**************
+		/*
+		BorderPane introPane = new BorderPane();
+		String introBackgroundUrl = ""
+		introPane.setBackgroune(new Background(new BackgroundImage(new Image(introBackgroundUrl),new BackgroundRepeat
+		*/
+		//***************************************
+		
+		primaryStage.setScene(mainGameScene);
 
         primaryStage.show();
 	}
@@ -88,6 +110,7 @@ public class Labyrinth extends Application
 	 */
 	public void takeTurn()
 	{
+		/*
 		while(true)
 		{
 			boolean playerOneWins = playerOne.takeTurn();
@@ -114,8 +137,52 @@ public class Labyrinth extends Application
 					System.exit(0);
 			}
 		}
+		*/
 	}
 
+	/**
+	 * Deals the cards to the players.
+	 */
+	public void dealCards()
+	{
+		/*
+		Card [] deck = new Card [16];
+		Tile [][] tiles = board.getTiles();
+		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
+		
+		for(int i=0;i<tiles.length;i++)
+		{
+			for(int k=0;k<tiles[0].length;k++)
+			{
+				if(tiles[i][k].getType()==Tile.T_TYPE)
+				{
+					deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
+					tiles[i][k].addTreasure(deck[numCardsMade]);
+					numCardsMade++;
+				}
+				else if(tiles[i][k].getType()==Tile.L_TYPE && ((i!=0 && k!=0) || (i!=tiles.length-1 && k!=tiles[0].length-1) || (i!=tiles.length-1 && k!=0) || (i!=0 && k!=tiles[0].length-1)))
+				{
+					if(numCornerCardsMade<6 && (Math.random()*6>1.0/16.0 || 6-numCornerCardsMade>=16-numCornerTilesSeen))
+					{
+						deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
+						tiles[i][k].addTreasure(deck[numCardsMade]);
+						numCardsMade++;
+						numCornerCardsMade++;
+					}
+					numCornerTilesSeen++;
+				}
+				
+				if(numCardsMade>=24)
+					break;
+			}
+			
+			if(numCardsMade>=24)
+				break;
+		}
+		*/
+		
+	}
+	
 	public static void main(String [] args)
 	{
 		Application.launch(args);

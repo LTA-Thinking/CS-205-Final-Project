@@ -16,14 +16,15 @@ public class Card
 	 * Creates the card and gives it all its values. Once made these values can't be changed.
 	 *
 	 * @param number represents the number of the treasure
-	 * @param imageLocation gives the file path for the image representing this treasure
 	 * @param location the tile where the treasure is located
 	 */
-	public Card(int number,String imageLocation,Tile location)
+	public Card(int number,Tile location)
 	{
 		treasureNumber = number;
-		treasureImage = new Image(imageLocation);
 		treasureLocation = location;
+		
+		String imageLocation = "";
+		treasureImage = new Image(imageLocation);
 	}
 	
 	/**
