@@ -59,6 +59,14 @@ public class Tile
 	}
 	
 	/**
+	 * Overloaded constructor to work with Point2D.
+	 */
+	public Tile(Pane b,int t,Point2D cord,int r)
+	{
+		this(b,t,cord.getX(),cord.getY(),r);
+	}
+	
+	/**
 	 * Rotates the tile 90degs clockwise.
 	 */
 	public void rotateCW()
@@ -153,6 +161,14 @@ public class Tile
 	public int getYLocation()
 	{
 		return yCord.get();
+	}
+	
+	/**
+	 * Returns the current location of the tile as a point 2d.
+	 */
+	public Point2D getLocation()
+	{
+		return new Point2D(xCord.get(),yCord.get());
 	}
 	
 	/**

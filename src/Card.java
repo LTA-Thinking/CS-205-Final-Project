@@ -44,11 +44,11 @@ public class Card
 	}
 	
 	/** 
-	 * Returns the tile where the card's treasure is located.
+	 * Returns the location of the tile where the card's treasure is located.
 	 */
-	public Tile getTreasureLocation()
+	public Point2D getTreasureLocation()
 	{
-		return treasureLocation;
+		return treasureLocation.getLocation();
 	}
 	
 }
