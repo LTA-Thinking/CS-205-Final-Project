@@ -24,25 +24,38 @@ public class Computer extends Player {
 
     @Override
     public void takeTurn() {
-        HashMap<Double, HashMap<Tile, Point2D>> memory = new HashMap<>();
+        double distance = 999; 
+        Tile tile;
+        Point2D insertPoint;
+        
+        
+//        HashMap<HashMap<Tile, Point2D>, Double> memory = new HashMap<>();
         Point2D[] possibleMove = {new Point2D(0, 1), new Point2D(0, 3), new Point2D(0, 5), new Point2D(1, 0), new Point2D(3, 0), new Point2D(5, 0)};
         for (int i = 0; i < possibleMove.length; ++i) {
             if (super.legalInsert(possibleMove[i])) {
                 for (int j = 0; j < 3; ++j) {
+                    
                     board.insertTile(j);
                     ArrayList<Point2D> posLoc = super.allPossibleLoc();
                     for (int k = 0; k < posLoc.size(); ++k) {
-                        double distance = posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation());
-                        HashMap<Tile, Point2D> move = new HashMap<>();
-                        move.put(super.getCurrentTreasure().getTreasureLocation(), possibleMove[i]);
-                        memory.put(distance, move);
+                        if(posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance){
+                            distance = posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation());
+                            tile = board.getTile(posLoc.get(k));
+                            insertPoint = possibleMove[i];
+                        }
+//                        double distance = posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation());
+//                        HashMap<Tile, Point2D> move = new HashMap<>();
+//                        move.put(super.getCurrentTreasure().getTreasureLocation(), possibleMove[i]);
+//                        memory.put(move, distance);
                     }
                     board.insertTile(j); //TODO insert to opposite location
                 }
             }
         }
-        List<Double> distance = new ArrayList<>(memory.keySet());
-        Collections.sort(distance);
+//        List<Double> distance = new ArrayList<>(memory.keySet());
+//        Collections.sort(distance);
+        
+        board.insertTile();
         
 
     }

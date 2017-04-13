@@ -194,7 +194,7 @@ public abstract class Player {
     * Then, updates the score by one.
     *
     */
-    public boolean setNextTreasure()
+    public void setNextTreasure()
     {  
         treasures.remove(currentTreasure);
         score++;
