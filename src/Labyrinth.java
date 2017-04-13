@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -81,34 +82,40 @@ public class Labyrinth extends Application
 		
 		Image arrowButton = new Image("arrow_button.png");
 		
+		ImageView topLeft = new ImageView(arrowButton);
+		ImageView topCenter = new ImageView(arrowButton);
+		ImageView topRight = new ImageView(arrowButton);
+		
+		/*
 		Button topLeft = new Button("",new ImageView(arrowButton));
 		topLeft.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
 		Button topCenter = new Button("",new ImageView(arrowButton));
 		topCenter.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
 		Button topRight = new Button("",new ImageView(arrowButton));
 		topRight.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
+		*/
 		
-		topLeft.setOnAction(new EventHandler<ActionEvent>()
+		topLeft.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
-			@Override public void handle(ActionEvent e)
+			@Override public void handle(MouseEvent e)
 			{
 				//currentPlayer.insertTile(new Point2D(1,0));
 				System.out.println("Top Left Button Pressed");
 			}
 		});
 		
-		topCenter.setOnAction(new EventHandler<ActionEvent>()
+		topCenter.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
-			@Override public void handle(ActionEvent e)
+			@Override public void handle(MouseEvent e)
 			{
 				//currentPlayer.insertTile(new Point2D(3,0));
 				System.out.println("Top Center Button Pressed");
 			}
 		});
 		
-		topRight.setOnAction(new EventHandler<ActionEvent>()
+		topRight.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
-			@Override public void handle(ActionEvent e)
+			@Override public void handle(MouseEvent e)
 			{
 				//currentPlayer.insertTile(new Point2D(5,0));
 				System.out.println("Top Right Button Pressed");
@@ -116,6 +123,7 @@ public class Labyrinth extends Application
 		});
 		
 		topButtons.setSpacing(Board.SQUARE_SIZE);
+		topButtons.setPrefHeight(Board.SQUARE_SIZE);
 		topButtons.getChildren().add(topLeft);
 		topButtons.getChildren().add(topCenter);
 		topButtons.getChildren().add(topRight);
@@ -132,8 +140,8 @@ public class Labyrinth extends Application
 		rotateButtons.getChildren().add(rotateCCW);
 		rotateButtons.getChildren().add(rotateCW);
 		
-		displayPlayerOneTreasure = new Label("TEST");
-		displayPlayerTwoTreasure = new Label("TEST");
+		displayPlayerOneTreasure = new Label();//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
+		displayPlayerTwoTreasure = new Label();//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
 		
 		VBox sidePanel = new VBox();
 		sidePanel.setPadding(new Insets(10));
@@ -286,10 +294,10 @@ public class Labyrinth extends Application
 				}
 			}
 		}
-		/*
-		playerOne.giveCards(playerOneCards);
-		playerTwo.giveCards(playerTwoCards);
-		*/
+		
+		//playerOne.setTreasures(new ArrayList<Card>(playerOneCards));
+		//playerTwo.setTreasures(new ArrayList<Card>(playerTwoCards));
+		
 	}
 	
 	public static void main(String [] args)
