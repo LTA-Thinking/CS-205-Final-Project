@@ -14,7 +14,7 @@ public abstract class Player {
 
     private Board board;
     private Point2D location;
-    private Card[] treasures = new Card[24];
+    private Card[] treasures = new Card[12];
     private Card currentTreasure;
 
     /**
@@ -32,6 +32,19 @@ public abstract class Player {
      *
      */
     public abstract void takeTurn();
+    
+    /**
+    * Creates the deck of treasures from the deck passed in
+    * @param deck The deck of treasures to copy from.
+    */
+    public void makeDeck(Card[] deck)
+    {
+        for(int i = 0; i < deck.size; i++)
+        {
+            treasures[i] = deck[i];
+        }  
+        
+    }
 
     /**
      * basic on the player's current, this method will return all possible
