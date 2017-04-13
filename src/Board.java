@@ -32,7 +32,22 @@ public class Board extends Pane{
 	private static Tile t2;
 	private static int startX;
 	private static int startY;
+	private Point2D lastMove;
 	
+	/**
+	 * @return the lastMove
+	 */
+	public Point2D getLastMove() {
+		return lastMove;
+	}
+
+	/**
+	 * @param lastMove the lastMove to set
+	 */
+	public void setLastMove(Point2D lastMove) {
+		this.lastMove = lastMove;
+	}
+
 	/**
 	 * Sets up the board filling it with tiles based on X/Y_DIM_SQUARES.
 	 * First it fills in the 16 pieces of the board that do not move
@@ -54,9 +69,9 @@ public class Board extends Pane{
         this.setPrefWidth(X_DIM_SQUARES*SQUARE_SIZE);
         
         grid[0][0] = new Tile(this, 1,0,0,1);
-        grid[2][0] = new Tile(this, 0,2,0,1);
-        grid[4][0] = new Tile(this, 0,4,0,1);
-        grid[6][0] = new Tile(this, 1,6,0,2);
+        grid[2][0] = new Tile(this, 0,0,2,1);
+        grid[4][0] = new Tile(this, 0,0,4,1);
+        grid[6][0] = new Tile(this, 1,0,6,2);
         grid[0][2] = new Tile(this, 0,2,0,0);
         grid[2][2] = new Tile(this, 0,2,2,0);
         grid[4][2] = new Tile(this, 0,2,4,1);
@@ -112,46 +127,48 @@ public class Board extends Pane{
     }
     
 	/**
-	 * sets the tile.
-	 */
-	public static void setTile(Tile t){
-		Board.setTile(t);
-
-	}
-	/**
 	 * Returns the tile.
 	 */
-	public static Tile getTile(Tile t){
-		return t;
+	public Tile getTile(Point2D t){
+		return grid[t.getX()][t.getY()];
 	}
 	/**
 	 * gets the extra tile which is the leftover gamepiece
 	 */
-	public static Tile getExtraTile() {
+	public Tile getExtraTile() {
 		return extraTile;
 	}
 	/**
 	 * sets the extra tile which is the leftover gamepiece
+	 * @return 
 	 */
-	public static void setExtraTile(Tile extraTile) {
-		Board.extraTile = extraTile;
+	public Tile setExtraTile(Tile extraTile) {
+		return this.extraTile = extraTile;
 	}
 	
-	public static void insertTile(int x, int y){		
-		getTile(grid[x][y]);
+	public void insertTile(int x, int y){		
+		//get tile
 		t1 = getExtraTile();
-		setExtraTile(t1);
-		t2 = getTile(grid[x+6][y]);
+		System.out.println(t1);
+		
+		//set extra tile to last on grid and move location to -1,-1 which is extra tile location
+		t2 = grid[1][6];
+		System.out.println(t2);
+		
+		//set the extra tile to the spot where we inserted and change the coordinates
+		grid[1][0] = t1;
+		t1.moveToLocation(1,0);	
+		System.out.println(grid[1][0]);
 		if (x==1 && y==0){
-			for (int i = 0; i ==6; i+=1){
-				System.out.println(grid[i][y]);
-				grid[i][y] = grid[i+1][y];
-				System.out.println(grid[i][y]);
+			for (int i = 0; i <=5; i+=1){
+				grid[x][y] = grid[x][i+1];
+				System.out.println(grid[x][y]);
 			}
-		grid[x][y] = t1;
-		setExtraTile(t2);
-		System.out.println(t2);		
 		}
+		t2.moveToLocation(-1,-1);
+		setExtraTile(t2);
+		System.out.println(extraTile);
+		
 		 
 	}
 	
@@ -165,9 +182,30 @@ public class Board extends Pane{
 	 * @param x2 x cord2
 	 * @param y2 y cord2
 	 */
-	public static boolean canMove(int x1, int y1, int x2,int y2){
-		t1 = getTile(grid[x1][y1]);
-		t2 = getTile(grid[x2][y2]);
+	public boolean canMove(Point2D start, int dir){
+		int x1 = start.getX();
+		int y1 = start.getY();
+		int x2 =0;
+		int y2 =0;
+		if(dir == 0){
+			x2 = x1;
+			y2 = y1+1;
+		}
+		if(dir == 1){
+			x2 = x1+1;
+			y2 = y1;
+		}
+		if(dir == 2){
+			x2 = x1;
+			y2 = y1-1;
+		}
+		if(dir == 3){
+			x2 = x1-1;
+			y2 = y1;
+		}
+		
+		
+		t1 = grid[x1][y1];
 		
 		if (y1-y2 ==-1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)){
 			System.out.println("Can Move East");
@@ -200,6 +238,7 @@ public class Board extends Pane{
 	 * @param y y cord
 	 */
 	
+	/*
 	public static void highlightMoves(int x, int y){
 		t1 = getTile(grid[x][y]);	
 		
@@ -228,11 +267,20 @@ public class Board extends Pane{
 			}
 			
 	}
+	*/
+	
+	/**
+	 *returns grid
+	 */
+	public Tile[][] getGrid(){
+		return grid;
+	}
+
 	
     public static void main(String[] args) {
     	
 		new Board(20,7,7);
-		/*
+		
     	for (int i = 0; i<7; i++){
     	    for (int j = 0; j<7; j++){
 
@@ -240,9 +288,9 @@ public class Board extends Pane{
     	    }
     	     System.out.println();
     	}
-    	*/
-    	//highlightMoves(0,0);	
-    	insertTile(1,0);
+    	
+    	
+    	
     	
     }   
 }
