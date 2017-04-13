@@ -25,6 +25,8 @@ public class Tile
 	private IntegerProperty yCord = new SimpleIntegerProperty();
 	private int type;
 	private int rotation = 0;
+	private boolean containsTreasure = false;
+	private Card treasure;
 	
 	/**
 	 * Sets up the tile at a loacation on the board with an image based on its type rotated to a certain facing.
@@ -41,8 +43,14 @@ public class Tile
 		type = t;
 		rotation = r;
 		
-		// TODO: pick imageLocation based on type
 		String imageLocation = "test.jpg";
+		
+		if(type == T_TYPE)
+			imageLocation = "test_T.png";
+		else if(type == L_TYPE)
+			imageLocation = "test_L.png";
+		else if(type == I_TYPE)
+			imageLocation = "test_I.png";
 		
 		tileIcon = new ImageView(imageLocation);
 		tileIcon.setFitWidth(Board.SQUARE_SIZE);
@@ -199,6 +207,32 @@ public class Tile
 		b.getChildren().remove(tileIcon);
 	}
 	
+	/**
+	 * Sets the treasure in the tile.
+	 *
+	 * @param c The card that holds the treasure to put in this tile.
+	 */
+	public void setTreasure(Card c)
+	{
+		treasure = c;
+		containsTreasure = true;
+	}
+	
+	/**
+	 * Returns whether the tile has a treasure in it.
+	 */
+	public boolean containsTreasure()
+	{
+		return containsTreasure;
+	}
+	
+	/**
+	 * Returns the card that holds the treasure found in the tile.
+	 */
+	public Card getTreasure()
+	{
+		return treasure;
+	}
 	
 	/**
 	 * Returns info about the tile in the form of a string.

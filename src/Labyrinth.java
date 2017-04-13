@@ -6,6 +6,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 
 /**
  * This class starts the program, creates the board and players, and handles top level actions.
@@ -20,6 +23,7 @@ public class Labyrinth extends Application
 	private Label displayPlayerOneTreasure, displayPlayerTwoTreasure;
 	private Stage primaryStage;
 	private Scene mainGameScene, introScene, promptScene;
+	private Tile leftOverTile;
 	
 	/**
      * Starts the application, creates the players, and creates the board
@@ -66,18 +70,38 @@ public class Labyrinth extends Application
 		
 		HBox rotateButtons = new HBox();
 		
-		Button rotateLeft = new Button("L");
-		Button rotateRight = new Button("R");
+		Button rotateCCW = new Button("L");
+
 		
-		rotateButtons.getChildren().add(rotateLeft);
-		rotateButtons.getChildren().add(rotateRight);
+		Button rotateCW = new Button("R");
+		
+		rotateButtons.getChildren().add(rotateCCW);
+		rotateButtons.getChildren().add(rotateCW);
 		
 		displayPlayerOneTreasure = new Label("TEST");
 		displayPlayerTwoTreasure = new Label("TEST");
 		
 		VBox sidePanel = new VBox();
-		//sidePanel.getChildren().add(board.getUnusedTile());
-		new Tile(sidePanel,0,0,0,0);
+		sidePanel.setPadding(new Insets(0,10,0,10));
+		
+		leftOverTile = board.getExtraTile();
+		leftOverTile.addToDrawing(sidePanel);
+				
+		rotateCCW.setOnAction(new EventHandler<ActionEvent>() 
+		{
+			@Override public void handle(ActionEvent e) 
+			{
+				leftOverTile.rotateCCW();
+			}
+		});
+		
+		rotateCW.setOnAction(new EventHandler<ActionEvent>() 
+		{
+			@Override public void handle(ActionEvent e) 
+			{
+				leftOverTile.rotateCW();
+			}
+		});
 		
 		sidePanel.getChildren().add(rotateButtons);
 		sidePanel.getChildren().add(new Label("Player One:"));
@@ -145,9 +169,8 @@ public class Labyrinth extends Application
 	 */
 	public void dealCards()
 	{
-		/*
 		Card [] deck = new Card [16];
-		Tile [][] tiles = board.getTiles();
+		Tile [][] tiles = new Tile[7][7];//board.getTiles();
 		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
 		
 		for(int i=0;i<tiles.length;i++)
@@ -157,7 +180,7 @@ public class Labyrinth extends Application
 				if(tiles[i][k].getType()==Tile.T_TYPE)
 				{
 					deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
-					tiles[i][k].addTreasure(deck[numCardsMade]);
+					tiles[i][k].setTreasure(deck[numCardsMade]);
 					numCardsMade++;
 				}
 				else if(tiles[i][k].getType()==Tile.L_TYPE && ((i!=0 && k!=0) || (i!=tiles.length-1 && k!=tiles[0].length-1) || (i!=tiles.length-1 && k!=0) || (i!=0 && k!=tiles[0].length-1)))
@@ -165,7 +188,7 @@ public class Labyrinth extends Application
 					if(numCornerCardsMade<6 && (Math.random()*6>1.0/16.0 || 6-numCornerCardsMade>=16-numCornerTilesSeen))
 					{
 						deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
-						tiles[i][k].addTreasure(deck[numCardsMade]);
+						tiles[i][k].setTreasure(deck[numCardsMade]);
 						numCardsMade++;
 						numCornerCardsMade++;
 					}
@@ -179,7 +202,7 @@ public class Labyrinth extends Application
 			if(numCardsMade>=24)
 				break;
 		}
-		*/
+		
 		
 	}
 	
