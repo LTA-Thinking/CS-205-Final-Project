@@ -1,29 +1,49 @@
 
-import javafx.geometry.Point2D;
+import java.util.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author neal
  */
-public class Computer extends Player{
-    private Point2D[] allMoveLoc; 
-    
+public class Computer extends Player {
+
+    private Board board;
+    private Point2D[] allMoveLoc;
+
     /**
      * constructor
      */
-    public Computer(){
-        super(new Point2D(0, 0));
+    public Computer(Board board) {
+        super(new Point2D(0, 0), board);
     }
 
     @Override
     public void takeTurn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashMap<Double, HashMap<Tile, Point2D>> memory = new HashMap<>();
+        Point2D[] possibleMove = {new Point2D(0, 1), new Point2D(0, 3), new Point2D(0, 5), new Point2D(1, 0), new Point2D(3, 0), new Point2D(5, 0)};
+        for (int i = 0; i < possibleMove.length; ++i) {
+            if (super.legalInsert(possibleMove[i])) {
+                for (int j = 0; j < 3; ++j) {
+                    board.insertTile(j);
+                    ArrayList<Point2D> posLoc = super.allPossibleLoc();
+                    for (int k = 0; k < posLoc.size(); ++k) {
+                        double distance = posLoc.get(k).distance(new Point2D(super.getCurrentTreasure().getTreasureLocation().getXLocation(), super.getCurrentTreasure().getTreasureLocation().getYLocation()));
+                        HashMap<Tile, Point2D> move = new HashMap<>();
+                        move.put(super.getCurrentTreasure().getTreasureLocation(), possibleMove[i]);
+                        memory.put(distance, move);
+                    }
+                    board.insertTile(j); //TODO insert to opposite location
+                }
+            }
+        }
+        List<Double> distance = new ArrayList<>(memory.keySet());
+        Collections.sort(distance);
+
     }
-    
+
 }
