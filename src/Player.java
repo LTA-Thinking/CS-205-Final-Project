@@ -17,6 +17,7 @@ public abstract class Player {
     private Point2D location;
     private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
+    private int score;
 
     /**
      * set player's location to the input
@@ -187,18 +188,33 @@ public abstract class Player {
     public ArrayList<Card> getTreasures() {
         return treasures;
     }
+    
+    /**
+    * Removes the current treasure from the ArrayList and gets the next one. 
+    * Then, updates the score by one.
+    */
+    public void setNextTreasure()
+    {   
+        treasures.remove(currentTreasure);
+        if(treasures.size() != 0)
+        {
+            currentTreasure = this.treasures.get(0);
+        }
+        score++;
+    }
 
     /**
      * @param treasures the treasures to set
      */
     public void setTreasures(ArrayList<Card> treasures) {
         this.treasures = treasures;
+        currentTreasure = this.treasures.get(0);
     }
 
     /**
      * @return the isCurrentPlayer
      */
-    public boolean isIsCurrentPlayer() {
+    public boolean isCurrentPlayer() {
         return isCurrentPlayer;
     }
 
