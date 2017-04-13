@@ -111,7 +111,7 @@ public abstract class Player {
         }
         if (y1 < 6) {
             if (!visited[x1 + 1][y1] && board.canMove(start, 1)) {
-                if (x2 == x1 + 1 Ï&& y2 == y1) {
+                if (x2 == x1 + 1 && y2 == y1) {
                     return true;
                 }
                 if (pathExistsHelper(visited, new Point2D(x1 + 1, y1), new Point2D(x2, y2))) {
