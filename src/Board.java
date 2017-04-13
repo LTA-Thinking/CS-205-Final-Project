@@ -69,20 +69,20 @@ public class Board extends Pane{
         this.setPrefWidth(X_DIM_SQUARES*SQUARE_SIZE);
         
         grid[0][0] = new Tile(this, 1,0,0,1);
-        grid[2][0] = new Tile(this, 0,0,2,1);
-        grid[4][0] = new Tile(this, 0,0,4,1);
-        grid[6][0] = new Tile(this, 1,0,6,2);
-        grid[0][2] = new Tile(this, 0,2,0,0);
+        grid[2][0] = new Tile(this, 0,2,0,1);
+        grid[4][0] = new Tile(this, 0,4,0,1);
+        grid[6][0] = new Tile(this, 1,6,0,2);
+        grid[0][2] = new Tile(this, 0,0,2,0);
         grid[2][2] = new Tile(this, 0,2,2,0);
-        grid[4][2] = new Tile(this, 0,2,4,1);
-        grid[6][2] = new Tile(this, 0,2,6,2);
-        grid[0][4] = new Tile(this, 0,4,0,0);
-        grid[2][4] = new Tile(this, 0,4,2,3);
+        grid[4][2] = new Tile(this, 0,4,2,1);
+        grid[6][2] = new Tile(this, 0,6,2,2);
+        grid[0][4] = new Tile(this, 0,0,4,0);
+        grid[2][4] = new Tile(this, 0,2,4,3);
         grid[4][4] = new Tile(this, 0,4,4,2);
-        grid[6][4] = new Tile(this, 0,4,6,2);
-        grid[0][6] = new Tile(this, 1,6,0,0);
-        grid[2][6] = new Tile(this, 0,6,2,3);
-        grid[4][6] = new Tile(this, 0,6,4,3);
+        grid[6][4] = new Tile(this, 0,6,4,2);
+        grid[0][6] = new Tile(this, 1,0,6,0);
+        grid[2][6] = new Tile(this, 0,2,6,3);
+        grid[4][6] = new Tile(this, 0,4,6,3);
         grid[6][6] = new Tile(this, 1,6,6,3);
         
         int[] tilearrs = new int[] {0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -206,7 +206,7 @@ public class Board extends Pane{
 		
 		
 		t1 = grid[x1][y1];
-		
+		t2 = grid[x2][y2];		
 		if (y1-y2 ==-1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)){
 			System.out.println("Can Move East");
 			return true;
