@@ -5,28 +5,36 @@ import java.util.*;
 */
 public class Human extends Player
 {
+   //Keeps track of whether or not it's the player's turn.
+   boolean isTurn;
+   
    /**Constructor for the Human class.*/   
    public Human(){
       super(new Point2D(0, 0));
    }
-
-   /**
-   The takeTurn method enacts the turn for the human player.
-   @param -These might change
+   
+   /**Inserts the extra tile where the player wants to on the board.
+     @param insertTile The tile to be inserted on the board.
    */
-   @override
-   private void takeTurn(Tile insertTile, Tile moveTile)
+   public void getInsertTile(Tile insertTile)
    {
      
-     //inserting the tile
+      //Inserts the tile where the player clicks.
       int x = insertTile.getXLocation();
       int y = insertTile.getYLocation(); 
-      if(super.checkLegalMove(insertTile))
+      Point2D insertLocation = new Point2D(x, y);
+      if(super.legalInsert(insertLocation))
       {
-         //placeholder
-         board.InsertTile(x, y);
+         board.setTile(insertTile);
       } 
-      
+   }
+   
+   /**Moves the player where they want to move on the board. Then, if they 
+      got their treasure, sets the next treasure. It then ends the turn.
+      @param moveTile The tile that the player wants to move to.
+   */
+   public void getMoveTile(Tile moveTile)
+   {
       //Move to the right location
       x = moveTile.getXLocation();
       y = moveTile.getYLocation();
@@ -35,20 +43,33 @@ public class Human extends Player
          super.setLocation(new Point2D(x, y));
       }
       
+      //Checks if the tile they moved to has the treasure they need.
       Tile treasureTile = currentTreasure.getTreasureLocation();
       x = treasureTile.getXLocation();
       y = treasureTile.getYLocation();
       Point2D treasureLocation = new Point2D(x, y);
-      
       if(super.getLocation.equals(treasureLocation))
       {
-         //add currentTreasure to ArrayList
-         //if treasure is gotten, get a new treasure 
-         
+         super.setNextTreasure();
       }
       
-      //Return true if max treasures/all treasures gone
- 
+      //Ends the turn.
+      isTurn = false;
+   }
+   
+   @override
+   public boolean isCurrentPlayer()
+   {
+      return isTurn;
+   }
+   
+   /**
+   The takeTurn method enacts the turn for the human player.
+   */
+   @override
+   private void takeTurn()
+   {
+      isTurn = true;
    }
 
 }
