@@ -32,7 +32,7 @@ public class Computer extends Player {
                     board.insertTile(j);
                     ArrayList<Point2D> posLoc = super.allPossibleLoc();
                     for (int k = 0; k < posLoc.size(); ++k) {
-                        double distance = posLoc.get(k).distance(new Point2D(super.getCurrentTreasure().getTreasureLocation().getXLocation(), super.getCurrentTreasure().getTreasureLocation().getYLocation()));
+                        double distance = posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation());
                         HashMap<Tile, Point2D> move = new HashMap<>();
                         move.put(super.getCurrentTreasure().getTreasureLocation(), possibleMove[i]);
                         memory.put(distance, move);
