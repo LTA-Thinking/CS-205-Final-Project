@@ -78,22 +78,17 @@ public class Labyrinth extends Application
 		
 		VBox boardHolder = new VBox();
 		
-		HBox topButtons = new HBox();
-		
 		Image arrowButton = new Image("arrow_button.png");
 		
-		ImageView topLeft = new ImageView(arrowButton);
-		ImageView topCenter = new ImageView(arrowButton);
-		ImageView topRight = new ImageView(arrowButton);
+		//*********************************************Top buttons**************************
+		HBox topButtons = new HBox();
 		
-		/*
-		Button topLeft = new Button("",new ImageView(arrowButton));
-		topLeft.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
-		Button topCenter = new Button("",new ImageView(arrowButton));
-		topCenter.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
-		Button topRight = new Button("",new ImageView(arrowButton));
-		topRight.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
-		*/
+		ImageView topLeft = new ImageView(arrowButton);
+		topLeft.setRotate(180);
+		ImageView topCenter = new ImageView(arrowButton);
+		topCenter.setRotate(180);
+		ImageView topRight = new ImageView(arrowButton);
+		topRight.setRotate(180);
 		
 		topLeft.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
@@ -128,8 +123,137 @@ public class Labyrinth extends Application
 		topButtons.getChildren().add(topCenter);
 		topButtons.getChildren().add(topRight);
 		
+		
+		//*************************************Bottom buttons**************************
+		HBox bottomButtons = new HBox();
+		
+		ImageView bottomLeft = new ImageView(arrowButton);
+		ImageView bottomCenter = new ImageView(arrowButton);
+		ImageView bottomRight = new ImageView(arrowButton);
+		
+		bottomLeft.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(1,0));
+				System.out.println("Bottom Left Button Pressed");
+			}
+		});
+		
+		bottomCenter.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(3,0));
+				System.out.println("Bottom Center Button Pressed");
+			}
+		});
+		
+		bottomRight.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(5,0));
+				System.out.println("Bottom Right Button Pressed");
+			}
+		});
+		
+		bottomButtons.setSpacing(Board.SQUARE_SIZE);
+		bottomButtons.setPrefHeight(Board.SQUARE_SIZE);
+		bottomButtons.getChildren().add(bottomLeft);
+		bottomButtons.getChildren().add(bottomCenter);
+		bottomButtons.getChildren().add(bottomRight);
+		
+		//*************************************Left hand buttons****************************
+		VBox leftButtons = new VBox();
+		
+		ImageView leftTop = new ImageView(arrowButton);
+		ImageView leftCenter = new ImageView(arrowButton);
+		ImageView leftBottom = new ImageView(arrowButton);
+		
+		leftTop.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(1,0));
+				System.out.println("Left Top Button Pressed");
+			}
+		});
+		
+		leftCenter.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(3,0));
+				System.out.println("Left Center Button Pressed");
+			}
+		});
+		
+		leftBottom.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(5,0));
+				System.out.println("Left Bottom Button Pressed");
+			}
+		});
+		
+		leftButtons.setSpacing(Board.SQUARE_SIZE);
+		leftButtons.setPrefHeight(Board.SQUARE_SIZE);
+		leftButtons.getChildren().add(leftTop);
+		leftButtons.getChildren().add(leftCenter);
+		leftButtons.getChildren().add(leftBottom);
+		
+		//************************************Right hand buttons**************************
+		VBox rightButtons = new VBox();
+		
+		ImageView rightTop = new ImageView(arrowButton);
+		ImageView rightCenter = new ImageView(arrowButton);
+		ImageView rightBottom = new ImageView(arrowButton);
+		
+		rightTop.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(1,0));
+				System.out.println("Right Top Button Pressed");
+			}
+		});
+		
+		rightCenter.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(3,0));
+				System.out.println("Right Center Button Pressed");
+			}
+		});
+		
+		rightBottom.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(5,0));
+				System.out.println("Right Bottom Button Pressed");
+			}
+		});
+		
+		rightButtons.setSpacing(Board.SQUARE_SIZE);
+		rightButtons.setPrefHeight(Board.SQUARE_SIZE);
+		rightButtons.getChildren().add(rightTop);
+		rightButtons.getChildren().add(rightCenter);
+		rightButtons.getChildren().add(rightBottom);
+		
+		//**********************************************************************************
+		
+		HBox centerSection = new HBox();
+		centerSection.getChildren().add(leftButtons);
+		centerSection.getChildren().add(board);
+		centerSection.getChildren().add(rightButtons);
+		
 		boardHolder.getChildren().add(topButtons);
-		boardHolder.getChildren().add(board);
+		boardHolder.getChildren().add(centerSection);
+		boardHolder.getChildren().add(bottomButtons);
         mainPane.setCenter(boardHolder);
 		
 		HBox rotateButtons = new HBox();
