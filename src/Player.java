@@ -192,15 +192,20 @@ public abstract class Player {
     /**
     * Removes the current treasure from the ArrayList and gets the next one. 
     * Then, updates the score by one.
+    * @return Returns true if there are no more treasures in the ArrayList, meaning the player won.
+    *         Returns false otherwise, meaning the player hasn't won yet.
     */
-    public void setNextTreasure()
-    {   
+    public boolean setNextTreasure()
+    {  
         treasures.remove(currentTreasure);
+        score++;
         if(treasures.size() != 0)
         {
             currentTreasure = this.treasures.get(0);
+            return false;
         }
-        score++;
+        return true;
+        
     }
 
     /**
