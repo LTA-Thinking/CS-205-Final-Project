@@ -57,7 +57,7 @@ public class Human extends Player
       isTurn = false;
    }
    
-   @override
+   @Override
    public boolean isCurrentPlayer()
    {
       return isTurn;
