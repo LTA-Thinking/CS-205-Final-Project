@@ -246,7 +246,7 @@ public class Tile
 		else if(type == L_TYPE)
 			output += "Type: L, ";
 		else if(type == I_TYPE)
-			output += "Type: I";
+			output += "Type: I, ";
 		else
 			output += "Type: Unknown, ";
 		

@@ -28,7 +28,7 @@ public class Labyrinth extends Application
 {
 	
 	private Board board;
-	//private Player playerOne, playerTwo, currentPlayer;
+	private Player playerOne, playerTwo, currentPlayer;
 	private Label displayPlayerOneTreasure, displayPlayerTwoTreasure;
 	private Stage primaryStage;
 	private Scene mainGameScene, introScene, promptScene;
@@ -46,6 +46,10 @@ public class Labyrinth extends Application
 		boolean twoHumans = false;
 		
 		board = new Board(100,7,7); // Fill in args
+		
+		//****************************** FOR TESTING ***************************
+		//playerOne = new Computer(board);
+		
 		/*
 		if(twoHumans)
 		{
@@ -290,11 +294,25 @@ public class Labyrinth extends Application
 			}
 		});
 		
+		Button runTest = new Button("RUN TEST");
+		
+		runTest.setOnAction(new EventHandler<ActionEvent>() 
+		{
+			@Override public void handle(ActionEvent e) 
+			{
+				//**************************************** CALL TEST METHODS HERE ********************************
+				board.insertTile(0,1);
+				
+			}
+		});
+		
 		sidePanel.getChildren().add(rotateButtons);
 		sidePanel.getChildren().add(new Label("Player One:"));
 		sidePanel.getChildren().add(displayPlayerOneTreasure);
 		sidePanel.getChildren().add(new Label("Player Two:"));
 		sidePanel.getChildren().add(displayPlayerTwoTreasure);
+		
+		sidePanel.getChildren().add(runTest);
 		
 		mainPane.setRight(sidePanel);
 		
