@@ -15,7 +15,7 @@ public abstract class Player {
     private boolean isCurrentPlayer = false;
     private Board board;
     private Point2D location;
-    private Card[] treasures = new Card[12];
+    private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
 
     /**
@@ -163,7 +163,7 @@ public abstract class Player {
      * @return 
      */
     public boolean legalInsert(Point2D insert){
-        Point2D lastMove = board.lastMove();
+        Point2D lastMove = board.getLastMove();
         if(lastMove.getX() == 0 || lastMove.getX() == 6){
             if(lastMove.getY() == insert.getY()){
                 return false;
@@ -184,14 +184,14 @@ public abstract class Player {
     /**
      * @return the treasures
      */
-    public Card[] getTreasures() {
+    public ArrayList<Card> getTreasures() {
         return treasures;
     }
 
     /**
      * @param treasures the treasures to set
      */
-    public void setTreasures(Card[] treasures) {
+    public void setTreasures(ArrayList<Card> treasures) {
         this.treasures = treasures;
     }
 

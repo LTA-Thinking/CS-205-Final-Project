@@ -43,6 +43,7 @@ public class Computer extends Player {
         }
         List<Double> distance = new ArrayList<>(memory.keySet());
         Collections.sort(distance);
+        
 
     }
 
