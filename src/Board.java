@@ -22,7 +22,7 @@ public class Board extends Pane{
 	 * @param Tile t1 & t2 are generic tiles used for the canMove method
 	 * @param startX & startY are used in the highlightMoves method to avoid an endless loop going back and forth from the starting tile location to the first direction
 	 */
-    public final static int SQUARE_SIZE = 20;
+    public static int SQUARE_SIZE;
     public final int X_DIM_SQUARES;
     public final int Y_DIM_SQUARES;
     protected static Tile grid[][];
@@ -44,9 +44,9 @@ public class Board extends Pane{
 	 */
 	public Board(int s,int x,int y) 
     {
-   
-    	X_DIM_SQUARES = 7;
-    	Y_DIM_SQUARES = 7;
+		SQUARE_SIZE = s;
+    	X_DIM_SQUARES = x;
+    	Y_DIM_SQUARES = y;
     	
     	grid = new Tile[X_DIM_SQUARES][Y_DIM_SQUARES];
     	
@@ -137,6 +137,24 @@ public class Board extends Pane{
 		Board.extraTile = extraTile;
 	}
 	
+	public static void insertTile(int x, int y){		
+		getTile(grid[x][y]);
+		t1 = getExtraTile();
+		setExtraTile(t1);
+		t2 = getTile(grid[x+6][y]);
+		if (x==1 && y==0){
+			for (int i = 0; i ==6; i+=1){
+				System.out.println(grid[i][y]);
+				grid[i][y] = grid[i+1][y];
+				System.out.println(grid[i][y]);
+			}
+		grid[x][y] = t1;
+		setExtraTile(t2);
+		System.out.println(t2);		
+		}
+		 
+	}
+	
 	/**
 	 * Specifies if t1 can move to t2 in all 4 directs
 	 * this is a one position move, not a full path move
@@ -212,9 +230,9 @@ public class Board extends Pane{
 	}
 	
     public static void main(String[] args) {
-    	/*
+    	
 		new Board(20,7,7);
-		
+		/*
     	for (int i = 0; i<7; i++){
     	    for (int j = 0; j<7; j++){
 
@@ -222,7 +240,9 @@ public class Board extends Pane{
     	    }
     	     System.out.println();
     	}
-    	highlightMoves(0,0);	
     	*/
+    	//highlightMoves(0,0);	
+    	insertTile(1,0);
+    	
     }   
 }
