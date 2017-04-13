@@ -11,7 +11,8 @@ import java.util.*;
  * @author neal
  */
 public abstract class Player {
-
+    
+    private boolean isCurrentPlayer = false;
     private Board board;
     private Point2D location;
     private Card[] treasures = new Card[12];
@@ -192,6 +193,20 @@ public abstract class Player {
      */
     public void setTreasures(Card[] treasures) {
         this.treasures = treasures;
+    }
+
+    /**
+     * @return the isCurrentPlayer
+     */
+    public boolean isIsCurrentPlayer() {
+        return isCurrentPlayer;
+    }
+
+    /**
+     * @param isCurrentPlayer the isCurrentPlayer to set
+     */
+    public void setIsCurrentPlayer(boolean isCurrentPlayer) {
+        this.isCurrentPlayer = isCurrentPlayer;
     }
 
 }
