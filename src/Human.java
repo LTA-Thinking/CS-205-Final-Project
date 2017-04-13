@@ -66,7 +66,7 @@ public class Human extends Player
    /**
    The takeTurn method enacts the turn for the human player.
    */
-   @override
+   @Override
    private void takeTurn()
    {
       isTurn = true;
