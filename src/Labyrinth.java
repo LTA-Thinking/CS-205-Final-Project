@@ -5,10 +5,18 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 /**
  * This class starts the program, creates the board and players, and handles top level actions.
@@ -19,7 +27,7 @@ public class Labyrinth extends Application
 {
 	
 	private Board board;
-	//private Player playerOne, playerTwo;
+	//private Player playerOne, playerTwo, currentPlayer;
 	private Label displayPlayerOneTreasure, displayPlayerTwoTreasure;
 	private Stage primaryStage;
 	private Scene mainGameScene, introScene, promptScene;
@@ -66,13 +74,59 @@ public class Labyrinth extends Application
 		//***********Main Game Scene**************
 		
 		BorderPane mainPane = new BorderPane();
-        mainPane.setCenter(board);
+		
+		VBox boardHolder = new VBox();
+		
+		HBox topButtons = new HBox();
+		
+		Image arrowButton = new Image("arrow_button.png");
+		
+		Button topLeft = new Button("",new ImageView(arrowButton));
+		topLeft.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
+		Button topCenter = new Button("",new ImageView(arrowButton));
+		topCenter.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
+		Button topRight = new Button("",new ImageView(arrowButton));
+		topRight.setMaxSize(Board.SQUARE_SIZE,Board.SQUARE_SIZE);
+		
+		topLeft.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override public void handle(ActionEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(1,0));
+				System.out.println("Top Left Button Pressed");
+			}
+		});
+		
+		topCenter.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override public void handle(ActionEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(3,0));
+				System.out.println("Top Center Button Pressed");
+			}
+		});
+		
+		topRight.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override public void handle(ActionEvent e)
+			{
+				//currentPlayer.insertTile(new Point2D(5,0));
+				System.out.println("Top Right Button Pressed");
+			}
+		});
+		
+		topButtons.setSpacing(Board.SQUARE_SIZE);
+		topButtons.getChildren().add(topLeft);
+		topButtons.getChildren().add(topCenter);
+		topButtons.getChildren().add(topRight);
+		
+		boardHolder.getChildren().add(topButtons);
+		boardHolder.getChildren().add(board);
+        mainPane.setCenter(boardHolder);
 		
 		HBox rotateButtons = new HBox();
 		
 		Button rotateCCW = new Button("L");
-
-		
 		Button rotateCW = new Button("R");
 		
 		rotateButtons.getChildren().add(rotateCCW);
@@ -82,7 +136,8 @@ public class Labyrinth extends Application
 		displayPlayerTwoTreasure = new Label("TEST");
 		
 		VBox sidePanel = new VBox();
-		sidePanel.setPadding(new Insets(0,10,0,10));
+		sidePanel.setPadding(new Insets(10));
+		sidePanel.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.MEDIUM)));
 		
 		leftOverTile = board.getExtraTile();
 		leftOverTile.addToDrawing(sidePanel);
@@ -169,7 +224,7 @@ public class Labyrinth extends Application
 	 */
 	public void dealCards()
 	{
-		Card [] deck = new Card [16];
+		Card [] deck = new Card [24];
 		Tile [][] tiles = new Tile[7][7];//board.getTiles();
 		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
 		
@@ -203,7 +258,38 @@ public class Labyrinth extends Application
 				break;
 		}
 		
+		int cardDelt;
+		Card [] playerOneCards = new Card[12];
+		Card [] playerTwoCards = new Card[12];
 		
+		for(int slotFilled=0;slotFilled<12;slotFilled++)
+		{
+			while(true)
+			{
+				cardDelt = (int)(Math.random()*24);
+				if(deck[cardDelt]!=null)
+				{
+					playerOneCards[slotFilled] = deck[cardDelt];
+					deck[cardDelt] = null;
+					break;
+				}
+			}
+			
+			while(true)
+			{
+				cardDelt = (int)(Math.random()*24);
+				if(deck[cardDelt]!=null)
+				{
+					playerTwoCards[slotFilled] = deck[cardDelt];
+					deck[cardDelt] = null;
+					break;
+				}
+			}
+		}
+		/*
+		playerOne.giveCards(playerOneCards);
+		playerTwo.giveCards(playerTwoCards);
+		*/
 	}
 	
 	public static void main(String [] args)
