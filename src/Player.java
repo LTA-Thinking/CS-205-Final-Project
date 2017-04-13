@@ -14,7 +14,7 @@ public abstract class Player {
 
     private Board board;
     private Point2D location;
-    private Card[] treasures = new Card[24];
+    private Card[] treasures = new Card[12];
     private Card currentTreasure;
 
     /**
@@ -178,6 +178,20 @@ public abstract class Player {
         }else{
             return false;
         }
+    }
+
+    /**
+     * @return the treasures
+     */
+    public Card[] getTreasures() {
+        return treasures;
+    }
+
+    /**
+     * @param treasures the treasures to set
+     */
+    public void setTreasures(Card[] treasures) {
+        this.treasures = treasures;
     }
 
 }
