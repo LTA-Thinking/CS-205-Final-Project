@@ -182,7 +182,7 @@ public class Board extends Pane{
 	 * @param x2 x cord2
 	 * @param y2 y cord2
 	 */
-	public boolean canMove(Point2D start, int dir){
+	 public boolean canMove(Point2D start, int dir){
 		int x1 = start.getX();
 		int y1 = start.getY();
 		int x2 =0;

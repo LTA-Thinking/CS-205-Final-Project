@@ -74,7 +74,7 @@ public abstract class Player {
      * @param end
      * @return
      */
-    public boolean pathExistsHelper(boolean[][] visited, Point2D start, Point2D end) {
+     public boolean pathExistsHelper(boolean[][] visited, Point2D start, Point2D end) {
         int x1 = start.getX();
         int y1 = start.getY();
         int x2 = end.getX();
