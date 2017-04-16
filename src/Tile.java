@@ -52,8 +52,8 @@ public class Tile extends Pane
 		else if(type == I_TYPE)
 			imageLocation = "test_I.png";
 		
-		this.layoutXProperty().bind(xCord.multiply(Board.SQUARE_SIZE));
-		this.layoutYProperty().bind(yCord.multiply(Board.SQUARE_SIZE));
+		this.translateXProperty().bind(xCord.multiply(Board.SQUARE_SIZE));
+		this.translateYProperty().bind(yCord.multiply(Board.SQUARE_SIZE));
 		
 		tileIcon = new ImageView(imageLocation);
 		tileIcon.setFitWidth(Board.SQUARE_SIZE);
