@@ -43,8 +43,8 @@ public abstract class Player {
      */
     public ArrayList<Point2D> allPossibleLoc() {
         ArrayList<Point2D> allPossibleLoc = new ArrayList<>();
-        for (int i = 0; i < 6; ++i) {
-            for (int j = 0; j < 6; ++j) {
+        for (int i = 0; i < 7; ++i) {
+            for (int j = 0; j < 7; ++j) {
                 if (pathExists(new Point2D(i, j))) {
                     allPossibleLoc.add(new Point2D(i, j));
                 }
@@ -81,7 +81,7 @@ public abstract class Player {
         int y2 = end.getY();
 
         visited[x1][y1] = true;
-        if (y1 < 5) {
+        if (y1 < 6) {
             if (!visited[x1][y1 + 1] && board.canMove(start, Tile.SOUTH)) {
                 if (x1 == x2 && y2 == y1 + 1) {
                     return true;
@@ -111,7 +111,7 @@ public abstract class Player {
                 }
             }
         }
-        if (y1 < 5) {
+        if (x1 < 6) {
             if (!visited[x1 + 1][y1] && board.canMove(start, Tile.EAST)) {
                 if (x2 == x1 + 1 && y2 == y1) {
                     return true;
