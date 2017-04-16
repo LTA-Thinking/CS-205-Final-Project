@@ -1,4 +1,6 @@
 import java.util.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 
 /**
    The Human class represents the human player in a game of Labyrinth.
@@ -28,6 +30,15 @@ public class Human extends Player
       {
          board.insertTile(x, y);
       } 
+      else
+      {
+         Alert alert = new Alert(AlertType.WARNING);
+         alert.setTitle("Illegal Move");
+         alert.setHeaderText("");
+         String s = "Cannot insert there!";
+         alert.setContentText(s);
+         alert.show();
+      }
    }
    
    /**Moves the player where they want to move on the board. Then, if they 
