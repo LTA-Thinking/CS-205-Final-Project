@@ -189,7 +189,7 @@ public class Board extends Pane{
 		int y2 =0;
 		if(dir == 0){
 			x2 = x1;
-			y2 = y1+1;
+			y2 = y1-1;
 		}
 		if(dir == 1){
 			x2 = x1+1;
@@ -197,37 +197,40 @@ public class Board extends Pane{
 		}
 		if(dir == 2){
 			x2 = x1;
-			y2 = y1-1;
+			y2 = y1+1;
 		}
 		if(dir == 3){
 			x2 = x1-1;
 			y2 = y1;
 		}
-		
+		if(y2<0||x2<0){
+                    return false;
+                }else{
 		
 		t1 = grid[x1][y1];
 		t2 = grid[x2][y2];		
-		if (y1-y2 ==-1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)){
-			System.out.println("Can Move East");
+		if (y1-y2 ==-1 && t1.isConnectedInDirection(2) && t2.isConnectedInDirection(0)){
+			System.out.println("Can Move South");
 			return true;
 		}
-		else if (x1-x2 == -1 && t1.isConnectedInDirection(0) && t2.isConnectedInDirection(2)){
-			System.out.println("Can Move North");	
+		else if (x1-x2 == 1 && t1.isConnectedInDirection(3) && t2.isConnectedInDirection(1)){
+			System.out.println("Can Move West");	
 			return true;
 		}		
 		
-		else if (y1-y2 == 1 && t1.isConnectedInDirection(3) && t2.isConnectedInDirection(1)){
-			System.out.println("Can Move West");
+		else if (y1-y2 == 1 && t1.isConnectedInDirection(0) && t2.isConnectedInDirection(2)){
+			System.out.println("Can Move North");
 			return true;
 		}		
 		
-		else if (x1-x2 ==1 && t1.isConnectedInDirection(2) && t2.isConnectedInDirection(0)){
-			System.out.println("Can Move South");	
+		else if (x1-x2 ==-1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)){
+			System.out.println("Can Move East");	
 			return true;
 		}
 		else{
 			return false;
 		}	
+                }
 	}
 	
 	

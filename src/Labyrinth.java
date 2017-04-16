@@ -48,7 +48,7 @@ public class Labyrinth extends Application
 		board = new Board(100,7,7); // Fill in args
 		
 		//****************************** FOR TESTING ***************************
-		//playerOne = new Computer(board);
+		playerOne = new Computer(board);
 		
 		/*
 		if(twoHumans)
@@ -301,7 +301,11 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
-				board.insertTile(0,1);
+//				board.insertTile(0,1);
+//                            System.out.println("current location: " + playerOne.getLocation().getX() + " , " + playerOne.getLocation().getY());
+//                            System.out.println("test: " + board.getTile(new Point2D(1,1)));
+                            System.out.println(playerOne.pathExists(new Point2D(0,3)));
+//                            System.out.println(board.canMove(new Point2D(0,1), Tile.WEST));
 				
 			}
 		});
