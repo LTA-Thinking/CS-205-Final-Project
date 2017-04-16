@@ -1,4 +1,5 @@
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * A class representing the cards used in the Labyrinth game. 
@@ -9,7 +10,7 @@ import javafx.scene.image.Image;
 public class Card
 {
 	private int treasureNumber;
-	private Image treasureImage;
+	private ImageView treasureImage;
 	private Tile treasureLocation;
 	
 	/**
@@ -23,8 +24,8 @@ public class Card
 		treasureNumber = number;
 		treasureLocation = location;
 		
-		String imageLocation = "";
-		treasureImage = new Image(imageLocation);
+		String imageLocation = "treasure.png";
+		treasureImage = new ImageView(new Image(imageLocation));
 	}
 	
 	/**
@@ -38,7 +39,7 @@ public class Card
 	/** 
 	 * Returns the card's treasure's image.
 	 */
-	public Image getTreasureImage()
+	public ImageView getTreasureImage()
 	{
 		return treasureImage;
 	}

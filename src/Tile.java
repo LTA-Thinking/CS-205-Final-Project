@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
  *
  * @author RB_Johnson
  */
-public class Tile
+public class Tile extends Pane
 {
 	public static final int T_TYPE = 0,
 								L_TYPE = 1,
@@ -52,16 +52,22 @@ public class Tile
 		else if(type == I_TYPE)
 			imageLocation = "test_I.png";
 		
+		this.layoutXProperty().bind(xCord.multiply(Board.SQUARE_SIZE));
+		this.layoutYProperty().bind(yCord.multiply(Board.SQUARE_SIZE));
+		
 		tileIcon = new ImageView(imageLocation);
 		tileIcon.setFitWidth(Board.SQUARE_SIZE);
         tileIcon.setPreserveRatio(true);
         tileIcon.setSmooth(true);
         tileIcon.setCache(true);
-		tileIcon.xProperty().bind(xCord.multiply(Board.SQUARE_SIZE));
-		tileIcon.yProperty().bind(yCord.multiply(Board.SQUARE_SIZE));
+		tileIcon.setX(0);
+		tileIcon.setY(0);
+		
 		tileIcon.setRotate(90*rotation);
 		
-		b.getChildren().add(tileIcon);
+		this.getChildren().add(tileIcon);
+		
+		b.getChildren().add(this);
 		
 		moveToLocation(x,y);
 	}
@@ -107,6 +113,17 @@ public class Tile
         xCord.set(x);
         yCord.set(y);
     }
+	
+	/**
+     * Move the shape to the specified x and y board coordinates. Undoes any
+     * binding currently in effect on the coordinates, so that the square
+     * remains fixed at the specified location.
+     * @param loc The location to move the tile to.
+     */
+	public void moveToLocation(Point2D loc)
+	{
+		moveToLocation(loc.getX(),loc.getY());
+	}
 	
 	/**
 	 * Checks whether the tile has an edge connecting it to the adjacent tile in the direction given.
@@ -216,6 +233,7 @@ public class Tile
 	{
 		treasure = c;
 		containsTreasure = true;
+		this.getChildren().add(treasure.getTreasureImage());
 	}
 	
 	/**
