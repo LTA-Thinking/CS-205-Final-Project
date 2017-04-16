@@ -211,7 +211,7 @@ public class Tile extends Pane
 	 */
 	public void addToDrawing(Pane b)
 	{
-		b.getChildren().add(tileIcon);
+		b.getChildren().add(this);
 	}
 	
 	/**
@@ -221,7 +221,7 @@ public class Tile extends Pane
 	 */
 	public void removeFromDrawing(Pane b)
 	{
-		b.getChildren().remove(tileIcon);
+		b.getChildren().remove(this);
 	}
 	
 	/**
