@@ -146,30 +146,89 @@ public class Board extends Pane{
 		return this.extraTile = extraTile;
 	}
 	
-	public void insertTile(int x, int y){		
+	public void insertTile(Point2D insertLoc){	
+            
+//                        grid[6][insertLoc.getY()].removeFromDrawing(this);
+//                        grid[5][insertLoc.getY()].moveToLocation(6,insertLoc.getY());
+//                        grid[6][insertLoc.getY()] = grid[5][insertLoc.getY()];
 		//get tile
 		t1 = getExtraTile();
 		System.out.println(t1);
-		
-		//set extra tile to last on grid and move location to -1,-1 which is extra tile location
-		t2 = grid[1][6];
-		System.out.println(t2);
-		
-		//set the extra tile to the spot where we inserted and change the coordinates
-		grid[1][0] = t1;
-		t1.moveToLocation(1,0);	
-		System.out.println(grid[1][0]);
-		if (x==1 && y==0){
-			for (int i = 0; i <=5; i+=1){
-				grid[x][y] = grid[x][i+1];
-				System.out.println(grid[x][y]);
-			}
-		}
-		t2.moveToLocation(-1,-1);
-		setExtraTile(t2);
-		System.out.println(extraTile);
-		
-		 
+//                int opposTileX = 999;
+//                int opposTileY = 999;
+                
+                if(insertLoc.getX() == 0){
+                    System.out.println("1");
+//                    opposTileX = 6;
+//                    opposTileY = insertLoc.getY();
+//                    setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
+//                    
+                    
+                    grid[insertLoc.getX()][insertLoc.getY()].removeFromDrawing(this);
+                    t1.addToDrawing(this);
+                    t1.moveToLocation(insertLoc.getX(),insertLoc.getY());
+                    grid[insertLoc.getX()][insertLoc.getY()] = t1;
+                    
+//                    
+//                    for(int i = 6; i > 1; --i){
+//                        grid[i][insertLoc.getY()].removeFromDrawing(this);
+//                        grid[i - 1][insertLoc.getY()].moveToLocation(i,insertLoc.getY());
+//                        grid[i][insertLoc.getY()] = grid[i - 1][insertLoc.getY()];
+//                        
+//                    }
+                }
+//                else if(insertLoc.getX() == 6){
+//                    System.out.println("2");
+//                    opposTileX = 0;
+//                    opposTileY = insertLoc.getY();
+//                    setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
+//                    for(int i = 0; i > 5; ++i){
+//                        grid[i][insertLoc.getY()].removeFromDrawing(this);
+//                        grid[i + 1][insertLoc.getY()] = grid[i][insertLoc.getY()];
+//                        grid[i][insertLoc.getY()].moveToLocation(i + 1,insertLoc.getY());
+//                    }
+//                }else if(insertLoc.getY() == 0){
+//                    System.out.println("3");
+//                    opposTileY = 6;
+//                    opposTileX = insertLoc.getX();
+//                    setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
+//                    for(int i = 6; i > 1; --i){
+//                        grid[i][insertLoc.getY()].removeFromDrawing(this);
+//                        grid[insertLoc.getX()][i - 1] = grid[insertLoc.getX()][i];
+//                        grid[insertLoc.getX()][i].moveToLocation(insertLoc.getX(),i - 1);
+//                    }
+//                }else if(insertLoc.getY() == 6){
+//                    System.out.println("4");
+//                    opposTileY = 0;
+//                    opposTileX = insertLoc.getX();
+//                    setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
+//                    for(int i = 0; i > 5; ++i){
+//                        grid[i][insertLoc.getY()].removeFromDrawing(this);
+//                        grid[insertLoc.getX()][i + 1] = grid[insertLoc.getX()][i];
+//                        grid[insertLoc.getX()][i].moveToLocation(insertLoc.getX(),i + 1);
+//                    }
+//                }
+//                
+//		
+//		//set extra tile to last on grid and move location to -1,-1 which is extra tile location
+////		t2 = grid[1][6];
+////		System.out.println(t2);
+//		
+//		//set the extra tile to the spot where we inserted and change the coordinates
+//		grid[insertLoc.getX()][insertLoc.getY()] = t1;
+//		t1.moveToLocation(insertLoc.getX(),insertLoc.getY());	
+////		System.out.println(grid[1][0]);
+////		if (x==1 && y==0){
+////			for (int i = 0; i <=5; i+=1){
+////				grid[x][y] = grid[x][i+1];
+////				System.out.println(grid[x][y]);
+////			}
+////		}
+////		t2.moveToLocation(-1,-1);
+////		setExtraTile(t2);
+////		System.out.println(extraTile);
+//		
+//		 
 	}
 	
 	/**
@@ -271,6 +330,7 @@ public class Board extends Pane{
 			
 	}
 	*/
+         
 	
 	/**
 	 *returns grid
@@ -280,20 +340,5 @@ public class Board extends Pane{
 	}
 
 	
-    public static void main(String[] args) {
-    	
-		new Board(20,7,7);
-		
-    	for (int i = 0; i<7; i++){
-    	    for (int j = 0; j<7; j++){
-
-    	        System.out.print(grid[i][j] + "  ");
-    	    }
-    	     System.out.println();
-    	}
-    	
-    	
-    	
-    	
-    }   
+    
 }
