@@ -18,7 +18,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-
+import javafx.stage.Popup;
 /**
  * This class starts the program, creates the board and players, and handles top level actions.
  * 
@@ -33,6 +33,7 @@ public class Labyrinth extends Application
 	private Stage primaryStage;
 	private Scene mainGameScene, introScene, promptScene;
 	private Tile leftOverTile;
+	private HBox extraTileHolder;
 	
 	/**
      * Starts the application, creates the players, and creates the board
@@ -53,13 +54,13 @@ public class Labyrinth extends Application
 		/*
 		if(twoHumans)
 		{
-			playerOne = new Human();
-			playerTwo = new Human();
+			playerOne = new Human(board);
+			playerTwo = new Human(board);
 		}
 		else
 		{
-			playerOne = new Human();
-			playerTwo = new Computer();
+			playerOne = new Human(board);
+			playerTwo = new Computer(board);
 		}
 		
 		dealCards();
@@ -67,6 +68,11 @@ public class Labyrinth extends Application
 		setupDisplay(primaryStage);
 		
         //takeTurn();
+		/*
+		Popup popup = new Popup();
+		popup.getContent().add(new Label("This is a popup"));
+		popup.show();
+		*/
     }
 	
 	/**
@@ -122,7 +128,7 @@ public class Labyrinth extends Application
 		});
 		
 		topButtons.setSpacing(Board.SQUARE_SIZE);
-		topButtons.setPrefHeight(Board.SQUARE_SIZE);
+		topButtons.setPadding(new Insets(0,Board.SQUARE_SIZE*2,0,Board.SQUARE_SIZE*2));
 		topButtons.getChildren().add(topLeft);
 		topButtons.getChildren().add(topCenter);
 		topButtons.getChildren().add(topRight);
@@ -163,7 +169,7 @@ public class Labyrinth extends Application
 		});
 		
 		bottomButtons.setSpacing(Board.SQUARE_SIZE);
-		bottomButtons.setPrefHeight(Board.SQUARE_SIZE);
+		bottomButtons.setPadding(new Insets(0,Board.SQUARE_SIZE*2,0,Board.SQUARE_SIZE*2));
 		bottomButtons.getChildren().add(bottomLeft);
 		bottomButtons.getChildren().add(bottomCenter);
 		bottomButtons.getChildren().add(bottomRight);
@@ -172,8 +178,11 @@ public class Labyrinth extends Application
 		VBox leftButtons = new VBox();
 		
 		ImageView leftTop = new ImageView(arrowButton);
+		leftTop.setRotate(90);
 		ImageView leftCenter = new ImageView(arrowButton);
+		leftCenter.setRotate(90);
 		ImageView leftBottom = new ImageView(arrowButton);
+		leftBottom.setRotate(90);
 		
 		leftTop.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
@@ -203,7 +212,7 @@ public class Labyrinth extends Application
 		});
 		
 		leftButtons.setSpacing(Board.SQUARE_SIZE);
-		leftButtons.setPrefHeight(Board.SQUARE_SIZE);
+		leftButtons.setPadding(new Insets(Board.SQUARE_SIZE,0,Board.SQUARE_SIZE,0));
 		leftButtons.getChildren().add(leftTop);
 		leftButtons.getChildren().add(leftCenter);
 		leftButtons.getChildren().add(leftBottom);
@@ -212,8 +221,11 @@ public class Labyrinth extends Application
 		VBox rightButtons = new VBox();
 		
 		ImageView rightTop = new ImageView(arrowButton);
+		rightTop.setRotate(270);
 		ImageView rightCenter = new ImageView(arrowButton);
+		rightCenter.setRotate(270);
 		ImageView rightBottom = new ImageView(arrowButton);
+		rightBottom.setRotate(270);
 		
 		rightTop.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
@@ -243,7 +255,7 @@ public class Labyrinth extends Application
 		});
 		
 		rightButtons.setSpacing(Board.SQUARE_SIZE);
-		rightButtons.setPrefHeight(Board.SQUARE_SIZE);
+		rightButtons.setPadding(new Insets(Board.SQUARE_SIZE,0,Board.SQUARE_SIZE,0));
 		rightButtons.getChildren().add(rightTop);
 		rightButtons.getChildren().add(rightCenter);
 		rightButtons.getChildren().add(rightBottom);
@@ -301,7 +313,7 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
-				board.insertTile(0,1);
+				changeExtraTile();
 				
 			}
 		});
@@ -339,34 +351,43 @@ public class Labyrinth extends Application
 	 */
 	public void takeTurn()
 	{
-		/*
 		while(true)
 		{
-			boolean playerOneWins = playerOne.takeTurn();
+			playerOne.takeTurn();
 			
-			if(playerOneWins)
+			while(playerOne.isCurrentPlayer()){};
+			
+			if(playerOne.checkWin())
 			{
+				System.out.println("\nPlayer One Wins\n");
+				/*
 				String[] options = {"Yes","No"};
 				String answer = prompt("Congratulations, you win! Do you want to play again?",options);
 				if(answer.equals("Yes"))
 					restart();
 				else
 					System.exit(0);
+				*/
 			}
 			
-			boolean playerTwoWins = playerTwo.takeTurn();
+			playerTwo.takeTurn();
 			
-			if(playerTwoWins)
+			while(playerTwo.isCurrentPlayer()){};
+			
+			if(playerTwo.checkWin())
 			{
+				System.out.println("\nPlayer Two Wins\n");
+				/*
 				String[] options = {"Yes","No"};
 				String answer = prompt("Sorry you lose. Do you want to play again?",options);
 				if(answer.equals("Yes"))
 					restart();
 				else
 					System.exit(0);
+				*/
 			}
 		}
-		*/
+		
 	}
 
 	/**
@@ -375,7 +396,7 @@ public class Labyrinth extends Application
 	public void dealCards()
 	{
 		Card [] deck = new Card [24];
-		Tile [][] tiles = new Tile[7][7];//board.getTiles();
+		Tile [][] tiles = board.getGrid();
 		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
 		
 		for(int i=0;i<tiles.length;i++)
@@ -441,6 +462,20 @@ public class Labyrinth extends Application
 		//playerTwo.setTreasures(new ArrayList<Card>(playerTwoCards));
 		
 	}
+	
+	public void changeExtraTile()
+	{
+		leftOverTile.removeFromDrawing(extraTileHolder);
+		
+		leftOverTile = board.getExtraTile();
+		leftOverTile.addToDrawing(extraTileHolder);
+	}
+	
+	/** 
+	 * Restarts the game by resetting the board and player data.
+	 */
+	public void restart()
+	{}
 	
 	public static void main(String [] args)
 	{
