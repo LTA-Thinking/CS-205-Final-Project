@@ -6,11 +6,12 @@ import java.util.*;
 public class Human extends Player
 {
    //Keeps track of whether or not it's the player's turn.
-   boolean isTurn;
+   private boolean isTurn;
+   
    
    /**Constructor for the Human class.*/   
-   public Human(){
-      super(new Point2D(0, 0));
+   public Human(Board board){
+      super(new Point2D(0, 0), board);
    }
    
    /**Inserts the extra tile where the player wants to on the board.
@@ -25,7 +26,7 @@ public class Human extends Player
       Point2D insertLocation = new Point2D(x, y);
       if(super.legalInsert(insertLocation))
       {
-         board.setTile(insertTile);
+         board.insertTile(x, y);
       } 
    }
    
@@ -36,19 +37,18 @@ public class Human extends Player
    public void getMoveTile(Tile moveTile)
    {
       //Move to the right location
-      x = moveTile.getXLocation();
-      y = moveTile.getYLocation();
-      if(super.pathExists(moveTile))
+      int x = moveTile.getXLocation();
+      int y = moveTile.getYLocation();
+      Point2D movePoint = new Point2D(x, y);
+      if(super.pathExists(movePoint))
       {
-         super.setLocation(new Point2D(x, y));
+         super.setLocation(movePoint);
       }
       
       //Checks if the tile they moved to has the treasure they need.
-      Tile treasureTile = currentTreasure.getTreasureLocation();
-      x = treasureTile.getXLocation();
-      y = treasureTile.getYLocation();
-      Point2D treasureLocation = new Point2D(x, y);
-      if(super.getLocation.equals(treasureLocation))
+      Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
+      
+      if(super.getLocation().equals(treasureLocation))
       {
          super.setNextTreasure();
       }
@@ -67,7 +67,7 @@ public class Human extends Player
    The takeTurn method enacts the turn for the human player.
    */
    @Override
-   private void takeTurn()
+   public void takeTurn()
    {
       isTurn = true;
    }
