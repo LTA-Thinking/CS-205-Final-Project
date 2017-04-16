@@ -13,7 +13,7 @@ import java.util.*;
 public abstract class Player {
     
     private boolean isCurrentPlayer = false;
-    private Board board;
+    protected Board board;
     private Point2D location;
     private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
