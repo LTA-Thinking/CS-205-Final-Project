@@ -26,6 +26,8 @@ public class Card
 		
 		String imageLocation = "treasure.png";
 		treasureImage = new ImageView(new Image(imageLocation));
+		treasureImage.setTranslateX((Board.SQUARE_SIZE-treasureImage.getImage().getWidth())/2);
+		treasureImage.setTranslateY((Board.SQUARE_SIZE-treasureImage.getImage().getHeight())/2);
 	}
 	
 	/**
