@@ -154,28 +154,20 @@ public class Board extends Pane{
 		//get tile
 		t1 = getExtraTile();
 		System.out.println(t1);
-//                int opposTileX = 999;
-//                int opposTileY = 999;
+                int opposTileX = 999;
+                int opposTileY = 999;
                 
                 if(insertLoc.getX() == 0){
                     System.out.println("1");
-//                    opposTileX = 6;
-//                    opposTileY = insertLoc.getY();
-//                    setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
-//                    
+                    opposTileX = 6;
+                    opposTileY = insertLoc.getY();
+                    setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
                     
-                    grid[insertLoc.getX()][insertLoc.getY()].removeFromDrawing(this);
-                    t1.addToDrawing(this);
-                    t1.moveToLocation(insertLoc.getX(),insertLoc.getY());
-                    grid[insertLoc.getX()][insertLoc.getY()] = t1;
-                    
-//                    
-//                    for(int i = 6; i > 1; --i){
+                    for(int i = 6; i > 1; --i){
 //                        grid[i][insertLoc.getY()].removeFromDrawing(this);
-//                        grid[i - 1][insertLoc.getY()].moveToLocation(i,insertLoc.getY());
-//                        grid[i][insertLoc.getY()] = grid[i - 1][insertLoc.getY()];
-//                        
-//                    }
+                        grid[i - 1][insertLoc.getY()].moveToLocation(i,insertLoc.getY());
+                        grid[i][insertLoc.getY()] = grid[i - 1][insertLoc.getY()];
+                    }
                 }
 //                else if(insertLoc.getX() == 6){
 //                    System.out.println("2");
@@ -229,6 +221,10 @@ public class Board extends Pane{
 ////		System.out.println(extraTile);
 //		
 //		 
+grid[insertLoc.getX()][insertLoc.getY()].removeFromDrawing(this);
+                    t1.addToDrawing(this);
+                    t1.moveToLocation(insertLoc.getX(),insertLoc.getY());
+                    grid[insertLoc.getX()][insertLoc.getY()] = t1;
 	}
 	
 	/**
