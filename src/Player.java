@@ -81,7 +81,7 @@ public abstract class Player {
         int y2 = end.getY();
 
         visited[x1][y1] = true;
-        if (y1 < 6) {
+        if (y1 < 5) {
             if (!visited[x1][y1 + 1] && board.canMove(start, Tile.SOUTH)) {
                 if (x1 == x2 && y2 == y1 + 1) {
                     return true;
@@ -111,7 +111,7 @@ public abstract class Player {
                 }
             }
         }
-        if (y1 < 6) {
+        if (y1 < 5) {
             if (!visited[x1 + 1][y1] && board.canMove(start, Tile.EAST)) {
                 if (x2 == x1 + 1 && y2 == y1) {
                     return true;
