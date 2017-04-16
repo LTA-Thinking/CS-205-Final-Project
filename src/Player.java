@@ -74,7 +74,7 @@ public abstract class Player {
      * @param end
      * @return
      */
-    public boolean pathExistsHelper(boolean[][] visited, Point2D start, Point2D end) {
+     public boolean pathExistsHelper(boolean[][] visited, Point2D start, Point2D end) {
         int x1 = start.getX();
         int y1 = start.getY();
         int x2 = end.getX();
@@ -82,18 +82,18 @@ public abstract class Player {
 
         visited[x1][y1] = true;
         if (y1 < 6) {
-            if (!visited[x1][y1 + 1] && board.canMove(start, 0)) {
+            if (!visited[x1][y1 + 1] && board.canMove(start, Tile.SOUTH)) {
                 if (x1 == x2 && y2 == y1 + 1) {
                     return true;
                 }
-                if (pathExistsHelper(visited, new Point2D(x1, y1), new Point2D(x2, y2))) {
+                if (pathExistsHelper(visited, new Point2D(x1, y1 + 1), new Point2D(x2, y2))) {
                     return true;
                 }
             }
         }
-        if (y1 > 1) {
-            if (!visited[x1][y1 - 1] && board.canMove(start, 2)) {
-                if (x1 == x2 && y2 == y1 + 1) {
+        if (y1 > 0) {
+            if (!visited[x1][y1 - 1] && board.canMove(start, Tile.NORTH)) {
+                if (x1 == x2 && y2 == y1 - 1) {
                     return true;
                 }
                 if (pathExistsHelper(visited, new Point2D(x1, y1 - 1), new Point2D(x2, y2))) {
@@ -101,8 +101,8 @@ public abstract class Player {
                 }
             }
         }
-        if (x1 > 1) {
-            if (!visited[x1][y1 - 1] && board.canMove(start, 4)) {
+        if (x1 > 0) {
+            if (!visited[x1 - 1][y1] && board.canMove(start, Tile.WEST)) {
                 if (x2 == x1 - 1 && y2 == y1) {
                     return true;
                 }
@@ -112,7 +112,7 @@ public abstract class Player {
             }
         }
         if (y1 < 6) {
-            if (!visited[x1 + 1][y1] && board.canMove(start, 1)) {
+            if (!visited[x1 + 1][y1] && board.canMove(start, Tile.EAST)) {
                 if (x2 == x1 + 1 && y2 == y1) {
                     return true;
                 }
