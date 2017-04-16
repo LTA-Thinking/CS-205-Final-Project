@@ -62,9 +62,9 @@ public class Labyrinth extends Application
 			playerOne = new Human(board);
 			playerTwo = new Computer(board);
 		}
-		
-		dealCards();
 		*/
+		dealCards();
+		
 		setupDisplay(primaryStage);
 		
         //takeTurn();
@@ -287,8 +287,8 @@ public class Labyrinth extends Application
 		sidePanel.setPadding(new Insets(10));
 		sidePanel.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.MEDIUM)));
 		
-		leftOverTile = board.getExtraTile();
-		leftOverTile.addToDrawing(sidePanel);
+		extraTileHolder = new HBox();
+		changeExtraTile();
 				
 		rotateCCW.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -318,6 +318,7 @@ public class Labyrinth extends Application
 			}
 		});
 		
+		sidePanel.getChildren().add(extraTileHolder);
 		sidePanel.getChildren().add(rotateButtons);
 		sidePanel.getChildren().add(new Label("Player One:"));
 		sidePanel.getChildren().add(displayPlayerOneTreasure);
@@ -398,31 +399,53 @@ public class Labyrinth extends Application
 		Card [] deck = new Card [24];
 		Tile [][] tiles = board.getGrid();
 		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
+		/*
+		deck[0] = new Card(0,tiles[0][2]);
+		tiles[0][2].setTreasure(deck[0]);
 		
+		deck[1] = new Card(1,tiles[0][4]);
+		tiles[0][4].setTreasure(deck[1]);
+		
+		deck[2] = new Card(0,tiles[2][0]);
+		tiles[2][0].setTreasure(deck[2]);
+		
+		deck[3] = new Card(0,tiles[2][2]);
+		tiles[2][2].setTreasure(deck[3]);
+		
+		deck[4] = new Card(0,tiles[2][4]);
+		tiles[2][4].setTreasure(deck[4]);
+		
+		deck[0] = new Card(0,tiles[0][2]);
+		tiles[0][2].setTreasure(deck[0]);
+		*/
 		for(int i=0;i<tiles.length;i++)
 		{
 			for(int k=0;k<tiles[0].length;k++)
 			{
-				if(tiles[i][k].getType()==Tile.T_TYPE)
-				{
-					deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
-					tiles[i][k].setTreasure(deck[numCardsMade]);
-					numCardsMade++;
-				}
-				else if(tiles[i][k].getType()==Tile.L_TYPE && ((i!=0 && k!=0) || (i!=tiles.length-1 && k!=tiles[0].length-1) || (i!=tiles.length-1 && k!=0) || (i!=0 && k!=tiles[0].length-1)))
-				{
-					if(numCornerCardsMade<6 && (Math.random()*6>1.0/16.0 || 6-numCornerCardsMade>=16-numCornerTilesSeen))
+				//if(!tile.isFixed())
+				//{
+					if(tiles[i][k].getType()==Tile.T_TYPE)
 					{
 						deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
 						tiles[i][k].setTreasure(deck[numCardsMade]);
 						numCardsMade++;
-						numCornerCardsMade++;
 					}
-					numCornerTilesSeen++;
-				}
+					else if(tiles[i][k].getType()==Tile.L_TYPE && ((i!=0 && k!=0) || (i!=tiles.length-1 && k!=tiles[0].length-1) || (i!=tiles.length-1 && k!=0) || (i!=0 && k!=tiles[0].length-1)))
+					{
+						if(numCornerCardsMade<6 && (Math.random()*6>1.0/16.0 || 6-numCornerCardsMade>=16-numCornerTilesSeen))
+						{
+							deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
+							tiles[i][k].setTreasure(deck[numCardsMade]);
+							numCardsMade++;
+							numCornerCardsMade++;
+						}
+						numCornerTilesSeen++;
+					}
+					
+					if(numCardsMade>=24)
+						break;
+				//}
 				
-				if(numCardsMade>=24)
-					break;
 			}
 			
 			if(numCardsMade>=24)
@@ -465,10 +488,12 @@ public class Labyrinth extends Application
 	
 	public void changeExtraTile()
 	{
-		leftOverTile.removeFromDrawing(extraTileHolder);
+		if(leftOverTile != null)
+			leftOverTile.removeFromDrawing(extraTileHolder);
 		
 		leftOverTile = board.getExtraTile();
 		leftOverTile.addToDrawing(extraTileHolder);
+		leftOverTile.moveToLocation(0,0);
 	}
 	
 	/** 
