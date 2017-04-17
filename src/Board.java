@@ -184,7 +184,6 @@ public class Board extends Pane{
                         grid[insertLoc.getX()][i] = grid[insertLoc.getX()][i - 1];
                     }
                 }else if(insertLoc.getY() == 6){
-                    System.out.println("4");
                     opposTileY = 0;
                     opposTileX = insertLoc.getX();
                     setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
@@ -240,21 +239,21 @@ public class Board extends Pane{
 		t1 = grid[x1][y1];
 		t2 = grid[x2][y2];		
 		if (y1-y2 ==-1 && t1.isConnectedInDirection(2) && t2.isConnectedInDirection(0)){
-			System.out.println("Can Move South");
+//			System.out.println("Can Move South");
 			return true;
 		}
 		else if (x1-x2 == 1 && t1.isConnectedInDirection(3) && t2.isConnectedInDirection(1)){
-			System.out.println("Can Move West");	
+//			System.out.println("Can Move West");	
 			return true;
 		}		
 		
 		else if (y1-y2 == 1 && t1.isConnectedInDirection(0) && t2.isConnectedInDirection(2)){
-			System.out.println("Can Move North");
+//			System.out.println("Can Move North");
 			return true;
 		}		
 		
 		else if (x1-x2 ==-1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)){
-			System.out.println("Can Move East");	
+//			System.out.println("Can Move East");	
 			return true;
 		}
 		else{
