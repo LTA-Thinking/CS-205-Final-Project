@@ -54,5 +54,10 @@ public class Point2D
     public double distance(Point2D e){
         return Math.sqrt((this.getX()-e.getX())*(this.getX()-e.getX()) + (this.getY()-e.getY())*(this.getY()-e.getY()));
     }
+	
+	public String toString()
+	{
+		return " (X: " + x + ", Y: " + y + ") ";
+	}
     
 }

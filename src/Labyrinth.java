@@ -294,7 +294,7 @@ public class Labyrinth extends Application
 		rotateButtons.getChildren().add(rotateCCW);
 		rotateButtons.getChildren().add(rotateCW);
 		
-		displayPlayerOneTreasure = new Label();//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
+		displayPlayerOneTreasure = new Label(playerOne.getCurrentTreasure().getTreasureLocation().toString());//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
 		displayPlayerTwoTreasure = new Label();//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
 		
 		VBox sidePanel = new VBox();
@@ -430,22 +430,28 @@ public class Labyrinth extends Application
 		deck[4] = new Card(4,tiles[2][4]);
 		tiles[2][4].setTreasure(deck[4]);
 		
-		deck[5] = new Card(5,tiles[4][0]);
-		tiles[4][0].setTreasure(deck[5]);
+		deck[5] = new Card(5,tiles[2][6]);
+		tiles[2][6].setTreasure(deck[5]);
 		
-		deck[6] = new Card(6,tiles[4][2]);
-		tiles[4][2].setTreasure(deck[6]);
+		deck[6] = new Card(6,tiles[4][0]);
+		tiles[4][0].setTreasure(deck[6]);
 		
-		deck[7] = new Card(7,tiles[4][4]);
-		tiles[4][4].setTreasure(deck[7]);
+		deck[7] = new Card(7,tiles[4][2]);
+		tiles[4][2].setTreasure(deck[7]);
 		
-		deck[8] = new Card(8,tiles[6][2]);
-		tiles[6][2].setTreasure(deck[8]);
+		deck[8] = new Card(8,tiles[4][4]);
+		tiles[4][4].setTreasure(deck[8]);
 		
-		deck[9] = new Card(9,tiles[6][4]);
-		tiles[6][4].setTreasure(deck[9]);
+		deck[9] = new Card(9,tiles[4][6]);
+		tiles[4][6].setTreasure(deck[9]);
 		
-		numCardsMade = 10;
+		deck[10] = new Card(10,tiles[6][2]);
+		tiles[6][2].setTreasure(deck[10]);
+		
+		deck[11] = new Card(11,tiles[6][4]);
+		tiles[6][4].setTreasure(deck[11]);
+		
+		numCardsMade = 12;
 		
 		for(int i=0;i<tiles.length;i++)
 		{
