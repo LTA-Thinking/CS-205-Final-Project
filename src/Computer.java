@@ -20,7 +20,7 @@ public class Computer extends Player {
      * constructor
      */
     public Computer(Board board, Labyrinth labyrinth) {
-        super(new Point2D(0, 0), board);
+        super(board.getTile(new Point2D(0, 0)), board);
         this.board = board;
         this.labyrinth = labyrinth;
     }

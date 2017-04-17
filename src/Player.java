@@ -14,7 +14,7 @@ public abstract class Player {
     
     private boolean isCurrentPlayer = false;
     protected Board board;
-    private Point2D location;
+    private Tile location;
     private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
     private int score;
@@ -25,7 +25,7 @@ public abstract class Player {
      * @param location
      * @param board
      */
-    public Player(Point2D location, Board board) {
+    public Player(Tile location, Board board) {
         this.board = board;
         this.location = location;
     }
@@ -62,7 +62,7 @@ public abstract class Player {
      */
     public boolean pathExists(Point2D location) {
         boolean[][] visited = new boolean[7][7];
-        return pathExistsHelper(visited, this.location, location);
+        return pathExistsHelper(visited, this.location.getLocation(), location);
     }
 
     /**
@@ -131,7 +131,7 @@ public abstract class Player {
      * @return the location
      */
     public Point2D getLocation() {
-        return location;
+        return location.getLocation();
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class Player {
      * @param location the location to set
      */
     public void setLocation(Point2D location) {
-        this.location = location;
+        this.location = board.getTile(location);
     }
 
     /**
