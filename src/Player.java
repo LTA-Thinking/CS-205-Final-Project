@@ -181,6 +181,21 @@ public abstract class Player {
             return false;
         }
     }
+    
+    public Point2D oppositeLoc(Point2D insert){
+        System.out.println("before "+board.getExtraTile());
+        Point2D lastMove = new Point2D(0,1);//board.getLastMove();
+        System.out.println("after "+board.getExtraTile());
+        if(lastMove.getX() == 0){
+            return new Point2D(6, lastMove.getY());
+        }else if(lastMove.getX() == 6){
+            return new Point2D(0, lastMove.getY());
+        }else if(lastMove.getY() == 0){
+            return new Point2D(lastMove.getX(), 6);
+        }else{
+            return new Point2D(lastMove.getX(), 0);
+        }
+    }
 
     /**
      * @return the treasures
