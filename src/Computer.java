@@ -14,13 +14,15 @@ public class Computer extends Player {
 
     private Board board;
     private Point2D[] allMoveLoc;
+    private Labyrinth labyrinth;
 
     /**
      * constructor
      */
-    public Computer(Board board) {
+    public Computer(Board board, Labyrinth labyrinth) {
         super(new Point2D(0, 0), board);
         this.board = board;
+        this.labyrinth = labyrinth;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class Computer extends Player {
                 for (int j = 0; j < 3; ++j) {
                     board.getExtraTile().rotateCW();
                     board.insertTile(possibleMove[i]);
+                    labyrinth.changeExtraTile();
                     ArrayList<Point2D> posLoc = super.allPossibleLoc();
                     for (int k = 0; k < posLoc.size(); ++k) {
                         if(posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance){
