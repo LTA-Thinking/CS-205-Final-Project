@@ -27,6 +27,7 @@ public class Computer extends Player {
 
     @Override
     public void takeTurn() {
+//        System.out.println("treasure ; " + super.getTreasures().get(0));
         board.insertTile(new Point2D(0, 1));
         Point2D lastMove = new Point2D(0,1);//board.getLastMove();
         double distance = 999; 

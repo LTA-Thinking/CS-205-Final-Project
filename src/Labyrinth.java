@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -49,7 +50,7 @@ public class Labyrinth extends Application
 		board = new Board(100,7,7); // Fill in args
 		
 		//****************************** FOR TESTING ***************************
-		//playerOne = new Computer(board);
+		playerOne = new Computer(board, this);
 		
 		/*
 		if(twoHumans)
@@ -325,7 +326,8 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
-				changeExtraTile();
+//				changeExtraTile();
+                            playerOne.takeTurn();
 				
 			}
 		});
@@ -493,7 +495,7 @@ public class Labyrinth extends Application
 			}
 		}
 		
-		//playerOne.setTreasures(new ArrayList<Card>(playerOneCards));
+//		playerOne.setTreasures(new ArrayList<Card>(playerOneCards));
 		//playerTwo.setTreasures(new ArrayList<Card>(playerTwoCards));
 		
 	}
