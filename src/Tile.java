@@ -27,6 +27,7 @@ public class Tile extends Pane
 	private int rotation = 0;
 	private boolean containsTreasure = false;
 	private Card treasure;
+	private boolean fixed;
 	
 	/**
 	 * Sets up the tile at a loacation on the board with an image based on its type rotated to a certain facing.
@@ -42,6 +43,7 @@ public class Tile extends Pane
 	{
 		type = t;
 		rotation = r;
+		fixed = false;
 		
 		String imageLocation = "test.jpg";
 		
@@ -252,6 +254,14 @@ public class Tile extends Pane
 		return treasure;
 	}
 	
+	/**
+	 * Returns whether the tile can move or not.
+	 */
+	 public boolean isFixed()
+	 {
+		 return fixed;
+	 }
+	 
 	/**
 	 * Returns info about the tile in the form of a string.
 	 */
