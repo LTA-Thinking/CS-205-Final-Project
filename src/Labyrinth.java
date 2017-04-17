@@ -51,7 +51,7 @@ public class Labyrinth extends Application
 		board = new Board(100,7,7); // Fill in args
 		
 		//****************************** FOR TESTING ***************************
-		//playerOne = new Computer(board);
+		playerOne = new Computer(board, this);
 		
 		/*
 		if(twoHumans)
@@ -327,7 +327,8 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
-				changeExtraTile();
+//				changeExtraTile();
+                            playerOne.takeTurn();
 				
 			}
 		});
@@ -491,7 +492,7 @@ public class Labyrinth extends Application
 				cardDelt = (int)(Math.random()*24);
 				if(deck[cardDelt]!=null)
 				{
-					playerOneCards.set(slotFilled,deck[cardDelt]);
+					playerOneCards.add(deck[cardDelt]);
 					deck[cardDelt] = null;
 					break;
 				}
@@ -502,7 +503,7 @@ public class Labyrinth extends Application
 				cardDelt = (int)(Math.random()*24);
 				if(deck[cardDelt]!=null)
 				{
-					playerTwoCards.set(slotFilled,deck[cardDelt]);
+					playerTwoCards.add(deck[cardDelt]);
 					deck[cardDelt] = null;
 					break;
 				}
@@ -510,7 +511,7 @@ public class Labyrinth extends Application
 		}
 		
 		playerOne.setTreasures(playerOneCards);
-		playerTwo.setTreasures(playerTwoCards);
+//		playerTwo.setTreasures(playerTwoCards);
 	}
 	
 	public void changeExtraTile()
