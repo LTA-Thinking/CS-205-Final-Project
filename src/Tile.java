@@ -39,18 +39,28 @@ public class Tile extends Pane
 	 * @param y The y coordinate on the board for the tile to be located.
 	 * @param r The amount of times the tile should be rotated 90degs CW.
 	 */
-	public Tile(Pane b,int t,int x,int y,int r)
+	public Tile(Pane b,int t,int x,int y,int r,boolean f)
 	{
 		type = t;
 		rotation = r;
-		fixed = false;
+		fixed = f;
 		
 		String imageLocation = "test.jpg";
 		
 		if(type == T_TYPE)
-			imageLocation = "test_T.png";
+		{
+			if(fixed == true)
+				imageLocation = "test_T_fixed.png";
+			else
+				imageLocation = "test_T.png";
+		}
 		else if(type == L_TYPE)
-			imageLocation = "test_L.png";
+		{
+			if(fixed == true)
+				imageLocation = "test_L_fixed.png";
+			else
+				imageLocation = "test_L.png";
+		}
 		else if(type == I_TYPE)
 			imageLocation = "test_I.png";
 		
@@ -72,6 +82,14 @@ public class Tile extends Pane
 		b.getChildren().add(this);
 		
 		moveToLocation(x,y);
+	}
+	
+	/**
+	 * Overloaded constructor to work with Point2D.
+	 */
+	public Tile(Pane b,int t,int x,int y,int r)
+	{
+		this(b,t,x,y,r,false);
 	}
 	
 	/**
@@ -252,6 +270,13 @@ public class Tile extends Pane
 	public Card getTreasure()
 	{
 		return treasure;
+	}
+	
+	public void removeTreasure()
+	{
+		this.getChildren().remove(treasure.getTreasureImage());
+		containsTreasure = false;
+		treasure = null;
 	}
 	
 	/**
