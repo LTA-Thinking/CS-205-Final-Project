@@ -19,6 +19,8 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
+import java.util.ArrayList;
+
 /**
  * This class starts the program, creates the board and players, and handles top level actions.
  * 
@@ -195,7 +197,7 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				board.insertTile(new Point2D(0,1));
-                                changeExtraTile();
+                changeExtraTile();
 				System.out.println("Left Top Button Pressed");
 			}
 		});
@@ -205,7 +207,7 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				board.insertTile(new Point2D(0,3));
-                                changeExtraTile();
+                changeExtraTile();
 				System.out.println("Left Center Button Pressed");
 			}
 		});
@@ -215,7 +217,7 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				board.insertTile(new Point2D(0,5));
-                                changeExtraTile();
+                changeExtraTile();
 				System.out.println("Left Bottom Button Pressed");
 			}
 		});
@@ -241,7 +243,7 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				board.insertTile(new Point2D(6,1));
-                                changeExtraTile();
+                changeExtraTile();
 				System.out.println("Right Top Button Pressed");
 			}
 		});
@@ -251,7 +253,7 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				board.insertTile(new Point2D(6,3));
-                                changeExtraTile();
+                changeExtraTile();
 				System.out.println("Right Center Button Pressed");
 			}
 		});
@@ -261,7 +263,7 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				board.insertTile(new Point2D(6,5));
-                                changeExtraTile();
+                changeExtraTile();
 				System.out.println("Right Bottom Button Pressed");
 			}
 		});
@@ -411,25 +413,39 @@ public class Labyrinth extends Application
 		Card [] deck = new Card [24];
 		Tile [][] tiles = board.getGrid();
 		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
-		/*
+		
 		deck[0] = new Card(0,tiles[0][2]);
 		tiles[0][2].setTreasure(deck[0]);
 		
 		deck[1] = new Card(1,tiles[0][4]);
 		tiles[0][4].setTreasure(deck[1]);
 		
-		deck[2] = new Card(0,tiles[2][0]);
+		deck[2] = new Card(2,tiles[2][0]);
 		tiles[2][0].setTreasure(deck[2]);
 		
-		deck[3] = new Card(0,tiles[2][2]);
+		deck[3] = new Card(3,tiles[2][2]);
 		tiles[2][2].setTreasure(deck[3]);
 		
-		deck[4] = new Card(0,tiles[2][4]);
+		deck[4] = new Card(4,tiles[2][4]);
 		tiles[2][4].setTreasure(deck[4]);
 		
-		deck[0] = new Card(0,tiles[0][2]);
-		tiles[0][2].setTreasure(deck[0]);
-		*/
+		deck[5] = new Card(5,tiles[4][0]);
+		tiles[4][0].setTreasure(deck[5]);
+		
+		deck[6] = new Card(6,tiles[4][2]);
+		tiles[4][2].setTreasure(deck[6]);
+		
+		deck[7] = new Card(7,tiles[4][4]);
+		tiles[4][4].setTreasure(deck[7]);
+		
+		deck[8] = new Card(8,tiles[6][2]);
+		tiles[6][2].setTreasure(deck[8]);
+		
+		deck[9] = new Card(9,tiles[6][4]);
+		tiles[6][4].setTreasure(deck[9]);
+		
+		numCardsMade = 10;
+		
 		for(int i=0;i<tiles.length;i++)
 		{
 			for(int k=0;k<tiles[0].length;k++)
@@ -465,8 +481,8 @@ public class Labyrinth extends Application
 		}
 		
 		int cardDelt;
-		Card [] playerOneCards = new Card[12];
-		Card [] playerTwoCards = new Card[12];
+		ArrayList<Card> playerOneCards = new ArrayList<Card>(12);
+		ArrayList<Card> playerTwoCards = new ArrayList<Card>(12);
 		
 		for(int slotFilled=0;slotFilled<12;slotFilled++)
 		{
@@ -475,7 +491,7 @@ public class Labyrinth extends Application
 				cardDelt = (int)(Math.random()*24);
 				if(deck[cardDelt]!=null)
 				{
-					playerOneCards[slotFilled] = deck[cardDelt];
+					playerOneCards.set(slotFilled,deck[cardDelt]);
 					deck[cardDelt] = null;
 					break;
 				}
@@ -486,16 +502,15 @@ public class Labyrinth extends Application
 				cardDelt = (int)(Math.random()*24);
 				if(deck[cardDelt]!=null)
 				{
-					playerTwoCards[slotFilled] = deck[cardDelt];
+					playerTwoCards.set(slotFilled,deck[cardDelt]);
 					deck[cardDelt] = null;
 					break;
 				}
 			}
 		}
 		
-		//playerOne.setTreasures(new ArrayList<Card>(playerOneCards));
-		//playerTwo.setTreasures(new ArrayList<Card>(playerTwoCards));
-		
+		playerOne.setTreasures(playerOneCards);
+		playerTwo.setTreasures(playerTwoCards);
 	}
 	
 	public void changeExtraTile()
