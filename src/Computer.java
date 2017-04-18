@@ -66,6 +66,7 @@ public class Computer extends Player {
         System.out.println("current loc: " + super.getLocation().getX() + "  " + super.getLocation().getY());
         if (distance == 0) {
             System.out.println("got it");
+			tile.removeTreasure();
             setNextTreasure();
         }
 

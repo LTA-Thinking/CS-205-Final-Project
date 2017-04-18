@@ -52,7 +52,7 @@ public class Labyrinth extends Application
 		
 		//****************************** FOR TESTING ***************************
 		playerOne = new Computer(board, this);
-		
+		playerTwo = new Computer(board, this);
 		/*
 		if(twoHumans)
 		{
@@ -327,8 +327,7 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
-//				changeExtraTile();
-                            playerOne.takeTurn();
+				takeTurn();
 				
 			}
 		});
@@ -367,40 +366,57 @@ public class Labyrinth extends Application
 	 */
 	public void takeTurn()
 	{
+		int turns = 0;
+		
 		while(true)
 		{
-			playerOne.takeTurn();
-			
-			while(playerOne.isCurrentPlayer()){};
-			
-			if(playerOne.checkWin())
+			try
 			{
-				System.out.println("\nPlayer One Wins\n");
-				/*
-				String[] options = {"Yes","No"};
-				String answer = prompt("Congratulations, you win! Do you want to play again?",options);
-				if(answer.equals("Yes"))
-					restart();
-				else
-					System.exit(0);
-				*/
+				playerOne.takeTurn();
+				
+				while(playerOne.isCurrentPlayer()){};
+				
+				if(playerOne.checkWin())
+				{
+					System.out.println("\nPlayer One Wins, Turns: " + turns +" \n");
+					break;
+					/*
+					String[] options = {"Yes","No"};
+					String answer = prompt("Congratulations, you win! Do you want to play again?",options);
+					if(answer.equals("Yes"))
+						restart();
+					else
+						System.exit(0);
+					*/
+				}
+				
+				
+				//Thread.sleep(2000);
+				
+				playerTwo.takeTurn();
+				
+				while(playerTwo.isCurrentPlayer()){};
+				
+				if(playerTwo.checkWin())
+				{
+					System.out.println("\nPlayer Two Wins, Turns: " + turns +" \n");
+					break;
+					/*
+					String[] options = {"Yes","No"};
+					String answer = prompt("Sorry you lose. Do you want to play again?",options);
+					if(answer.equals("Yes"))
+						restart();
+					else
+						System.exit(0);
+					*/
+				}
+				
+				//Thread.sleep(2000);
+				turns++;
 			}
-			
-			playerTwo.takeTurn();
-			
-			while(playerTwo.isCurrentPlayer()){};
-			
-			if(playerTwo.checkWin())
+			catch(Exception ex)
 			{
-				System.out.println("\nPlayer Two Wins\n");
-				/*
-				String[] options = {"Yes","No"};
-				String answer = prompt("Sorry you lose. Do you want to play again?",options);
-				if(answer.equals("Yes"))
-					restart();
-				else
-					System.exit(0);
-				*/
+				ex.printStackTrace();
 			}
 		}
 		
@@ -457,8 +473,8 @@ public class Labyrinth extends Application
 		{
 			for(int k=0;k<tiles[0].length;k++)
 			{
-				//if(!tile.isFixed())
-				//{
+				if(!tiles[i][k].isFixed())
+				{
 					if(tiles[i][k].getType()==Tile.T_TYPE)
 					{
 						deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
@@ -479,7 +495,7 @@ public class Labyrinth extends Application
 					
 					if(numCardsMade>=24)
 						break;
-				//}
+				}
 				
 			}
 			
@@ -517,7 +533,7 @@ public class Labyrinth extends Application
 		}
 		
 		playerOne.setTreasures(playerOneCards);
-//		playerTwo.setTreasures(playerTwoCards);
+		playerTwo.setTreasures(playerTwoCards);
 	}
 	
 	public void changeExtraTile()

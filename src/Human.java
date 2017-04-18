@@ -13,7 +13,7 @@ public class Human extends Player
    
    /**Constructor for the Human class.*/   
    public Human(Board board){
-      super(new Point2D(0, 0), board);
+      super(board.getTile(new Point2D(0,0)), board);
    }
    
    /**Inserts the extra tile where the player wants to on the board.
@@ -28,7 +28,7 @@ public class Human extends Player
       Point2D insertLocation = new Point2D(x, y);
       if(super.legalInsert(insertLocation))
       {
-         board.insertTile(x, y);
+         board.insertTile(new Point2D(x, y));
       } 
       else
       {
