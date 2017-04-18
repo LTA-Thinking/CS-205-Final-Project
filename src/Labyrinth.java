@@ -49,6 +49,7 @@ public class Labyrinth extends Application
 		boolean twoHumans = false;
 		
 		board = new Board(100,7,7); // Fill in args
+		setUpTileButtons();
 		
 		//****************************** FOR TESTING ***************************
 		playerOne = new Computer(board, this);
@@ -286,6 +287,7 @@ public class Labyrinth extends Application
 		boardHolder.getChildren().add(bottomButtons);
         mainPane.setCenter(boardHolder);
 		
+		//******************************************** Side Panel **********************************
 		HBox rotateButtons = new HBox();
 		
 		Button rotateCCW = new Button("L");
@@ -360,6 +362,37 @@ public class Labyrinth extends Application
         primaryStage.show();
 	}
 	
+	public void setUpTileButtons()
+	{
+		Tile [][] grid = board.getGrid();
+		
+		for(int i=0;i<grid.length;i++)
+		{
+			for(int k=0;k<grid[0].length;k++)
+			{
+				Tile tile = grid[i][k];
+				
+				tile.setOnMouseClicked(new EventHandler<MouseEvent>()
+				{
+					@Override public void handle(MouseEvent e)
+					{
+						System.out.println("Tile " + tile.getXLocation() + ", " + tile.getYLocation() + " clicked");
+					}
+				});
+			}
+		}
+		
+		Tile tile = board.getExtraTile();
+		
+		tile.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override public void handle(MouseEvent e)
+			{
+				System.out.println("Tile " + tile.getXLocation() + ", " + tile.getYLocation() + " clicked");
+			}
+		});
+	}
+	
 	/**
 	 * Tells the players to take their turns.
 	 * Handles conditions for if the game ends.
@@ -373,6 +406,7 @@ public class Labyrinth extends Application
 			try
 			{
 				playerOne.takeTurn();
+				currentPlayer = playerOne;
 				
 				while(playerOne.isCurrentPlayer()){};
 				
@@ -394,6 +428,7 @@ public class Labyrinth extends Application
 				//Thread.sleep(2000);
 				
 				playerTwo.takeTurn();
+				currentPlayer = playerTwo;
 				
 				while(playerTwo.isCurrentPlayer()){};
 				

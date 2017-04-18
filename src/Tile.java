@@ -28,6 +28,7 @@ public class Tile extends Pane
 	private boolean containsTreasure = false;
 	private Card treasure;
 	private boolean fixed;
+	private Player[] playersOnTile = new Player[2];
 	
 	/**
 	 * Sets up the tile at a loacation on the board with an image based on its type rotated to a certain facing.
@@ -82,6 +83,8 @@ public class Tile extends Pane
 		b.getChildren().add(this);
 		
 		moveToLocation(x,y);
+		
+		
 	}
 	
 	/**
@@ -285,6 +288,47 @@ public class Tile extends Pane
 	 public boolean isFixed()
 	 {
 		 return fixed;
+	 }
+	 
+	 /**
+	  * Indicates that a player has ended its move on this tile
+	  */
+	 public void addPlayer(Player p)
+	 {
+		 if(playersOnTile[0] == null)
+			 playersOnTile[0] = p;
+		 else
+			 playersOnTile[1] = p;
+	 }
+	 
+	 /**
+	  * Indicates that a player has moved off this tile.
+	  */
+	 public void removePlayer(Player p)
+	 {
+		 if(playersOnTile[0] == p)
+			 playersOnTile[0] = null;
+		 else if(playersOnTile[1] == p)
+			 playersOnTile[1] = null;
+	 }
+	 
+	 /**
+	  * Answers whether there is a player on this tile
+	  */
+	 public boolean isPlayerOnTile()
+	 {
+		 if(playersOnTile[0] != null || playersOnTile[1] != null)
+			 return true;
+		 else
+			return false;
+	 }
+	 
+	 /**
+	  * Returns an array of all the players on this tile.
+	  */
+	 public Player[] getPlayersOnTile()
+	 {
+		 return playersOnTile;
 	 }
 	 
 	/**
