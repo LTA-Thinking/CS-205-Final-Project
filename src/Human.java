@@ -20,16 +20,14 @@ public class Human extends Player
    /**Inserts the extra tile where the player wants to on the board.
      @param insertTile The tile to be inserted on the board.
    */
-   public void getInsertTile(Tile insertTile)
+   public void getInsertTile(Point2D insertPoint)
    {
      
       //Inserts the tile where the player clicks.
-      int x = insertTile.getXLocation();
-      int y = insertTile.getYLocation(); 
-      Point2D insertLocation = new Point2D(x, y);
-      if(super.legalInsert(insertLocation))
+      
+      if(super.legalInsert(insertPoint))
       {
-         board.insertTile(new Point2D(x, y));
+         board.insertTile(insertPoint);
       } 
       else
       {
