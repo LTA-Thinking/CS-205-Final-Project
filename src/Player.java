@@ -1,5 +1,6 @@
 
 import java.util.*;
+import javafx.scene.shape.Rectangle;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,20 +15,24 @@ public abstract class Player {
     
     private boolean isCurrentPlayer = false;
     protected Board board;
-    private Tile location;
+    protected Tile location;
     private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
     private int score;
-
+	private Rectangle displayPlayer;
+	
     /**
      * set player's location to the input
      *
      * @param location
      * @param board
+	 * @param color
      */
-    public Player(Tile location, Board board) {
+    public Player(Tile location, Board board, Color color) {
         this.board = board;
         this.location = location;
+		
+		displayPlayer = new Rectangle(20,20,color);
     }
 
     /**
@@ -249,5 +254,13 @@ public abstract class Player {
     public void setIsCurrentPlayer(boolean isCurrentPlayer) {
         this.isCurrentPlayer = isCurrentPlayer;
     }
+	
+	/**
+	 * Returns the node to display coresponding to the player.
+	 */
+	public Node getDisplay()
+	{
+		return displayPlayer;
+	}
 
 }

@@ -54,6 +54,8 @@ public class Human extends Player
       if(super.pathExists(movePoint))
       {
          super.setLocation(movePoint);
+         super.location.removePlayer(this);
+         moveTile.addPlayer(this);
       }
       
       //Checks if the tile they moved to has the treasure they need.
