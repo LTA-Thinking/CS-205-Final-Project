@@ -32,7 +32,7 @@ public class Computer extends Player {
 
         Point2D lastMove = new Point2D(0, 1);//board.getLastMove();
         double distance = 999;
-        Tile tile = board.getTile(new Point2D(0,0));
+        Tile tile = board.getTile(new Point2D(0, 0));
         Point2D insertPoint = new Point2D(0, 1);
         Point2D[] possibleMove = {new Point2D(0, 1), new Point2D(0, 3), new Point2D(0, 5),
             new Point2D(1, 0), new Point2D(3, 0), new Point2D(5, 0), new Point2D(6, 1),
@@ -45,6 +45,7 @@ public class Computer extends Player {
 //                    System.out.println("insert loc: " + possibleMove[i].getX() + "  " + possibleMove[i].getY());
                     board.insertTile(possibleMove[i]);
                     labyrinth.changeExtraTile();
+                    
                     ArrayList<Point2D> posLoc = super.allPossibleLoc();
                     for (int k = 0; k < posLoc.size(); ++k) {
                         if (posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance) {
@@ -67,7 +68,7 @@ public class Computer extends Player {
         System.out.println("current loc: " + super.getLocation().getX() + "  " + super.getLocation().getY());
         if (distance == 0) {
             System.out.println("got it");
-			tile.removeTreasure();
+            tile.removeTreasure();
             setNextTreasure();
         }
 
