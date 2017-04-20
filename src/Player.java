@@ -34,6 +34,8 @@ public abstract class Player {
         this.location = location;
 		
 		displayPlayer = new Rectangle(20,20,color);
+		
+		this.location.addPlayer(this);
     }
 
     /**
