@@ -37,6 +37,7 @@ public class Labyrinth extends Application
 	private Scene mainGameScene, introScene, promptScene;
 	private Tile leftOverTile;
 	private HBox extraTileHolder;
+	private Thread runGameLoop;
 	
 	/**
      * Starts the application, creates the players, and creates the board
@@ -53,8 +54,10 @@ public class Labyrinth extends Application
 		setUpTileButtons();
 		
 		//****************************** FOR TESTING ***************************
-		playerOne = new Computer(board, this, Color.RED);
+		playerOne = new Human(board, Color.RED);
 		playerTwo = new Computer(board, this, Color.BLUE);
+		
+		System.out.println(playerOne.getClass().getName());
 		/*
 		if(twoHumans)
 		{
@@ -71,7 +74,9 @@ public class Labyrinth extends Application
 		
 		setupDisplay(primaryStage);
 		
-        //takeTurn();
+        runGameLoop = new Thread(new LabyrinthHelper(this));
+		runGameLoop.start();
+		
 		/*
 		Popup popup = new Popup();
 		popup.getContent().add(new Label("This is a popup"));
@@ -198,7 +203,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				currentPlayer.getInsertTile(new Point2D(1,0));
+				currentPlayer.getInsertTile(new Point2D(0,1));
                 changeExtraTile();
 				System.out.println("Left Top Button Pressed");
 			}
@@ -208,7 +213,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				currentPlayer.getInsertTile(new Point2D(3,0));
+				currentPlayer.getInsertTile(new Point2D(0,3));
                 changeExtraTile();
 				System.out.println("Left Center Button Pressed");
 			}
@@ -218,7 +223,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				currentPlayer.getInsertTile(new Point2D(5,0));
+				currentPlayer.getInsertTile(new Point2D(0,5));
                 changeExtraTile();
 				System.out.println("Left Bottom Button Pressed");
 			}
@@ -377,6 +382,7 @@ public class Labyrinth extends Application
 				{
 					@Override public void handle(MouseEvent e)
 					{
+						currentPlayer.getMoveTile(tile);
 						System.out.println("Tile " + tile.getXLocation() + ", " + tile.getYLocation() + " clicked");
 					}
 				});
@@ -389,6 +395,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
+				currentPlayer.getMoveTile(tile);
 				System.out.println("Tile " + tile.getXLocation() + ", " + tile.getYLocation() + " clicked");
 			}
 		});
@@ -402,61 +409,67 @@ public class Labyrinth extends Application
 	{
 		int turns = 0;
 		
-		while(true)
+		try
 		{
-			try
+			playerOne.takeTurn();
+			
+			if(playerOne.getClass().getName().equals("Human"))
 			{
-				playerOne.takeTurn();
-				
+				System.out.println("Player one");
 				currentPlayer = (Human)playerOne;
-				
-				while(playerOne.isCurrentPlayer()){};
-				
-				if(playerOne.checkWin())
-				{
-					System.out.println("\nPlayer One Wins, Turns: " + turns +" \n");
-					break;
-					/*
-					String[] options = {"Yes","No"};
-					String answer = prompt("Congratulations, you win! Do you want to play again?",options);
-					if(answer.equals("Yes"))
-						restart();
-					else
-						System.exit(0);
-					*/
-				}
-				displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
-				
-				//Thread.sleep(2000);
-				
-				playerTwo.takeTurn();
-				currentPlayer = (Human)playerTwo;
-				
-				while(playerTwo.isCurrentPlayer()){};
-				
-				if(playerTwo.checkWin())
-				{
-					System.out.println("\nPlayer Two Wins, Turns: " + turns +" \n");
-					break;
-					/*
-					String[] options = {"Yes","No"};
-					String answer = prompt("Sorry you lose. Do you want to play again?",options);
-					if(answer.equals("Yes"))
-						restart();
-					else
-						System.exit(0);
-					*/
-				}
-				displayPlayerTwoTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString()); 
-				//Thread.sleep(2000);
-				turns++;
 			}
-			catch(Exception ex)
+				
+			
+			while(playerOne.isCurrentPlayer()){};
+			
+			if(playerOne.checkWin())
 			{
-				ex.printStackTrace();
+				System.out.println("\nPlayer One Wins, Turns: " + turns +" \n");
+				//break;
+				/*
+				String[] options = {"Yes","No"};
+				String answer = prompt("Congratulations, you win! Do you want to play again?",options);
+				if(answer.equals("Yes"))
+					restart();
+				else
+					System.exit(0);
+				*/
 			}
+			displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
+			
+			//Thread.sleep(2000);
+			
+			playerTwo.takeTurn();
+			if(playerTwo.getClass().getName().equals("Human"))
+			{
+				System.out.println("Player two");
+				currentPlayer = (Human)playerTwo;
+			}
+				
+			
+			while(playerTwo.isCurrentPlayer()){};
+			
+			if(playerTwo.checkWin())
+			{
+				System.out.println("\nPlayer Two Wins, Turns: " + turns +" \n");
+				//break;
+				/*
+				String[] options = {"Yes","No"};
+				String answer = prompt("Sorry you lose. Do you want to play again?",options);
+				if(answer.equals("Yes"))
+					restart();
+				else
+					System.exit(0);
+				*/
+			}
+			displayPlayerTwoTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString()); 
+			//Thread.sleep(2000);
+			turns++;
 		}
-		
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	/**
@@ -589,8 +602,33 @@ public class Labyrinth extends Application
 	public void restart()
 	{}
 	
+	@Override
+	public void stop()
+	{
+		runGameLoop.stop();
+	}
+	
 	public static void main(String [] args)
 	{
 		Application.launch(args);
+	}
+}
+
+
+class LabyrinthHelper implements Runnable
+{
+	private Labyrinth labyrinth;
+	
+	public LabyrinthHelper(Labyrinth l)
+	{
+		labyrinth = l;
+	}
+	
+	public void run()
+	{
+		while(true)
+		{
+			labyrinth.takeTurn();
+		}
 	}
 }
