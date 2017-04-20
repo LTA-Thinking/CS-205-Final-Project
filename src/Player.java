@@ -1,6 +1,7 @@
 
 import java.util.*;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -258,7 +259,7 @@ public abstract class Player {
 	/**
 	 * Returns the node to display coresponding to the player.
 	 */
-	public Node getDisplay()
+	public Rectangle getDisplay()
 	{
 		return displayPlayer;
 	}
