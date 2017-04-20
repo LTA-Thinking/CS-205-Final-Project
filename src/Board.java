@@ -160,9 +160,11 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
                     getTile(insertLoc).addPlayer(players[0]);
                 }
                 if (players[1] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
                     getTile(insertLoc).addPlayer(players[1]);
                 }
             }
@@ -178,9 +180,11 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
                     getTile(insertLoc).addPlayer(players[0]);
                 }
                 if (players[1] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
                     getTile(insertLoc).addPlayer(players[1]);
                 }
             }
@@ -198,9 +202,11 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
                     getTile(insertLoc).addPlayer(players[0]);
                 }
                 if (players[1] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
                     getTile(insertLoc).addPlayer(players[1]);
                 }
             }
@@ -216,9 +222,11 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
                     getTile(insertLoc).addPlayer(players[0]);
                 }
                 if (players[1] != null) {
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
                     getTile(insertLoc).addPlayer(players[1]);
                 }
             }
