@@ -58,3 +58,4 @@ nbproject
 *.class
 
 /bin/
+src/LabyrinthTests.java
