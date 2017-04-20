@@ -1,6 +1,7 @@
 import java.util.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
+import javafx.scene.paint.Color;
 
 /**
    The Human class represents the human player in a game of Labyrinth.
