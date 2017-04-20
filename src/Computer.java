@@ -48,7 +48,8 @@ public class Computer extends Player {
                     
                     ArrayList<Point2D> posLoc = super.allPossibleLoc();
                     for (int k = 0; k < posLoc.size(); ++k) {
-                        if (posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance) {
+                        if (posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance 
+                                && board.getExtraTile().getTreasure() != super.getCurrentTreasure()) {
                             distance = posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation());
                             tile = board.getTile(posLoc.get(k));
                             insertPoint = possibleMove[i];
@@ -66,6 +67,8 @@ public class Computer extends Player {
         labyrinth.changeExtraTile();
         super.setLocation(tile.getLocation());
         System.out.println("current loc: " + super.getLocation().getX() + "  " + super.getLocation().getY());
+        System.out.println("treasure ; " + super.getCurrentTreasure().getTreasureLocation().getX() + "   " + super.getCurrentTreasure().getTreasureLocation().getY());
+        System.out.println("distance: " + distance);
         if (distance == 0) {
             System.out.println("got it");
             System.out.println("number of treasure: " + this.getTreasures().size());
