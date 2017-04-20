@@ -160,12 +160,14 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
-                    getTile(insertLoc).addPlayer(players[0]);
+                    Player temp = players[0];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
                 if (players[1] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
-                    getTile(insertLoc).addPlayer(players[1]);
+                    Player temp = players[1];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
             }
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
@@ -180,12 +182,14 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
-                    getTile(insertLoc).addPlayer(players[0]);
+                    Player temp = players[0];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
                 if (players[1] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
-                    getTile(insertLoc).addPlayer(players[1]);
+                    Player temp = players[1];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
             }
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
@@ -202,12 +206,14 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
-                    getTile(insertLoc).addPlayer(players[0]);
+                    Player temp = players[0];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
                 if (players[1] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
-                    getTile(insertLoc).addPlayer(players[1]);
+                    Player temp = players[1];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
             }
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
@@ -222,12 +228,14 @@ public class Board extends Pane {
             if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
                 Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
                 if (players[0] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[0]);
-                    getTile(insertLoc).addPlayer(players[0]);
+                    Player temp = players[0];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
                 if (players[1] != null) {
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(players[1]);
-                    getTile(insertLoc).addPlayer(players[1]);
+                    Player temp = players[1];
+                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                    getExtraTile().addPlayer(temp);
                 }
             }
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
@@ -243,6 +251,7 @@ public class Board extends Pane {
         t1.addToDrawing(this);
         t1.moveToLocation(insertLoc.getX(), insertLoc.getY());
         grid[insertLoc.getX()][insertLoc.getY()] = t1;
+        setLastMove(insertLoc);
     }
 
     /**

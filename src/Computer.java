@@ -28,6 +28,7 @@ public class Computer extends Player {
 
     @Override
     public void takeTurn() {
+        System.out.println("treasure in hand: "+ super.getTreasures().toString());
         System.out.println("treasure ; " + super.getCurrentTreasure().getTreasureLocation().getX() + "   " + super.getCurrentTreasure().getTreasureLocation().getY());
 
         Point2D lastMove = new Point2D(0, 1);//board.getLastMove();
@@ -68,6 +69,8 @@ public class Computer extends Player {
         System.out.println("current loc: " + super.getLocation().getX() + "  " + super.getLocation().getY());
         if (distance == 0) {
             System.out.println("got it");
+            System.out.println("number of treasure: " + this.getTreasures().size());
+//            System.out.println("treasure at " + board.getTile(new Point2D(2,0)).getTreasure());
             tile.removeTreasure();
             setNextTreasure();
         }
