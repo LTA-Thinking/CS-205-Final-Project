@@ -1,5 +1,6 @@
 
 import java.util.*;
+import javafx.scene.paint.Color;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,8 +20,8 @@ public class Computer extends Player {
     /**
      * constructor
      */
-    public Computer(Board board, Labyrinth labyrinth) {
-        super(board.getTile(new Point2D(0, 0)), board);
+    public Computer(Board board, Labyrinth labyrinth, Color color) {
+        super(board.getTile(new Point2D(0, 0)), board, color);
         this.board = board;
         this.labyrinth = labyrinth;
     }
