@@ -15,7 +15,7 @@ public abstract class Player {
     
     private boolean isCurrentPlayer = false;
     protected Board board;
-    private Tile location;
+    protected Tile location;
     private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
     private int score;
