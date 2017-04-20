@@ -295,14 +295,14 @@ public class Tile extends Pane
 	  */
 	 public void addPlayer(Player p)
 	 {
-		 if(playersOnTile[0] == null)
+		 if(playersOnTile[0] == null && playersOnTile[1] != p)
 		 {
 			 playersOnTile[0] = p;
 			 this.getChildren().add(p.getDisplay());
 			 p.getDisplay().setX(Board.SQUARE_SIZE/4);
 			 p.getDisplay().setY(Board.SQUARE_SIZE/4);
 		 } 
-		 else
+		 else if(playersOnTile[1] == null && playersOnTile[0] != p)
 		 {
 			 playersOnTile[1] = p;
 			 this.getChildren().add(p.getDisplay());
