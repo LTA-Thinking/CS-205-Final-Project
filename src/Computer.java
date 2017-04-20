@@ -28,7 +28,6 @@ public class Computer extends Player {
 
     @Override
     public void takeTurn() {
-        System.out.println("treasure in hand: "+ super.getTreasures().toString());
         System.out.println("treasure ; " + super.getCurrentTreasure().getTreasureLocation().getX() + "   " + super.getCurrentTreasure().getTreasureLocation().getY());
 
         Point2D lastMove = new Point2D(0, 1);//board.getLastMove();
