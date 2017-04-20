@@ -306,8 +306,8 @@ public class Tile extends Pane
 		 {
 			 playersOnTile[1] = p;
 			 this.getChildren().add(p.getDisplay());
-			 p.getDisplay().setX(Board.SQUARE_SIZE/4);
-			 p.getDisplay().setY(Board.SQUARE_SIZE/4);
+			 p.getDisplay().setX(3*Board.SQUARE_SIZE/4);
+			 p.getDisplay().setY(3*Board.SQUARE_SIZE/4);
 		 }
 	 }
 	 

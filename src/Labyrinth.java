@@ -107,8 +107,8 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(1,0));
-                                changeExtraTile();
+				currentPlayer.getInsertTile(new Point2D(1,0));
+                changeExtraTile();
 				System.out.println("Top Left Button Pressed");
 			}
 		});
@@ -117,8 +117,8 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(3,0));
-                                changeExtraTile();
+				currentPlayer.getInsertTile(new Point2D(3,0));
+                changeExtraTile();
 				System.out.println("Top Center Button Pressed");
 			}
 		});
@@ -127,8 +127,8 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(5,0));
-                                changeExtraTile();
+				currentPlayer.getInsertTile(new Point2D(5,0));
+                changeExtraTile();
 				System.out.println("Top Right Button Pressed");
 			}
 		});
@@ -151,8 +151,8 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(1,6));
-                                changeExtraTile();
+				currentPlayer.getInsertTile(new Point2D(1,6));
+                changeExtraTile();
 				System.out.println("Bottom Left Button Pressed");
 			}
 		});
@@ -161,8 +161,8 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(3,6));
-                                changeExtraTile();
+				currentPlayer.getInsertTile(new Point2D(3,6));
+                changeExtraTile();
 				System.out.println("Bottom Center Button Pressed");
 			}
 		});
@@ -171,8 +171,8 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(5,6));
-                                changeExtraTile();
+				currentPlayer.getInsertTile(new Point2D(5,6));
+                changeExtraTile();
 				System.out.println("Bottom Right Button Pressed");
 			}
 		});
@@ -197,7 +197,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(0,1));
+				currentPlayer.getInsertTile(new Point2D(1,0));
                 changeExtraTile();
 				System.out.println("Left Top Button Pressed");
 			}
@@ -207,7 +207,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(0,3));
+				currentPlayer.getInsertTile(new Point2D(3,0));
                 changeExtraTile();
 				System.out.println("Left Center Button Pressed");
 			}
@@ -217,7 +217,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(0,5));
+				currentPlayer.getInsertTile(new Point2D(5,0));
                 changeExtraTile();
 				System.out.println("Left Bottom Button Pressed");
 			}
@@ -243,7 +243,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(6,1));
+				currentPlayer.getInsertTile(new Point2D(6,1));
                 changeExtraTile();
 				System.out.println("Right Top Button Pressed");
 			}
@@ -253,7 +253,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(6,3));
+				currentPlayer.getInsertTile(new Point2D(6,3));
                 changeExtraTile();
 				System.out.println("Right Center Button Pressed");
 			}
@@ -263,7 +263,7 @@ public class Labyrinth extends Application
 		{
 			@Override public void handle(MouseEvent e)
 			{
-				board.insertTile(new Point2D(6,5));
+				currentPlayer.getInsertTile(new Point2D(6,5));
                 changeExtraTile();
 				System.out.println("Right Bottom Button Pressed");
 			}
@@ -297,7 +297,7 @@ public class Labyrinth extends Application
 		rotateButtons.getChildren().add(rotateCW);
 		
 		displayPlayerOneTreasure = new Label(playerOne.getCurrentTreasure().getTreasureLocation().toString());//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
-		displayPlayerTwoTreasure = new Label();//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
+		displayPlayerTwoTreasure = new Label(playerTwo.getCurrentTreasure().getTreasureLocation().toString());//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
 		
 		VBox sidePanel = new VBox();
 		sidePanel.setPadding(new Insets(10));
@@ -423,7 +423,7 @@ public class Labyrinth extends Application
 						System.exit(0);
 					*/
 				}
-				
+				displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
 				
 				//Thread.sleep(2000);
 				
@@ -445,7 +445,7 @@ public class Labyrinth extends Application
 						System.exit(0);
 					*/
 				}
-				
+				displayPlayerTwoTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString()); 
 				//Thread.sleep(2000);
 				turns++;
 			}
