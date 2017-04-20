@@ -30,7 +30,8 @@ public class Labyrinth extends Application
 {
 	
 	private Board board;
-	private Player playerOne, playerTwo, currentPlayer;
+	private Player playerOne, playerTwo;
+	private Human currentPlayer;
 	private Label displayPlayerOneTreasure, displayPlayerTwoTreasure;
 	private Stage primaryStage;
 	private Scene mainGameScene, introScene, promptScene;
@@ -406,7 +407,8 @@ public class Labyrinth extends Application
 			try
 			{
 				playerOne.takeTurn();
-				currentPlayer = playerOne;
+				
+				currentPlayer = (Human)playerOne;
 				
 				while(playerOne.isCurrentPlayer()){};
 				
@@ -428,7 +430,7 @@ public class Labyrinth extends Application
 				//Thread.sleep(2000);
 				
 				playerTwo.takeTurn();
-				currentPlayer = playerTwo;
+				currentPlayer = (Human)playerTwo;
 				
 				while(playerTwo.isCurrentPlayer()){};
 				
