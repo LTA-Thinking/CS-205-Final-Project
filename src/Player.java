@@ -146,7 +146,9 @@ public abstract class Player {
      * @param location the location to set
      */
     public void setLocation(Point2D location) {
-        this.location = board.getTile(location);
+        this.location.removePlayer(this);
+		this.location = board.getTile(location);
+		this.location.addPlayer(this);
     }
 
     /**
