@@ -52,8 +52,8 @@ public class Labyrinth extends Application
 		setUpTileButtons();
 		
 		//****************************** FOR TESTING ***************************
-		playerOne = new Computer(board, this);
-		playerTwo = new Computer(board, this);
+		playerOne = new Computer(board, this, Color.RED);
+		playerTwo = new Computer(board, this, Color.BLUE);
 		/*
 		if(twoHumans)
 		{
