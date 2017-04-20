@@ -37,7 +37,7 @@ public class Board extends Pane {
     private static Tile t2;
     private static int startX;
     private static int startY;
-    private Point2D lastMove;
+    private Point2D lastMove = new Point2D(0,0);
 
     /**
      * @return the lastMove
