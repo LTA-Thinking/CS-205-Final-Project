@@ -12,8 +12,8 @@ public class Human extends Player
    
    
    /**Constructor for the Human class.*/   
-   public Human(Board board){
-      super(board.getTile(new Point2D(0,0)), board);
+   public Human(Board board, Color color){
+      super(board.getTile(new Point2D(0,0)), board, color);
    }
    
    /**Inserts the extra tile where the player wants to on the board.
@@ -56,18 +56,29 @@ public class Human extends Player
          super.setLocation(movePoint);
          super.location.removePlayer(this);
          moveTile.addPlayer(this);
+         //Checks if the tile they moved to has the treasure they need.
+         Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
+      
+         if(super.getLocation().equals(treasureLocation))
+         {
+            super.setNextTreasure();
+         }
+         
+         //Ends the turn.
+         isTurn = false;
       }
-      
-      //Checks if the tile they moved to has the treasure they need.
-      Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
-      
-      if(super.getLocation().equals(treasureLocation))
+      else
       {
-         super.setNextTreasure();
+         Alert alert = new Alert(AlertType.WARNING);
+         alert.setTitle("Illegal Move");
+         alert.setHeaderText("");
+         String s = "Cannot move there!";
+         alert.setContentText(s);
+         alert.show();
+      
       }
       
-      //Ends the turn.
-      isTurn = false;
+      
    }
    
    @Override
