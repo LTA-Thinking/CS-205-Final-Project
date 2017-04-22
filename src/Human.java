@@ -20,6 +20,7 @@ public class Human extends Player
    /**Inserts the extra tile where the player wants to on the board.
      @param insertTile The tile to be inserted on the board.
    */
+   @Override
    public void getInsertTile(Point2D insertPoint)
    {
      
@@ -44,6 +45,7 @@ public class Human extends Player
       got their treasure, sets the next treasure. It then ends the turn.
       @param moveTile The tile that the player wants to move to.
    */
+   @Override
    public void getMoveTile(Tile moveTile)
    {
       //Move to the right location

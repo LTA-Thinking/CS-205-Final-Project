@@ -42,6 +42,9 @@ public abstract class Player {
      *
      */
     public abstract void takeTurn();
+	
+	public void getMoveTile(Tile moveTile){};
+	public void getInsertTile(Point2D insertPoint){};
 
     /**
      * basic on the player's current, this method will return all possible

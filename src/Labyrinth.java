@@ -31,13 +31,13 @@ public class Labyrinth extends Application
 	
 	private Board board;
 	private Player playerOne, playerTwo;
-	private Human currentPlayer;
+	private Player currentPlayer;
 	private Label displayPlayerOneTreasure, displayPlayerTwoTreasure;
 	private Stage primaryStage;
 	private Scene mainGameScene, introScene, promptScene;
 	private Tile leftOverTile;
 	private HBox extraTileHolder;
-	private Thread runGameLoop;
+	private int turns = 0;
 	
 	/**
      * Starts the application, creates the players, and creates the board
@@ -74,8 +74,7 @@ public class Labyrinth extends Application
 		
 		setupDisplay(primaryStage);
 		
-        runGameLoop = new Thread(new LabyrinthHelper(this));
-		runGameLoop.start();
+		changeTurn();
 		
 		/*
 		Popup popup = new Popup();
@@ -335,7 +334,7 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
-				takeTurn();
+				
 				
 			}
 		});
@@ -383,6 +382,10 @@ public class Labyrinth extends Application
 					@Override public void handle(MouseEvent e)
 					{
 						currentPlayer.getMoveTile(tile);
+						if(!currentPlayer.isCurrentPlayer())
+						{
+							changeTurn();
+						}
 						System.out.println("Tile " + tile.getXLocation() + ", " + tile.getYLocation() + " clicked");
 					}
 				});
@@ -396,6 +399,10 @@ public class Labyrinth extends Application
 			@Override public void handle(MouseEvent e)
 			{
 				currentPlayer.getMoveTile(tile);
+				if(!currentPlayer.isCurrentPlayer())
+				{
+					changeTurn();
+				}
 				System.out.println("Tile " + tile.getXLocation() + ", " + tile.getYLocation() + " clicked");
 			}
 		});
@@ -405,70 +412,24 @@ public class Labyrinth extends Application
 	 * Tells the players to take their turns.
 	 * Handles conditions for if the game ends.
 	 */
-	public void takeTurn()
+	public void changeTurn()
 	{
-		int turns = 0;
+		turns++;
 		
-		try
+		if(currentPlayer == playerOne)
 		{
-			playerOne.takeTurn();
-			
-			if(playerOne.getClass().getName().equals("Human"))
-			{
-				System.out.println("Player one");
-				currentPlayer = (Human)playerOne;
-			}
-				
-			
-			while(playerOne.isCurrentPlayer()){};
-			
-			if(playerOne.checkWin())
-			{
-				System.out.println("\nPlayer One Wins, Turns: " + turns +" \n");
-				//break;
-				/*
-				String[] options = {"Yes","No"};
-				String answer = prompt("Congratulations, you win! Do you want to play again?",options);
-				if(answer.equals("Yes"))
-					restart();
-				else
-					System.exit(0);
-				*/
-			}
-			displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
-			
-			//Thread.sleep(2000);
-			
-			playerTwo.takeTurn();
-			if(playerTwo.getClass().getName().equals("Human"))
-			{
-				System.out.println("Player two");
-				currentPlayer = (Human)playerTwo;
-			}
-				
-			
-			while(playerTwo.isCurrentPlayer()){};
-			
-			if(playerTwo.checkWin())
-			{
-				System.out.println("\nPlayer Two Wins, Turns: " + turns +" \n");
-				//break;
-				/*
-				String[] options = {"Yes","No"};
-				String answer = prompt("Sorry you lose. Do you want to play again?",options);
-				if(answer.equals("Yes"))
-					restart();
-				else
-					System.exit(0);
-				*/
-			}
-			displayPlayerTwoTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString()); 
-			//Thread.sleep(2000);
-			turns++;
+			currentPlayer = playerTwo;
 		}
-		catch(Exception ex)
+		else
 		{
-			ex.printStackTrace();
+			currentPlayer = playerOne;
+		}
+		
+		currentPlayer.takeTurn();
+		
+		if(!currentPlayer.isCurrentPlayer())
+		{
+			changeTurn();
 		}
 	}
 
@@ -602,33 +563,8 @@ public class Labyrinth extends Application
 	public void restart()
 	{}
 	
-	@Override
-	public void stop()
-	{
-		runGameLoop.stop();
-	}
-	
 	public static void main(String [] args)
 	{
 		Application.launch(args);
-	}
-}
-
-
-class LabyrinthHelper implements Runnable
-{
-	private Labyrinth labyrinth;
-	
-	public LabyrinthHelper(Labyrinth l)
-	{
-		labyrinth = l;
-	}
-	
-	public void run()
-	{
-		while(true)
-		{
-			labyrinth.takeTurn();
-		}
 	}
 }
