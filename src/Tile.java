@@ -299,15 +299,15 @@ public class Tile extends Pane
 		 {
 			 playersOnTile[0] = p;
 			 this.getChildren().add(p.getDisplay());
-			 p.getDisplay().setX(Board.SQUARE_SIZE/4);
-			 p.getDisplay().setY(Board.SQUARE_SIZE/4);
+			 p.getDisplay().setX(Board.SQUARE_SIZE/4-10);
+			 p.getDisplay().setY(Board.SQUARE_SIZE/4-10);
 		 } 
 		 else if(playersOnTile[1] == null && playersOnTile[0] != p)
 		 {
 			 playersOnTile[1] = p;
 			 this.getChildren().add(p.getDisplay());
-			 p.getDisplay().setX(3*Board.SQUARE_SIZE/4);
-			 p.getDisplay().setY(3*Board.SQUARE_SIZE/4);
+			 p.getDisplay().setX(3*Board.SQUARE_SIZE/4-10);
+			 p.getDisplay().setY(3*Board.SQUARE_SIZE/4-10);
 		 }
 	 }
 	 

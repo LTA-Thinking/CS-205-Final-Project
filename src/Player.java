@@ -21,6 +21,7 @@ public abstract class Player {
     private Card currentTreasure;
     private int score;
 	private Rectangle displayPlayer;
+	private Color color;
 	
     /**
      * set player's location to the input
@@ -32,6 +33,7 @@ public abstract class Player {
     public Player(Tile location, Board board, Color color) {
         this.board = board;
         this.location = location;
+		this.color = color;
 		
 		displayPlayer = new Rectangle(20,20,color);
 		
@@ -91,6 +93,9 @@ public abstract class Player {
         int x2 = end.getX();
         int y2 = end.getY();
 
+		if(start.equals(end))
+			return true;
+		
         visited[x1][y1] = true;
         if (y1 < 6) {
             if (!visited[x1][y1 + 1] && board.canMove(start, Tile.SOUTH)) {
@@ -178,20 +183,32 @@ public abstract class Player {
      */
     public boolean legalInsert(Point2D insert){
         Point2D lastMove = board.getLastMove();
-        if(lastMove.getX() == 0 || lastMove.getX() == 6){
-            if(lastMove.getY() == insert.getY()){
+		
+        if((lastMove.getX() == 0 && insert.getX() == 6) || (lastMove.getX() == 6 && insert.getX() == 0))
+		{
+            if(lastMove.getY() == insert.getY())
+			{
                 return false;
-            }else{
+            }
+			else
+			{
                 return true;
             }
-        }else if(lastMove.getY() == 0 || lastMove.getY() == 6){
-            if(lastMove.getX() == insert.getX()){
+        }
+		else if((lastMove.getY() == 0 && insert.getY() == 6) || (lastMove.getY() == 6 && insert.getY() == 0))
+		{
+            if(lastMove.getX() == insert.getX())
+			{
                 return false;
-            }else{
+            }
+			else
+			{
                 return true;
             }
-        }else{
-            return false;
+        }
+		else
+		{
+            return true;
         }
     }
     
@@ -227,7 +244,7 @@ public abstract class Player {
         if(treasures.size() != 0)
         {
             currentTreasure = this.treasures.get(0);
-    
+			currentTreasure.setDisplayColor(color);
         }  
     }
     
@@ -247,6 +264,7 @@ public abstract class Player {
     public void setTreasures(ArrayList<Card> treasures) {
         this.treasures = treasures;
         currentTreasure = this.treasures.get(0);
+		currentTreasure.setDisplayColor(color);
     }
 
     /**

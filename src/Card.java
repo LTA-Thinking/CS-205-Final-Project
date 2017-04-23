@@ -1,5 +1,11 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  * A class representing the cards used in the Labyrinth game. 
@@ -10,8 +16,10 @@ import javafx.scene.image.ImageView;
 public class Card
 {
 	private int treasureNumber;
-	private ImageView treasureImage;
+	private Pane treasureImage;
+	private Rectangle colorDisplay;
 	private Tile treasureLocation;
+	private final int treasureSize = 30;
 	
 	/**
 	 * Creates the card and gives it all its values. Once made these values can't be changed.
@@ -24,10 +32,17 @@ public class Card
 		treasureNumber = number;
 		treasureLocation = location;
 		
-		String imageLocation = "treasure.png";
-		treasureImage = new ImageView(new Image(imageLocation));
-		treasureImage.setTranslateX((Board.SQUARE_SIZE-treasureImage.getImage().getWidth())/2);
-		treasureImage.setTranslateY((Board.SQUARE_SIZE-treasureImage.getImage().getHeight())/2);
+		treasureImage = new Pane();
+		treasureImage.setTranslateX((Board.SQUARE_SIZE-treasureSize)/2);
+		treasureImage.setTranslateY((Board.SQUARE_SIZE-treasureSize)/2);
+		
+		colorDisplay = new Rectangle(treasureSize,treasureSize,Color.YELLOW);
+		treasureImage.getChildren().add(colorDisplay);
+		
+		Text moneySymbol = new Text("$$$");
+		moneySymbol.setX(5);
+		moneySymbol.setY((treasureSize+moneySymbol.getFont().getSize())/2);
+		treasureImage.getChildren().add(moneySymbol);
 	}
 	
 	/**
@@ -41,7 +56,7 @@ public class Card
 	/** 
 	 * Returns the card's treasure's image.
 	 */
-	public ImageView getTreasureImage()
+	public Node getTreasureImage()
 	{
 		return treasureImage;
 	}
@@ -54,4 +69,12 @@ public class Card
 		return treasureLocation.getLocation();
 	}
 	
+	
+	/**
+	 * Changes the color the treasure displays as.
+	 */
+	public void setDisplayColor(Color c)
+	{
+		colorDisplay.setFill(c);
+	}
 }

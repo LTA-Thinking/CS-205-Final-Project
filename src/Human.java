@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 public class Human extends Player
 {
    //Keeps track of whether or not it's the player's turn.
-   private boolean isTurn;
-   
+   private boolean isTurn = false;
+   private int phaseOfTurn = 0;
    
    /**Constructor for the Human class.*/   
    public Human(Board board, Color color){
@@ -23,22 +23,25 @@ public class Human extends Player
    @Override
    public void getInsertTile(Point2D insertPoint)
    {
-     
-      //Inserts the tile where the player clicks.
-      
-      if(super.legalInsert(insertPoint))
-      {
-         board.insertTile(insertPoint);
-      } 
-      else
-      {
-         Alert alert = new Alert(AlertType.WARNING);
-         alert.setTitle("Illegal Move");
-         alert.setHeaderText("");
-         String s = "Cannot insert there!";
-         alert.setContentText(s);
-         alert.show();
-      }
+     if(phaseOfTurn==1)
+	 {
+		  //Inserts the tile where the player clicks.
+		  
+		  if(super.legalInsert(insertPoint))
+		  {
+			 board.insertTile(insertPoint);
+			 phaseOfTurn = 2;
+		  } 
+		  else
+		  {
+			 Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Illegal Move");
+			 alert.setHeaderText("");
+			 String s = "Cannot insert there!";
+			 alert.setContentText(s);
+			 alert.show();
+		  }
+	 }
    }
    
    /**Moves the player where they want to move on the board. Then, if they 
@@ -48,38 +51,38 @@ public class Human extends Player
    @Override
    public void getMoveTile(Tile moveTile)
    {
-      //Move to the right location
-      int x = moveTile.getXLocation();
-      int y = moveTile.getYLocation();
-      Point2D movePoint = new Point2D(x, y);
-      if(super.pathExists(movePoint))
-      {
-         super.setLocation(movePoint);
-         super.location.removePlayer(this);
-         moveTile.addPlayer(this);
-         //Checks if the tile they moved to has the treasure they need.
-         Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
-      
-         if(super.getLocation().equals(treasureLocation))
-         {
-            super.setNextTreasure();
-         }
-         
-         //Ends the turn.
-         isTurn = false;
-      }
-      else
-      {
-         Alert alert = new Alert(AlertType.WARNING);
-         alert.setTitle("Illegal Move");
-         alert.setHeaderText("");
-         String s = "Cannot move there!";
-         alert.setContentText(s);
-         alert.show();
-      
-      }
-      
-      
+	   if(phaseOfTurn == 2)
+	   {
+		  //Move to the right location
+		  int x = moveTile.getXLocation();
+		  int y = moveTile.getYLocation();
+		  Point2D movePoint = new Point2D(x, y);
+		  if(super.pathExists(movePoint))
+		  {
+			 super.setLocation(movePoint);
+			 //Checks if the tile they moved to has the treasure they need.
+			 Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
+		  
+			 if(super.getLocation().equals(treasureLocation))
+			 {
+				super.location.removeTreasure();
+				super.setNextTreasure();
+			 }
+			 
+			 //Ends the turn.
+			 isTurn = false;
+			 phaseOfTurn = 0;
+		  }
+		  else
+		  {
+			 Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Illegal Move");
+			 alert.setHeaderText("");
+			 String s = "Cannot move there!";
+			 alert.setContentText(s);
+			 alert.show();
+		  }
+	   }      
    }
    
    @Override
@@ -95,6 +98,7 @@ public class Human extends Player
    public void takeTurn()
    {
       isTurn = true;
+	  phaseOfTurn = 1;
    }
 
 }

@@ -19,7 +19,10 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Alert;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This class starts the program, creates the board and players, and handles top level actions.
@@ -48,34 +51,45 @@ public class Labyrinth extends Application
     @Override
     public void start(Stage primaryStage) throws Exception 
     {  
-		boolean twoHumans = false;
+		System.out.println("Welcome to Labyrinth");
 		
 		board = new Board(100,7,7); // Fill in args
 		setUpTileButtons();
 		
-		//****************************** FOR TESTING ***************************
-		playerOne = new Human(board, Color.RED);
-		playerTwo = new Computer(board, this, Color.BLUE);
+		String humanVsHuman = "Human vs Human";
+		String humanVsCom = "Human vs Computer";
+		String comVsCom = "Computer vs Computer";
+		ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman,humanVsHuman,humanVsCom,comVsCom);
 		
-		System.out.println(playerOne.getClass().getName());
-		/*
-		if(twoHumans)
+		gameTypeChoice.showAndWait();
+		String gameType = gameTypeChoice.getSelectedItem();
+		
+		if(gameType.equals(humanVsHuman))
 		{
-			playerOne = new Human(board);
-			playerTwo = new Human(board);
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Human(board,Color.BLUE);
+		} 
+		else if(gameType.equals(humanVsCom))
+		{
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
 		}
 		else
 		{
-			playerOne = new Human(board);
-			playerTwo = new Computer(board);
+			playerOne = new Computer(board,this,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
 		}
-		*/
+		
+		System.out.println("Game type confirmed, dealing treasures...");
 		dealCards();
 		
+		System.out.println("Treasures dealt, loading board...");
 		setupDisplay(primaryStage);
-		
+	
+		System.out.println("Board loaded, starting game...");
+		currentPlayer = playerTwo;
 		changeTurn();
-		
+
 		/*
 		Popup popup = new Popup();
 		popup.getContent().add(new Label("This is a popup"));
@@ -414,22 +428,47 @@ public class Labyrinth extends Application
 	 */
 	public void changeTurn()
 	{
-		turns++;
-		
-		if(currentPlayer == playerOne)
+		if(currentPlayer.checkWin())
 		{
-			currentPlayer = playerTwo;
+			if(currentPlayer == playerOne)
+			{
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!\nPlease hit the restart button if you want to play again.");
+				gameOver.showAndWait();
+			}
+			else if(currentPlayer == playerOne)
+			{
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!\nPlease hit the restart button if you want to play again.");
+				gameOver.showAndWait();
+			}
+			else
+			{
+				System.out.println("ERROR: Unknown winner.");
+			}
 		}
 		else
 		{
-			currentPlayer = playerOne;
-		}
-		
-		currentPlayer.takeTurn();
-		
-		if(!currentPlayer.isCurrentPlayer())
-		{
-			changeTurn();
+			turns++;
+			
+			displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
+			displayPlayerTwoTreasure.setText(playerTwo.getCurrentTreasure().getTreasureLocation().toString());
+			
+			if(currentPlayer == playerOne)
+			{
+				currentPlayer = playerTwo;
+				System.out.println("\nPlayer Two's Turn\n");
+			}
+			else
+			{
+				currentPlayer = playerOne;
+				System.out.println("\nPlayer One's Turn\n");
+			}
+			
+			currentPlayer.takeTurn();
+			
+			if(!currentPlayer.isCurrentPlayer())
+			{
+				changeTurn();
+			}
 		}
 	}
 
@@ -438,45 +477,45 @@ public class Labyrinth extends Application
 	 */
 	public void dealCards()
 	{
-		Card [] deck = new Card [24];
+		ArrayList<Card> deck = new ArrayList<Card>(24);
 		Tile [][] tiles = board.getGrid();
 		int numCardsMade = 0, numCornerCardsMade = 0, numCornerTilesSeen = 0;
 		
-		deck[0] = new Card(0,tiles[0][2]);
-		tiles[0][2].setTreasure(deck[0]);
+		deck.add(new Card(0,tiles[0][2]));
+		tiles[0][2].setTreasure(deck.get(0));
 		
-		deck[1] = new Card(1,tiles[0][4]);
-		tiles[0][4].setTreasure(deck[1]);
+		deck.add(new Card(1,tiles[0][4]));
+		tiles[0][4].setTreasure(deck.get(1));
 		
-		deck[2] = new Card(2,tiles[2][0]);
-		tiles[2][0].setTreasure(deck[2]);
+		deck.add(new Card(2,tiles[2][0]));
+		tiles[2][0].setTreasure(deck.get(2));
 		
-		deck[3] = new Card(3,tiles[2][2]);
-		tiles[2][2].setTreasure(deck[3]);
+		deck.add(new Card(3,tiles[2][2]));
+		tiles[2][2].setTreasure(deck.get(3));
 		
-		deck[4] = new Card(4,tiles[2][4]);
-		tiles[2][4].setTreasure(deck[4]);
+		deck.add(new Card(4,tiles[2][4]));
+		tiles[2][4].setTreasure(deck.get(4));
 		
-		deck[5] = new Card(5,tiles[2][6]);
-		tiles[2][6].setTreasure(deck[5]);
+		deck.add( new Card(5,tiles[2][6]));
+		tiles[2][6].setTreasure(deck.get(5));
 		
-		deck[6] = new Card(6,tiles[4][0]);
-		tiles[4][0].setTreasure(deck[6]);
+		deck.add(new Card(6,tiles[4][0]));
+		tiles[4][0].setTreasure(deck.get(6));
 		
-		deck[7] = new Card(7,tiles[4][2]);
-		tiles[4][2].setTreasure(deck[7]);
+		deck.add(new Card(7,tiles[4][2]));
+		tiles[4][2].setTreasure(deck.get(7));
 		
-		deck[8] = new Card(8,tiles[4][4]);
-		tiles[4][4].setTreasure(deck[8]);
+		deck.add(new Card(8,tiles[4][4]));
+		tiles[4][4].setTreasure(deck.get(8));
 		
-		deck[9] = new Card(9,tiles[4][6]);
-		tiles[4][6].setTreasure(deck[9]);
+		deck.add(new Card(9,tiles[4][6]));
+		tiles[4][6].setTreasure(deck.get(9));
 		
-		deck[10] = new Card(10,tiles[6][2]);
-		tiles[6][2].setTreasure(deck[10]);
+		deck.add(new Card(10,tiles[6][2]));
+		tiles[6][2].setTreasure(deck.get(10));
 		
-		deck[11] = new Card(11,tiles[6][4]);
-		tiles[6][4].setTreasure(deck[11]);
+		deck.add(new Card(11,tiles[6][4]));
+		tiles[6][4].setTreasure(deck.get(11));
 		
 		numCardsMade = 12;
 		
@@ -488,16 +527,16 @@ public class Labyrinth extends Application
 				{
 					if(tiles[i][k].getType()==Tile.T_TYPE)
 					{
-						deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
-						tiles[i][k].setTreasure(deck[numCardsMade]);
+						deck.add(new Card(numCardsMade,tiles[i][k]));
+						tiles[i][k].setTreasure(deck.get(numCardsMade));
 						numCardsMade++;
 					}
 					else if(tiles[i][k].getType()==Tile.L_TYPE && ((i!=0 && k!=0) || (i!=tiles.length-1 && k!=tiles[0].length-1) || (i!=tiles.length-1 && k!=0) || (i!=0 && k!=tiles[0].length-1)))
 					{
 						if(numCornerCardsMade<6 && (Math.random()*6>1.0/16.0 || 6-numCornerCardsMade>=16-numCornerTilesSeen))
 						{
-							deck[numCardsMade] = new Card(numCardsMade,tiles[i][k]);
-							tiles[i][k].setTreasure(deck[numCardsMade]);
+							deck.add(new Card(numCardsMade,tiles[i][k]));
+							tiles[i][k].setTreasure(deck.get(numCardsMade));
 							numCardsMade++;
 							numCornerCardsMade++;
 						}
@@ -514,33 +553,16 @@ public class Labyrinth extends Application
 				break;
 		}
 		
+		Collections.shuffle(deck);
+		
 		int cardDelt;
 		ArrayList<Card> playerOneCards = new ArrayList<Card>(12);
 		ArrayList<Card> playerTwoCards = new ArrayList<Card>(12);
 		
 		for(int slotFilled=0;slotFilled<12;slotFilled++)
 		{
-			while(true)
-			{
-				cardDelt = (int)(Math.random()*24);
-				if(deck[cardDelt]!=null)
-				{
-					playerOneCards.add(deck[cardDelt]);
-					deck[cardDelt] = null;
-					break;
-				}
-			}
-			
-			while(true)
-			{
-				cardDelt = (int)(Math.random()*24);
-				if(deck[cardDelt]!=null)
-				{
-					playerTwoCards.add(deck[cardDelt]);
-					deck[cardDelt] = null;
-					break;
-				}
-			}
+			playerOneCards.add(deck.remove(0));
+			playerTwoCards.add(deck.remove(0));
 		}
 		
 		playerOne.setTreasures(playerOneCards);
@@ -561,7 +583,40 @@ public class Labyrinth extends Application
 	 * Restarts the game by resetting the board and player data.
 	 */
 	public void restart()
-	{}
+	{
+		board = new Board(100,7,7); // Fill in args
+		setUpTileButtons();
+		
+		String humanVsHuman = "Human vs Human";
+		String humanVsCom = "Human vs Computer";
+		String comVsCom = "Computer vs Computer";
+		ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman,humanVsHuman,humanVsCom,comVsCom);
+		
+		gameTypeChoice.showAndWait();
+		String gameType = gameTypeChoice.getSelectedItem();
+		
+		if(gameType.equals(humanVsHuman))
+		{
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Human(board,Color.BLUE);
+		} 
+		else if(gameType.equals(humanVsCom))
+		{
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
+		}
+		else
+		{
+			playerOne = new Computer(board,this,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
+		}
+		
+		currentPlayer = playerTwo;
+		
+		dealCards();
+		
+		changeTurn();
+	}
 	
 	public static void main(String [] args)
 	{
