@@ -20,6 +20,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Alert;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -51,8 +52,6 @@ public class Labyrinth extends Application
     public void start(Stage primaryStage) throws Exception 
     {  
 		System.out.println("Welcome to Labyrinth");
-		
-		boolean twoHumans = false;
 		
 		board = new Board(100,7,7); // Fill in args
 		setUpTileButtons();
@@ -88,6 +87,7 @@ public class Labyrinth extends Application
 		setupDisplay(primaryStage);
 	
 		System.out.println("Board loaded, starting game...");
+		currentPlayer = playerTwo;
 		changeTurn();
 
 		/*
@@ -428,27 +428,47 @@ public class Labyrinth extends Application
 	 */
 	public void changeTurn()
 	{
-		turns++;
-		
-		displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
-		displayPlayerTwoTreasure.setText(playerTwo.getCurrentTreasure().getTreasureLocation().toString());
-		
-		if(currentPlayer == playerOne)
+		if(currentPlayer.checkWin())
 		{
-			currentPlayer = playerTwo;
-			System.out.println("\nPlayer Two's Turn\n");
+			if(currentPlayer == playerOne)
+			{
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!\nPlease hit the restart button if you want to play again.");
+				gameOver.showAndWait();
+			}
+			else if(currentPlayer == playerOne)
+			{
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!\nPlease hit the restart button if you want to play again.");
+				gameOver.showAndWait();
+			}
+			else
+			{
+				System.out.println("ERROR: Unknown winner.");
+			}
 		}
 		else
 		{
-			currentPlayer = playerOne;
-			System.out.println("\nPlayer One's Turn\n");
-		}
-		
-		currentPlayer.takeTurn();
-		
-		if(!currentPlayer.isCurrentPlayer())
-		{
-			changeTurn();
+			turns++;
+			
+			displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
+			displayPlayerTwoTreasure.setText(playerTwo.getCurrentTreasure().getTreasureLocation().toString());
+			
+			if(currentPlayer == playerOne)
+			{
+				currentPlayer = playerTwo;
+				System.out.println("\nPlayer Two's Turn\n");
+			}
+			else
+			{
+				currentPlayer = playerOne;
+				System.out.println("\nPlayer One's Turn\n");
+			}
+			
+			currentPlayer.takeTurn();
+			
+			if(!currentPlayer.isCurrentPlayer())
+			{
+				changeTurn();
+			}
 		}
 	}
 
@@ -563,7 +583,40 @@ public class Labyrinth extends Application
 	 * Restarts the game by resetting the board and player data.
 	 */
 	public void restart()
-	{}
+	{
+		board = new Board(100,7,7); // Fill in args
+		setUpTileButtons();
+		
+		String humanVsHuman = "Human vs Human";
+		String humanVsCom = "Human vs Computer";
+		String comVsCom = "Computer vs Computer";
+		ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman,humanVsHuman,humanVsCom,comVsCom);
+		
+		gameTypeChoice.showAndWait();
+		String gameType = gameTypeChoice.getSelectedItem();
+		
+		if(gameType.equals(humanVsHuman))
+		{
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Human(board,Color.BLUE);
+		} 
+		else if(gameType.equals(humanVsCom))
+		{
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
+		}
+		else
+		{
+			playerOne = new Computer(board,this,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
+		}
+		
+		currentPlayer = playerTwo;
+		
+		dealCards();
+		
+		changeTurn();
+	}
 	
 	public static void main(String [] args)
 	{
