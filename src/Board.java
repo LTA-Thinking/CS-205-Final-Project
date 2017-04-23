@@ -30,13 +30,13 @@ public class Board extends Pane {
     public static int SQUARE_SIZE;
     public final int X_DIM_SQUARES;
     public final int Y_DIM_SQUARES;
-    protected static Tile grid[][];
+    protected Tile grid[][];
     private int counter = 0;
-    private static Tile extraTile;
-    private static Tile t1;
-    private static Tile t2;
-    private static int startX;
-    private static int startY;
+    private Tile extraTile;
+    private Tile t1;
+    private Tile t2;
+    private int startX;
+    private int startY;
     private Point2D lastMove = new Point2D(0,0);
 
     /**
@@ -126,6 +126,8 @@ public class Board extends Pane {
 
     /**
      * Returns the tile.
+     * @param t the location of tile
+     * @return tile at location t
      */
     public Tile getTile(Point2D t) {
         return grid[t.getX()][t.getY()];
@@ -133,6 +135,7 @@ public class Board extends Pane {
 
     /**
      * gets the extra tile which is the leftover gamepiece
+     * @return extra tile
      */
     public Tile getExtraTile() {
         return extraTile;
@@ -141,6 +144,7 @@ public class Board extends Pane {
     /**
      * sets the extra tile which is the leftover gamepiece
      *
+     * @param extraTile
      * @return
      */
     public Tile setExtraTile(Tile extraTile) {
@@ -194,7 +198,6 @@ public class Board extends Pane {
             }
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
 
-//                    grid[opposTileX][opposTileY].removeFromDrawing(this);
             for (int i = 0; i < 6; ++i) {
                 grid[i + 1][insertLoc.getY()].moveToLocation(i, insertLoc.getY());
                 grid[i][insertLoc.getY()] = grid[i + 1][insertLoc.getY()];
@@ -217,7 +220,6 @@ public class Board extends Pane {
                 }
             }
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
-//                    grid[opposTileX][opposTileY].removeFromDrawing(this);
             for (int i = 6; i > 0; --i) {
                 grid[insertLoc.getX()][i - 1].moveToLocation(insertLoc.getX(), i);
                 grid[insertLoc.getX()][i] = grid[insertLoc.getX()][i - 1];
@@ -259,10 +261,9 @@ public class Board extends Pane {
      * move, not a full path move EX: can tile 0,0 (top left corner) move to
      * tile 1,0
      *
-     * @param x1 x cord1
-     * @param y1 y cord1
-     * @param x2 x cord2
-     * @param y2 y cord2
+     * @param start
+     * @param dir
+     * @return 
      */
     public boolean canMove(Point2D start, int dir) {
         int x1 = start.getX();
@@ -288,20 +289,15 @@ public class Board extends Pane {
         if (y2 < 0 || x2 < 0) {
             return false;
         } else {
-
             t1 = grid[x1][y1];
             t2 = grid[x2][y2];
             if (y1 - y2 == -1 && t1.isConnectedInDirection(2) && t2.isConnectedInDirection(0)) {
-//			System.out.println("Can Move South");
                 return true;
             } else if (x1 - x2 == 1 && t1.isConnectedInDirection(3) && t2.isConnectedInDirection(1)) {
-//			System.out.println("Can Move West");	
                 return true;
             } else if (y1 - y2 == 1 && t1.isConnectedInDirection(0) && t2.isConnectedInDirection(2)) {
-//			System.out.println("Can Move North");
                 return true;
             } else if (x1 - x2 == -1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)) {
-//			System.out.println("Can Move East");	
                 return true;
             } else {
                 return false;
@@ -309,42 +305,6 @@ public class Board extends Pane {
         }
     }
 
-    /**
-     * Highlight all the possible moves you can make from the starting tile
-     *
-     * @param x x cord
-     * @param y y cord
-     */
-    /*
-	public static void highlightMoves(int x, int y){
-		t1 = getTile(grid[x][y]);	
-		
-			if(canMove(x,y,x+1,y) ==true && x-1 != startX){
-				highlightMoves(x+1,y);
-				startX = x;
-			};
-			
-			if(canMove(x,y,x,y+1) ==true && y-1 != startY){
-				highlightMoves(x,y+1);
-				startY = y;
-			};
-			
-			if(x-1 >=0){
-				if(canMove(x,y,x-1,y) ==true && x+1 != startX){
-					highlightMoves(x-1,y);
-					startX = x;
-				};
-			}
-			
-			if(y-1 >=0){
-				if(canMove(x,y,x,y-1) ==true && y-1 != startY){
-					highlightMoves(x,y-1);
-					startY = y;
-				};
-			}
-			
-	}
-     */
     /**
      * returns grid
      */
