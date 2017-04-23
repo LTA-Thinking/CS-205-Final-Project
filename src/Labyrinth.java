@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
+import javafx.scene.control.ChoiceDialog;
 import java.util.ArrayList;
 
 /**
@@ -48,34 +49,46 @@ public class Labyrinth extends Application
     @Override
     public void start(Stage primaryStage) throws Exception 
     {  
+		System.out.println("Welcome to Labyrinth");
+		
 		boolean twoHumans = false;
 		
 		board = new Board(100,7,7); // Fill in args
 		setUpTileButtons();
 		
-		//****************************** FOR TESTING ***************************
-		playerOne = new Human(board, Color.RED);
-		playerTwo = new Computer(board, this, Color.BLUE);
+		String humanVsHuman = "Human vs Human";
+		String humanVsCom = "Human vs Computer";
+		String comVsCom = "Computer vs Computer";
+		ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman,humanVsHuman,humanVsCom,comVsCom);
 		
-		System.out.println(playerOne.getClass().getName());
-		/*
-		if(twoHumans)
+		gameTypeChoice.showAndWait();
+		String gameType = gameTypeChoice.getSelectedItem();
+		
+		if(gameType.equals(humanVsHuman))
 		{
-			playerOne = new Human(board);
-			playerTwo = new Human(board);
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Human(board,Color.BLUE);
+		} 
+		else if(gameType.equals(humanVsCom))
+		{
+			playerOne = new Human(board,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
 		}
 		else
 		{
-			playerOne = new Human(board);
-			playerTwo = new Computer(board);
+			playerOne = new Computer(board,this,Color.RED);
+			playerTwo = new Computer(board,this,Color.BLUE);
 		}
-		*/
+		
+		System.out.println("Game type confirmed, dealing treasures...");
 		dealCards();
 		
+		System.out.println("Treasures dealt, loading board...");
 		setupDisplay(primaryStage);
-		
+	
+		System.out.println("Board loaded, starting game...");
 		changeTurn();
-		
+
 		/*
 		Popup popup = new Popup();
 		popup.getContent().add(new Label("This is a popup"));
@@ -416,13 +429,18 @@ public class Labyrinth extends Application
 	{
 		turns++;
 		
+		displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
+		displayPlayerTwoTreasure.setText(playerTwo.getCurrentTreasure().getTreasureLocation().toString());
+		
 		if(currentPlayer == playerOne)
 		{
 			currentPlayer = playerTwo;
+			System.out.println("\nPlayer Two's Turn\n");
 		}
 		else
 		{
 			currentPlayer = playerOne;
+			System.out.println("\nPlayer One's Turn\n");
 		}
 		
 		currentPlayer.takeTurn();
