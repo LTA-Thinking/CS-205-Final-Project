@@ -91,6 +91,9 @@ public abstract class Player {
         int x2 = end.getX();
         int y2 = end.getY();
 
+		if(start.equals(end))
+			return true;
+		
         visited[x1][y1] = true;
         if (y1 < 6) {
             if (!visited[x1][y1 + 1] && board.canMove(start, Tile.SOUTH)) {
@@ -178,20 +181,32 @@ public abstract class Player {
      */
     public boolean legalInsert(Point2D insert){
         Point2D lastMove = board.getLastMove();
-        if(lastMove.getX() == 0 || lastMove.getX() == 6){
-            if(lastMove.getY() == insert.getY()){
+		
+        if((lastMove.getX() == 0 && insert.getX() == 6) || (lastMove.getX() == 6 && insert.getX() == 0))
+		{
+            if(lastMove.getY() == insert.getY())
+			{
                 return false;
-            }else{
+            }
+			else
+			{
                 return true;
             }
-        }else if(lastMove.getY() == 0 || lastMove.getY() == 6){
-            if(lastMove.getX() == insert.getX()){
+        }
+		else if((lastMove.getY() == 0 && insert.getY() == 6) || (lastMove.getY() == 6 && insert.getY() == 0))
+		{
+            if(lastMove.getX() == insert.getX())
+			{
                 return false;
-            }else{
+            }
+			else
+			{
                 return true;
             }
-        }else{
-            return false;
+        }
+		else
+		{
+            return true;
         }
     }
     
