@@ -21,6 +21,7 @@ public abstract class Player {
     private Card currentTreasure;
     private int score;
 	private Rectangle displayPlayer;
+	private Color color;
 	
     /**
      * set player's location to the input
@@ -32,6 +33,7 @@ public abstract class Player {
     public Player(Tile location, Board board, Color color) {
         this.board = board;
         this.location = location;
+		this.color = color;
 		
 		displayPlayer = new Rectangle(20,20,color);
 		
@@ -242,7 +244,7 @@ public abstract class Player {
         if(treasures.size() != 0)
         {
             currentTreasure = this.treasures.get(0);
-    
+			currentTreasure.setDisplayColor(color);
         }  
     }
     
@@ -262,6 +264,7 @@ public abstract class Player {
     public void setTreasures(ArrayList<Card> treasures) {
         this.treasures = treasures;
         currentTreasure = this.treasures.get(0);
+		currentTreasure.setDisplayColor(color);
     }
 
     /**
