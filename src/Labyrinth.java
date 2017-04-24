@@ -22,6 +22,7 @@ import javafx.stage.Popup;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Alert;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 
 /**
@@ -315,8 +316,8 @@ public class Labyrinth extends Application
 		rotateButtons.getChildren().add(rotateCCW);
 		rotateButtons.getChildren().add(rotateCW);
 		
-		displayPlayerOneTreasure = new Label(playerOne.getCurrentTreasure().getTreasureLocation().toString());//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
-		displayPlayerTwoTreasure = new Label(playerTwo.getCurrentTreasure().getTreasureLocation().toString());//new ImageView(playerOne.getCurrentTreasure().getTreasureNumber()));
+		displayPlayerOneTreasure = new Label("0");
+		displayPlayerTwoTreasure = new Label("0");
 		
 		VBox sidePanel = new VBox();
 		sidePanel.setPadding(new Insets(10));
@@ -435,7 +436,7 @@ public class Labyrinth extends Application
 				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!\nPlease hit the restart button if you want to play again.");
 				gameOver.showAndWait();
 			}
-			else if(currentPlayer == playerOne)
+			else if(currentPlayer == playerTwo)
 			{
 				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!\nPlease hit the restart button if you want to play again.");
 				gameOver.showAndWait();
@@ -449,8 +450,8 @@ public class Labyrinth extends Application
 		{
 			turns++;
 			
-			displayPlayerOneTreasure.setText(playerOne.getCurrentTreasure().getTreasureLocation().toString());
-			displayPlayerTwoTreasure.setText(playerTwo.getCurrentTreasure().getTreasureLocation().toString());
+			displayPlayerOneTreasure.setText(""+playerOne.getScore());
+			displayPlayerTwoTreasure.setText(""+playerTwo.getScore());
 			
 			if(currentPlayer == playerOne)
 			{
@@ -519,6 +520,8 @@ public class Labyrinth extends Application
 		
 		numCardsMade = 12;
 		
+		LinkedList<Tile> cornerTiles = new LinkedList<Tile>();
+		
 		for(int i=0;i<tiles.length;i++)
 		{
 			for(int k=0;k<tiles[0].length;k++)
@@ -531,26 +534,23 @@ public class Labyrinth extends Application
 						tiles[i][k].setTreasure(deck.get(numCardsMade));
 						numCardsMade++;
 					}
-					else if(tiles[i][k].getType()==Tile.L_TYPE && ((i!=0 && k!=0) || (i!=tiles.length-1 && k!=tiles[0].length-1) || (i!=tiles.length-1 && k!=0) || (i!=0 && k!=tiles[0].length-1)))
+					else if(tiles[i][k].getType()==Tile.L_TYPE)
 					{
-						if(numCornerCardsMade<6 && (Math.random()*6>1.0/16.0 || 6-numCornerCardsMade>=16-numCornerTilesSeen))
-						{
-							deck.add(new Card(numCardsMade,tiles[i][k]));
-							tiles[i][k].setTreasure(deck.get(numCardsMade));
-							numCardsMade++;
-							numCornerCardsMade++;
-						}
-						numCornerTilesSeen++;
+						cornerTiles.add(tiles[i][k]);
 					}
-					
-					if(numCardsMade>=24)
-						break;
 				}
 				
 			}
-			
-			if(numCardsMade>=24)
-				break;
+		}
+		
+		Collections.shuffle(cornerTiles);
+		
+		for(int i=0;i<6;i++)
+		{
+			Tile t = cornerTiles.remove(0);
+			deck.add(new Card(numCardsMade,t));
+			t.setTreasure(deck.get(numCardsMade));
+			numCardsMade++;
 		}
 		
 		Collections.shuffle(deck);

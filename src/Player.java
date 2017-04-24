@@ -19,7 +19,7 @@ public abstract class Player {
     protected Tile location;
     private ArrayList<Card> treasures = new ArrayList<>();
     private Card currentTreasure;
-    private int score;
+    private int score = 0;
 	private Rectangle displayPlayer;
 	private Color color;
 	
@@ -289,4 +289,11 @@ public abstract class Player {
 		return displayPlayer;
 	}
 
+	/**
+	 * Returns the player's score;
+	 */
+	public int getScore()
+	{
+		return score;
+	}
 }

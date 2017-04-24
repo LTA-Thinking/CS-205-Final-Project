@@ -62,6 +62,12 @@ public class Computer extends Player
                             tile = board.getTile(posLoc.get(k));
                             insertPoint = possibleMove[i];
                         }
+						else if(Math.random()>0.98)
+						{
+							distance = 1;
+                            tile = board.getTile(posLoc.get(k));
+                            insertPoint = possibleMove[i];
+						}
                     }
                     board.insertTile(board.oppositeLoc(possibleMove[i]));
                     labyrinth.changeExtraTile();
