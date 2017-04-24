@@ -45,7 +45,7 @@ public class Computer extends Player
             new Point2D(5, 6)};
         for (int i = 0; i < possibleMove.length; ++i) 
         {
-            if (!super.oppositeLoc(lastMove).equals(possibleMove[i])) 
+            if (!board.oppositeLoc(lastMove).equals(possibleMove[i])) 
             {
                 for (int j = 0; j < 3; ++j) 
                 {
@@ -63,7 +63,7 @@ public class Computer extends Player
                             insertPoint = possibleMove[i];
                         }
                     }
-                    board.insertTile(super.oppositeLoc(possibleMove[i]));
+                    board.insertTile(board.oppositeLoc(possibleMove[i]));
                     labyrinth.changeExtraTile();
                 }
             }

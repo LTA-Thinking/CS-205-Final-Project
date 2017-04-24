@@ -212,18 +212,18 @@ public abstract class Player {
         }
     }
     
-    public Point2D oppositeLoc(Point2D insert){
-        Point2D lastMove = new Point2D(0,1);//board.getLastMove();
-        if(insert.getX() == 0){
-            return new Point2D(6, insert.getY());
-        }else if(insert.getX() == 6){
-            return new Point2D(0, insert.getY());
-        }else if(insert.getY() == 0){
-            return new Point2D(insert.getX(), 6);
-        }else{
-            return new Point2D(insert.getX(), 0);
-        }
-    }
+//    public Point2D oppositeLoc(Point2D insert){
+//        Point2D lastMove = board.getLastMove();
+//        if(insert.getX() == 0){
+//            return new Point2D(6, insert.getY());
+//        }else if(insert.getX() == 6){
+//            return new Point2D(0, insert.getY());
+//        }else if(insert.getY() == 0){
+//            return new Point2D(insert.getX(), 6);
+//        }else{
+//            return new Point2D(insert.getX(), 0);
+//        }
+//    }
 
     /**
      * @return the treasures

@@ -37,7 +37,7 @@ public class Board extends Pane {
     private Tile t2;
     private int startX;
     private int startY;
-    private Point2D lastMove = new Point2D(0,0);
+    private Point2D lastMove = new Point2D(0, 0);
 
     /**
      * @return the lastMove
@@ -126,6 +126,7 @@ public class Board extends Pane {
 
     /**
      * Returns the tile.
+     *
      * @param t the location of tile
      * @return tile at location t
      */
@@ -133,8 +134,22 @@ public class Board extends Pane {
         return grid[t.getX()][t.getY()];
     }
 
+    public Point2D oppositeLoc(Point2D insert) {
+        Point2D lastMove = getLastMove();
+        if (insert.getX() == 0) {
+            return new Point2D(6, insert.getY());
+        } else if (insert.getX() == 6) {
+            return new Point2D(0, insert.getY());
+        } else if (insert.getY() == 0) {
+            return new Point2D(insert.getX(), 6);
+        } else {
+            return new Point2D(insert.getX(), 0);
+        }
+    }
+
     /**
      * gets the extra tile which is the leftover gamepiece
+     *
      * @return extra tile
      */
     public Tile getExtraTile() {
@@ -154,7 +169,6 @@ public class Board extends Pane {
     public void insertTile(Point2D insertLoc) {
 
         //get tile
-        t1 = getExtraTile();
         int opposTileX = 999;
         int opposTileY = 999;
 
@@ -174,6 +188,7 @@ public class Board extends Pane {
                     getExtraTile().addPlayer(temp);
                 }
             }
+            t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             grid[opposTileX][opposTileY].removeFromDrawing(this);
             for (int i = 6; i > 0; --i) {
@@ -196,6 +211,7 @@ public class Board extends Pane {
                     getExtraTile().addPlayer(temp);
                 }
             }
+            t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
 
             for (int i = 0; i < 6; ++i) {
@@ -219,6 +235,7 @@ public class Board extends Pane {
                     getExtraTile().addPlayer(temp);
                 }
             }
+            t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             for (int i = 6; i > 0; --i) {
                 grid[insertLoc.getX()][i - 1].moveToLocation(insertLoc.getX(), i);
@@ -240,6 +257,7 @@ public class Board extends Pane {
                     getExtraTile().addPlayer(temp);
                 }
             }
+            t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             grid[opposTileX][opposTileY].removeFromDrawing(this);
 
@@ -253,6 +271,15 @@ public class Board extends Pane {
         t1.addToDrawing(this);
         t1.moveToLocation(insertLoc.getX(), insertLoc.getY());
         grid[insertLoc.getX()][insertLoc.getY()] = t1;
+        if (t1.isPlayerOnTile()) {
+            Player[] players = t1.getPlayersOnTile();
+            if (players[0] != null) {
+                players[0].setLocation(insertLoc);
+            }
+            if (players[1] != null) {
+                players[0].setLocation(insertLoc);
+            }
+        }
         setLastMove(insertLoc);
     }
 
@@ -263,7 +290,7 @@ public class Board extends Pane {
      *
      * @param start
      * @param dir
-     * @return 
+     * @return
      */
     public boolean canMove(Point2D start, int dir) {
         int x1 = start.getX();
