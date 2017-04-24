@@ -38,6 +38,7 @@ public class Board extends Pane {
     private int startX;
     private int startY;
     private Point2D lastMove = new Point2D(0, 0);
+    private boolean highlight;
 
     /**
      * @return the lastMove
@@ -167,7 +168,12 @@ public class Board extends Pane {
     }
 
     public void insertTile(Point2D insertLoc) {
-
+        for(int i = 0; i < 7; ++i){
+            for(int j = 0; j < 7; ++j){
+                getTile(new Point2D(i,j)).unHighlight();
+            }
+        }
+        setHighlight(false);
         
         //get tile
         int opposTileX = oppositeLoc(insertLoc).getX();
@@ -291,6 +297,20 @@ public class Board extends Pane {
      */
     public Tile[][] getGrid() {
         return grid;
+    }
+
+    /**
+     * @return the highlight
+     */
+    public boolean isHighlight() {
+        return highlight;
+    }
+
+    /**
+     * @param highlight the highlight to set
+     */
+    public void setHighlight(boolean highlight) {
+        this.highlight = highlight;
     }
 
 }

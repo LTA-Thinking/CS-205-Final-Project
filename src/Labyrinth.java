@@ -32,7 +32,6 @@ import java.util.Collections;
  */
 public class Labyrinth extends Application
 {
-	
 	private Board board;
 	private Player playerOne, playerTwo;
 	private Player currentPlayer;
@@ -42,6 +41,7 @@ public class Labyrinth extends Application
 	private Tile leftOverTile;
 	private HBox extraTileHolder;
 	private int turns = 0;
+        
 	
 	/**
      * Starts the application, creates the players, and creates the board
@@ -349,6 +349,19 @@ public class Labyrinth extends Application
 			@Override public void handle(ActionEvent e) 
 			{
 				//**************************************** CALL TEST METHODS HERE ********************************
+                            if(board.isHighlight()){
+                                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                                for(int i =0; i < posLoc.size(); ++i){
+                                    board.getTile(posLoc.get(i)).unHighlight();
+                                }
+                                board.setHighlight(false);
+                            }else{
+                                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                                for(int i =0; i < posLoc.size(); ++i){
+                                    board.getTile(posLoc.get(i)).highlight();
+                                }
+                                board.setHighlight(true);
+                            }
 				
 				
 			}
@@ -622,4 +635,7 @@ public class Labyrinth extends Application
 	{
 		Application.launch(args);
 	}
+
+
+
 }

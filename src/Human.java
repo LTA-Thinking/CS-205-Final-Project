@@ -51,6 +51,12 @@ public class Human extends Player
    @Override
    public void getMoveTile(Tile moveTile)
    {
+       for(int i = 0; i < 7; ++i){
+            for(int j = 0; j < 7; ++j){
+                board.getTile(new Point2D(i,j)).unHighlight();
+            }
+        }
+        board.setHighlight(false);
 	   if(phaseOfTurn == 2)
 	   {
 		  //Move to the right location
