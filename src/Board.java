@@ -188,9 +188,6 @@ public class Board extends Pane {
             }
 
         if (insertLoc.getX() == 0) {
-            opposTileX = 6;
-            opposTileY = insertLoc.getY();
-            
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             grid[opposTileX][opposTileY].removeFromDrawing(this);
@@ -199,8 +196,6 @@ public class Board extends Pane {
                 grid[i][insertLoc.getY()] = grid[i - 1][insertLoc.getY()];
             }
         } else if (insertLoc.getX() == 6) {
-            opposTileX = 0;
-            opposTileY = insertLoc.getY();
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
 
@@ -210,8 +205,6 @@ public class Board extends Pane {
             }
 
         } else if (insertLoc.getY() == 0) {
-            opposTileY = 6;
-            opposTileX = insertLoc.getX();
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             for (int i = 6; i > 0; --i) {
@@ -219,14 +212,11 @@ public class Board extends Pane {
                 grid[insertLoc.getX()][i] = grid[insertLoc.getX()][i - 1];
             }
         } else if (insertLoc.getY() == 6) {
-            opposTileY = 0;
-            opposTileX = insertLoc.getX();
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             grid[opposTileX][opposTileY].removeFromDrawing(this);
 
             for (int i = 0; i < 6; ++i) {
-
                 grid[insertLoc.getX()][i + 1].moveToLocation(insertLoc.getX(), i);
                 grid[insertLoc.getX()][i] = grid[insertLoc.getX()][i + 1];
             }
