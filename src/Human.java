@@ -33,14 +33,25 @@ public class Human extends Player
 		  } 
 		  else
 		  {
-			 Alert alert = new Alert(AlertType.WARNING);
-			 alert.setTitle("Illegal Move");
+           Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Illegal move!");
 			 alert.setHeaderText("");
-			 String s = "Cannot insert there!";
+			 String s = "Cannot insert there.";
 			 alert.setContentText(s);
 			 alert.show();
+			 
 		  }
 	 }
+    else
+    {
+         Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Cannot insert now!");
+			 alert.setHeaderText("");
+			 String s = "Please move your player.";
+			 alert.setContentText(s);
+			 alert.show();
+    
+    }
    }
    
    /**Moves the player where they want to move on the board. Then, if they 
@@ -87,7 +98,18 @@ public class Human extends Player
 			 alert.setContentText(s);
 			 alert.show();
 		  }
-	   }      
+	   }
+      else
+      {
+         Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Can't move now!");
+			 alert.setHeaderText("");
+			 String s = "Please insert the extra tile.";
+			 alert.setContentText(s);
+			 alert.show();
+      
+      
+      }      
    }
    
    @Override
