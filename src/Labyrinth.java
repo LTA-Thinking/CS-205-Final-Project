@@ -121,11 +121,11 @@ public class Labyrinth extends Application {
         topLeft.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(1, 6)) {
+                    && !board.getLastMove().equals(new Point2D(1, 6))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(1, 0));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -136,7 +136,7 @@ public class Labyrinth extends Application {
         topLeft.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(1, 6)) {
+                    && !board.getLastMove().equals(new Point2D(1, 6))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(1, 0)));
                 changeExtraTile();
@@ -159,11 +159,11 @@ public class Labyrinth extends Application {
         topCenter.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(3, 6)) {
+                    && !board.getLastMove().equals(new Point2D(3, 6))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(3, 0));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -174,7 +174,7 @@ public class Labyrinth extends Application {
         topCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(3, 6)) {
+                    && !board.getLastMove().equals(new Point2D(3, 6))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(3, 0)));
                 changeExtraTile();
@@ -197,11 +197,11 @@ public class Labyrinth extends Application {
         topRight.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(5, 6)) {
+                    && !board.getLastMove().equals(new Point2D(5, 6))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(5, 0));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -212,7 +212,7 @@ public class Labyrinth extends Application {
         topRight.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(5, 6)) {
+                    && !board.getLastMove().equals(new Point2D(5, 6))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(5, 0)));
                 changeExtraTile();
@@ -248,11 +248,11 @@ public class Labyrinth extends Application {
         bottomLeft.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(1, 0)) {
+                    && !board.getLastMove().equals(new Point2D(1, 0))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(1, 6));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -263,7 +263,7 @@ public class Labyrinth extends Application {
         bottomLeft.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(1, 0)) {
+                    && !board.getLastMove().equals(new Point2D(1, 0))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(1, 6)));
                 changeExtraTile();
@@ -286,11 +286,11 @@ public class Labyrinth extends Application {
         bottomCenter.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(3, 0)) {
+                    && !board.getLastMove().equals(new Point2D(3, 0))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(3, 6));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -301,7 +301,7 @@ public class Labyrinth extends Application {
         bottomCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(3, 0)) {
+                    && !board.getLastMove().equals(new Point2D(3, 0))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(3, 6)));
                 changeExtraTile();
@@ -324,11 +324,11 @@ public class Labyrinth extends Application {
         bottomRight.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(5, 0)) {
+                    && !board.getLastMove().equals(new Point2D(5, 0))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(5, 6));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -339,7 +339,7 @@ public class Labyrinth extends Application {
         bottomRight.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(5, 0)) {
+                    && !board.getLastMove().equals(new Point2D(5, 0))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(5, 6)));
                 changeExtraTile();
@@ -380,11 +380,11 @@ public class Labyrinth extends Application {
             public void handle(MouseEvent e) {
                 if (currentPlayer.getPhaseOfTurn() == 1 
                         && board.isHelperMode() 
-                        && board.getLastMove() != new Point2D(6, 1)) {
+                        && !board.getLastMove().equals(new Point2D(6, 1))) {
                     Point2D lastMove = board.getLastMove();
                     board.insertTile(new Point2D(0, 1));
                     changeExtraTile();
-                    ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                    ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                     for (int i = 0; i < posLoc.size(); ++i) {
                         board.getTile(posLoc.get(i)).highlight();
                     }
@@ -399,7 +399,7 @@ public class Labyrinth extends Application {
             public void handle(MouseEvent e) {
                 if (currentPlayer.getPhaseOfTurn() == 1 
                         && board.isHelperMode() 
-                        && board.getLastMove() != new Point2D(6, 1)) {
+                        && !board.getLastMove().equals(new Point2D(6, 1))) {
                     Point2D lastMove = board.getLastMove();
                     board.insertTile(board.oppositeLoc(new Point2D(0, 1)));
                     changeExtraTile();
@@ -423,11 +423,11 @@ public class Labyrinth extends Application {
         leftCenter.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(0, 3)) {
+                    && !board.getLastMove().equals(new Point2D(6, 3))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(0, 3));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -438,7 +438,7 @@ public class Labyrinth extends Application {
         leftCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(0, 3)) {
+                    && !board.getLastMove().equals(new Point2D(6, 3))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(0, 3)));
                 changeExtraTile();
@@ -461,11 +461,11 @@ public class Labyrinth extends Application {
         leftBottom.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(0, 5)) {
+                    && !board.getLastMove().equals(new Point2D(6, 5))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(0, 5));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -476,7 +476,7 @@ public class Labyrinth extends Application {
         leftBottom.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(0, 5)) {
+                    && !board.getLastMove().equals(new Point2D(6, 5))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(0, 5)));
                 changeExtraTile();
@@ -515,11 +515,11 @@ public class Labyrinth extends Application {
         rightTop.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(6, 1)) {
+                    && !board.getLastMove().equals(new Point2D(0, 1))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(6, 1));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -530,7 +530,7 @@ public class Labyrinth extends Application {
         rightTop.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(6, 1)) {
+                    && !board.getLastMove().equals(new Point2D(0, 1))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(6, 1)));
                 changeExtraTile();
@@ -553,11 +553,11 @@ public class Labyrinth extends Application {
         rightCenter.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(0, 3)) {
+                    && !board.getLastMove().equals(new Point2D(0, 3))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(6, 3));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -568,7 +568,7 @@ public class Labyrinth extends Application {
         rightCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(0, 3)) {
+                    && !board.getLastMove().equals(new Point2D(0, 3))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(6, 3)));
                 changeExtraTile();
@@ -591,11 +591,11 @@ public class Labyrinth extends Application {
         rightBottom.setOnMouseEntered((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(6, 5)) {
+                    && !board.getLastMove().equals(new Point2D(0, 5))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(new Point2D(6, 5));
                 changeExtraTile();
-                ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                 for (int i = 0; i < posLoc.size(); ++i) {
                     board.getTile(posLoc.get(i)).highlight();
                 }
@@ -606,7 +606,7 @@ public class Labyrinth extends Application {
         rightBottom.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
-                    && board.getLastMove() != new Point2D(6, 5)) {
+                    && !board.getLastMove().equals(new Point2D(0, 5))) {
                 Point2D lastMove = board.getLastMove();
                 board.insertTile(board.oppositeLoc(new Point2D(6, 5)));
                 changeExtraTile();
@@ -693,13 +693,13 @@ public class Labyrinth extends Application {
             public void handle(ActionEvent e) {
                 //**************************************** CALL TEST METHODS HERE ********************************
                 if (board.isHighlight()) {
-                    ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                    ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                     for (int i = 0; i < posLoc.size(); ++i) {
                         board.getTile(posLoc.get(i)).unHighlight();
                     }
                     board.setHighlight(false);
                 } else {
-                    ArrayList<Point2D> posLoc = playerOne.allPossibleLoc();
+                    ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
                     for (int i = 0; i < posLoc.size(); ++i) {
                         board.getTile(posLoc.get(i)).highlight();
                     }
