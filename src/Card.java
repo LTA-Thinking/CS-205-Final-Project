@@ -36,7 +36,12 @@ public class Card
 		treasureImage.setTranslateX((Board.SQUARE_SIZE-treasureSize)/2);
 		treasureImage.setTranslateY((Board.SQUARE_SIZE-treasureSize)/2);
 		
-		colorDisplay = new Rectangle(treasureSize,treasureSize,Color.YELLOW);
+		Rectangle background = new Rectangle(treasureSize,treasureSize,Color.BLACK);
+		colorDisplay = new Rectangle(treasureSize-4,treasureSize-4,Color.YELLOW);
+		colorDisplay.setX(2);
+		colorDisplay.setY(2);
+		
+		treasureImage.getChildren().add(background);
 		treasureImage.getChildren().add(colorDisplay);
 		
 		Text moneySymbol = new Text("$$$");

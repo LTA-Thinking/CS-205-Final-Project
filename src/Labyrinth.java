@@ -43,8 +43,9 @@ public class Labyrinth extends Application {
     private Tile leftOverTile;
     private HBox extraTileHolder;
     private int turns = 0;
-    Button helper = new Button("Helper Mode");
-
+    private Button helper = new Button("Helper Mode");
+	private long startTime;
+	
     /**
      * Starts the application, creates the players, and creates the board
      *
@@ -54,7 +55,8 @@ public class Labyrinth extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Welcome to Labyrinth");
-
+		startTime = System.currentTimeMillis();
+		
         board = new Board(100, 7, 7); // Fill in args
         setUpTileButtons();
 
@@ -105,8 +107,10 @@ public class Labyrinth extends Application {
         BorderPane mainPane = new BorderPane();
 
         VBox boardHolder = new VBox();
+		boardHolder.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.MEDIUM)));
 
         Image arrowButton = new Image("arrow_button.png");
+		Image arrowButtonPressed = new Image("arrow_button_pressed.png");
 
         //*********************************************Top buttons**************************
         HBox topButtons = new HBox();
@@ -132,6 +136,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			topLeft.setImage(arrowButtonPressed);
         });
         topLeft.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -142,6 +148,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			topLeft.setImage(arrowButton);
         });
         topLeft.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -172,6 +180,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			topCenter.setImage(arrowButtonPressed);
         });
         topCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -182,6 +192,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			topCenter.setImage(arrowButton);
         });
         topCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -212,6 +224,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			topRight.setImage(arrowButtonPressed);
         });
         topRight.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -222,6 +236,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			topRight.setImage(arrowButton);
         });
         topRight.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -265,6 +281,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			bottomLeft.setImage(arrowButtonPressed);
         });
         bottomLeft.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -275,6 +293,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			bottomLeft.setImage(arrowButton);
         });
         bottomLeft.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -305,6 +325,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			bottomCenter.setImage(arrowButtonPressed);
         });
         bottomCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -315,6 +337,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			bottomCenter.setImage(arrowButton);
         });
         bottomCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -345,6 +369,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			bottomRight.setImage(arrowButtonPressed);
         });
         bottomRight.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -355,6 +381,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			bottomRight.setImage(arrowButton);
         });
         bottomRight.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -403,8 +431,9 @@ public class Labyrinth extends Application {
                     board.setHighlight(true);
                     board.setLastMove(lastMove);
                 }
+				
+				leftTop.setImage(arrowButtonPressed);
             }
-
         });
         leftTop.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
@@ -417,6 +446,8 @@ public class Labyrinth extends Application {
                     changeExtraTile();
                     board.setLastMove(lastMove);
                 }
+				
+				leftTop.setImage(arrowButton);
             }
         });
         leftTop.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -448,6 +479,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			leftCenter.setImage(arrowButtonPressed);
         });
         leftCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -458,6 +491,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			leftCenter.setImage(arrowButton);
         });
         leftCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -488,6 +523,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			leftBottom.setImage(arrowButtonPressed);
         });
         leftBottom.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -498,6 +535,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			leftBottom.setImage(arrowButton);
         });
         leftBottom.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -544,6 +583,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			rightTop.setImage(arrowButtonPressed);
         });
         rightTop.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -554,6 +595,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			rightTop.setImage(arrowButton);
         });
         rightTop.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -584,6 +627,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			rightCenter.setImage(arrowButtonPressed);
         });
         rightCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -594,6 +639,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			rightCenter.setImage(arrowButton);
         });
         rightCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -624,6 +671,8 @@ public class Labyrinth extends Application {
                 board.setHighlight(true);
                 board.setLastMove(lastMove);
             }
+			
+			rightBottom.setImage(arrowButtonPressed);
         });
         rightBottom.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
@@ -634,6 +683,8 @@ public class Labyrinth extends Application {
                 changeExtraTile();
                 board.setLastMove(lastMove);
             }
+			
+			rightBottom.setImage(arrowButton);
         });
         rightBottom.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -799,17 +850,37 @@ public class Labyrinth extends Application {
      * ends.
      */
     public void changeTurn() {
-        if (currentPlayer.checkWin()) {
-            if (currentPlayer == playerOne) {
-                Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!\nPlease hit the restart button if you want to play again.");
-                gameOver.showAndWait();
-            } else if (currentPlayer == playerTwo) {
-                Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!\nPlease hit the restart button if you want to play again.");
-                gameOver.showAndWait();
-            } else {
-                System.out.println("ERROR: Unknown winner.");
-            }
-        } else {
+            if(currentPlayer.checkWin())
+		{
+			boolean winner = false;
+			
+			if(currentPlayer == playerOne)
+			{
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!\nPlease hit the restart button if you want to play again.");
+				gameOver.showAndWait();
+				winner = true;
+			}
+			else if(currentPlayer == playerTwo)
+			{
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!\nPlease hit the restart button if you want to play again.");
+				gameOver.showAndWait();
+				winner = false;
+			}
+			else
+			{
+				System.out.println("ERROR: Unknown winner.");
+			}
+			
+			if(playerTwo.getClass().getName().equals("Computer"))
+			{
+				long gameTime = System.currentTimeMillis()-startTime;
+				int playerOneScore = playerOne.getScore();
+				int playerTwoScore = playerTwo.getScore();
+				
+				//Stats.insertScore(playerOneScore,playerTwoScore,turns,gameTime,winner);
+			}
+		}
+        else {
             turns++;
 
             displayPlayerOneTreasure.setText("" + playerOne.getScore());
