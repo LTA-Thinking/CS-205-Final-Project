@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
  * @author neal
  */
 public abstract class Player {
-    
+    private int phaseOfTurn = 999;
     private boolean isCurrentPlayer = false;
     protected Board board;
     protected Tile location;
@@ -296,4 +296,18 @@ public abstract class Player {
 	{
 		return score;
 	}
+
+    /**
+     * @return the phaseOfTurn
+     */
+    public int getPhaseOfTurn() {
+        return phaseOfTurn;
+    }
+
+    /**
+     * @param phaseOfTurn the phaseOfTurn to set
+     */
+    public void setPhaseOfTurn(int phaseOfTurn) {
+        this.phaseOfTurn = phaseOfTurn;
+    }
 }
