@@ -39,6 +39,7 @@ public class Board extends Pane {
     private int startY;
     private Point2D lastMove = new Point2D(0, 0);
     private boolean highlight;
+    private boolean helperMode = false;
 
     /**
      * @return the lastMove
@@ -136,7 +137,6 @@ public class Board extends Pane {
     }
 
     public Point2D oppositeLoc(Point2D insert) {
-        Point2D lastMove = getLastMove();
         if (insert.getX() == 0) {
             return new Point2D(6, insert.getY());
         } else if (insert.getX() == 6) {
@@ -311,6 +311,20 @@ public class Board extends Pane {
      */
     public void setHighlight(boolean highlight) {
         this.highlight = highlight;
+    }
+
+    /**
+     * @return the helperMode
+     */
+    public boolean isHelperMode() {
+        return helperMode;
+    }
+
+    /**
+     * @param helperMode the helperMode to set
+     */
+    public void setHelperMode(boolean helperMode) {
+        this.helperMode = helperMode;
     }
 
 }

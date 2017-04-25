@@ -10,7 +10,6 @@ public class Human extends Player
 {
    //Keeps track of whether or not it's the player's turn.
    private boolean isTurn = false;
-   private int phaseOfTurn = 0;
    
    /**Constructor for the Human class.*/   
    public Human(Board board, Color color){
@@ -23,25 +22,36 @@ public class Human extends Player
    @Override
    public void getInsertTile(Point2D insertPoint)
    {
-     if(phaseOfTurn==1)
+     if(getPhaseOfTurn()==1)
 	 {
 		  //Inserts the tile where the player clicks.
 		  
 		  if(super.legalInsert(insertPoint))
 		  {
 			 board.insertTile(insertPoint);
-			 phaseOfTurn = 2;
+			 super.setPhaseOfTurn(2);
 		  } 
 		  else
 		  {
-			 Alert alert = new Alert(AlertType.WARNING);
-			 alert.setTitle("Illegal Move");
+           Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Illegal move!");
 			 alert.setHeaderText("");
-			 String s = "Cannot insert there!";
+			 String s = "Cannot insert there.";
 			 alert.setContentText(s);
 			 alert.show();
+			 
 		  }
 	 }
+    else
+    {
+         Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Cannot insert now!");
+			 alert.setHeaderText("");
+			 String s = "Please move your player.";
+			 alert.setContentText(s);
+			 alert.show();
+    
+    }
    }
    
    /**Moves the player where they want to move on the board. Then, if they 
@@ -57,7 +67,7 @@ public class Human extends Player
             }
         }
         board.setHighlight(false);
-	   if(phaseOfTurn == 2)
+	   if(getPhaseOfTurn() == 2)
 	   {
 		  //Move to the right location
 		  int x = moveTile.getXLocation();
@@ -77,7 +87,7 @@ public class Human extends Player
 			 
 			 //Ends the turn.
 			 isTurn = false;
-			 phaseOfTurn = 0;
+			 super.setPhaseOfTurn(0);
 		  }
 		  else
 		  {
@@ -88,7 +98,18 @@ public class Human extends Player
 			 alert.setContentText(s);
 			 alert.show();
 		  }
-	   }      
+	   }
+      else
+      {
+         Alert alert = new Alert(AlertType.WARNING);
+			 alert.setTitle("Can't move now!");
+			 alert.setHeaderText("");
+			 String s = "Please insert the extra tile.";
+			 alert.setContentText(s);
+			 alert.show();
+      
+      
+      }      
    }
    
    @Override
@@ -104,7 +125,8 @@ public class Human extends Player
    public void takeTurn()
    {
       isTurn = true;
-	  phaseOfTurn = 1;
+	  super.setPhaseOfTurn(1);
    }
+
 
 }
