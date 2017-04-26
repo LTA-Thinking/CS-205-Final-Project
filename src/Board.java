@@ -10,20 +10,21 @@ import javafx.scene.layout.Pane;
  * creates a board based on the tile class and fills it in according to the game
  * rules
  *
- * @author Ivan Spizizen
+ * @author Ivan Spizizen & Neal
  */
-public class Board extends Pane {
+public class Board extends Pane 
+{
 
     /**
-     * @param SQUARE_SIZE is the size of each tile
-     * @param X_DIM_SQUARES is the amount of x cords on grid
-     * @param Y_DIM_SQUARES is the amount of y cords on grid
-     * @param Tile grid [][] is a 2 dimensional array that holds tiles
-     * @param counter is used to fill the board with random tiles from the
+     * SQUARE_SIZE is the size of each tile
+     * X_DIM_SQUARES is the amount of x cords on grid
+     * Y_DIM_SQUARES is the amount of y cords on grid
+     * Tile grid [][] is a 2 dimensional array that holds tiles
+     * counter is used to fill the board with random tiles from the
      * shuffled array
-     * @param Tile extraTile is the remaining tile when the board is created
-     * @param Tile t1 & t2 are generic tiles used for the canMove method
-     * @param startX & startY are used in the highlightMoves method to avoid an
+     * Tile extraTile is the remaining tile when the board is created
+     * Tile t1 & t2 are generic tiles used for the canMove method
+     * startX & startY are used in the highlightMoves method to avoid an
      * endless loop going back and forth from the starting tile location to the
      * first direction
      */
@@ -42,29 +43,16 @@ public class Board extends Pane {
     private boolean helperMode = false;
 
     /**
-     * @return the lastMove
-     */
-    public Point2D getLastMove() {
-        return lastMove;
-    }
-
-    /**
-     * @param lastMove the lastMove to set
-     */
-    public void setLastMove(Point2D lastMove) {
-        this.lastMove = lastMove;
-    }
-
-    /**
      * Sets up the board filling it with tiles based on X/Y_DIM_SQUARES. First
      * it fills in the 16 pieces of the board that do not move Then, it creates
      * a randomized array to fill in the remaining 33 pieces
      *
      * @param s is the size of each square
      * @param x is the amount of x coordinates
-     * @param y is the amount of y coordines
+     * @param y is the amount of y coordinates
      */
-    public Board(int s, int x, int y) {
+    public Board(int s, int x, int y) 
+    {
         SQUARE_SIZE = s;
         X_DIM_SQUARES = x;
         Y_DIM_SQUARES = y;
@@ -91,26 +79,30 @@ public class Board extends Pane {
         grid[4][6] = new Tile(this, 0, 4, 6, 3, true);
         grid[6][6] = new Tile(this, 1, 6, 6, 3, true);
 
-        int[] tilearrs = new int[]{0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
-        List<Integer> tList = new ArrayList<Integer>();
-        for (int index = 0; index < tilearrs.length; index++) {
+        int[] tilearrs = new int[]{0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+            1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
+        List<Integer> tList = new ArrayList<>();
+        for (int index = 0; index < tilearrs.length; index++) 
+        {
             tList.add(tilearrs[index]);
         }
         Collections.shuffle(tList);
 
-        for (int row = 0; row < X_DIM_SQUARES; row += 2) {
-            for (int col = 1; col < Y_DIM_SQUARES; col += 2) {
+        for (int row = 0; row < X_DIM_SQUARES; row += 2) 
+        {
+            for (int col = 1; col < Y_DIM_SQUARES; col += 2) 
+            {
                 Random rand = new Random();
                 int n = rand.nextInt(3) + 1;
 
                 grid[col][row] = new Tile(this, tList.get(counter), col, row, n);
                 counter++;
-
             }
         }
-        for (int row = 1; row < X_DIM_SQUARES; row += 2) {
-            for (int col = 0; col < Y_DIM_SQUARES; col++) {
+        for (int row = 1; row < X_DIM_SQUARES; row += 2) 
+        {
+            for (int col = 0; col < Y_DIM_SQUARES; col++) 
+            {
                 // create new GameSquare object for this column and row.  Pass in
                 // the panel and action listener so the button can be linked up!
                 Random rand = new Random();
@@ -127,7 +119,7 @@ public class Board extends Pane {
     }
 
     /**
-     * Returns the tile.
+     * Returns the tile at t location.
      *
      * @param t the location of tile
      * @return tile at location t
@@ -136,64 +128,82 @@ public class Board extends Pane {
         return grid[t.getX()][t.getY()];
     }
 
-    public Point2D oppositeLoc(Point2D insert) {
-        if (insert.getX() == 0) {
+    /**
+     * given a insert point, return the opposite location of the insert location
+     * @param insert
+     * @return 
+     */
+    public Point2D oppositeLoc(Point2D insert) 
+    {
+        if (insert.getX() == 0) 
             return new Point2D(6, insert.getY());
-        } else if (insert.getX() == 6) {
+        else if (insert.getX() == 6) 
             return new Point2D(0, insert.getY());
-        } else if (insert.getY() == 0) {
+        else if (insert.getY() == 0) 
             return new Point2D(insert.getX(), 6);
-        } else {
+        else 
             return new Point2D(insert.getX(), 0);
-        }
     }
 
     /**
-     * gets the extra tile which is the leftover gamepiece
+     * gets the extra tile which is the leftover game piece
      *
      * @return extra tile
      */
-    public Tile getExtraTile() {
+    public Tile getExtraTile() 
+    {
         return extraTile;
     }
 
     /**
-     * sets the extra tile which is the leftover gamepiece
+     * sets the extra tile which is the leftover game piece
      *
      * @param extraTile
      * @return
      */
-    public Tile setExtraTile(Tile extraTile) {
+    public Tile setExtraTile(Tile extraTile) 
+    {
         return this.extraTile = extraTile;
     }
 
-    public void insertTile(Point2D insertLoc) {
-        for(int i = 0; i < 7; ++i){
-            for(int j = 0; j < 7; ++j){
-                getTile(new Point2D(i,j)).unHighlight();
+    /**
+     * insert the extra tile to the insert location
+     * @param insertLoc 
+     */
+    public void insertTile(Point2D insertLoc) 
+    {
+        for (int i = 0; i < 7; ++i) 
+        {
+            for (int j = 0; j < 7; ++j) 
+            {
+                getTile(new Point2D(i, j)).unHighlight();
             }
         }
         setHighlight(false);
-        
+
         //get tile
         int opposTileX = oppositeLoc(insertLoc).getX();
         int opposTileY = oppositeLoc(insertLoc).getY();
-        
-        if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) {
-                Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
-                if (players[0] != null) {
-                    Player temp = players[0];
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
-                    getExtraTile().addPlayer(temp);
-                }
-                if (players[1] != null) {
-                    Player temp = players[1];
-                    getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
-                    getExtraTile().addPlayer(temp);
-                }
-            }
 
-        if (insertLoc.getX() == 0) {
+        if (getTile(new Point2D(opposTileX, opposTileY)).isPlayerOnTile()) 
+        {
+            Player[] players = getTile(new Point2D(opposTileX, opposTileY)).getPlayersOnTile();
+            if (players[0] != null) 
+            {
+                Player temp = players[0];
+                getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                getExtraTile().addPlayer(temp);
+            }
+            if (players[1] != null) 
+            {
+                Player temp = players[1];
+                getTile(new Point2D(opposTileX, opposTileY)).removePlayer(temp);
+                getExtraTile().addPlayer(temp);
+            }
+        }
+
+        if (insertLoc.getX() == 0) 
+        {
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             grid[opposTileX][opposTileY].removeFromDrawing(this);
@@ -201,28 +211,34 @@ public class Board extends Pane {
                 grid[i - 1][insertLoc.getY()].moveToLocation(i, insertLoc.getY());
                 grid[i][insertLoc.getY()] = grid[i - 1][insertLoc.getY()];
             }
-        } else if (insertLoc.getX() == 6) {
+        } else if (insertLoc.getX() == 6) 
+        {
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
 
-            for (int i = 0; i < 6; ++i) {
+            for (int i = 0; i < 6; ++i) 
+            {
                 grid[i + 1][insertLoc.getY()].moveToLocation(i, insertLoc.getY());
                 grid[i][insertLoc.getY()] = grid[i + 1][insertLoc.getY()];
             }
 
-        } else if (insertLoc.getY() == 0) {
+        } else if (insertLoc.getY() == 0) 
+        {
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
-            for (int i = 6; i > 0; --i) {
+            for (int i = 6; i > 0; --i) 
+            {
                 grid[insertLoc.getX()][i - 1].moveToLocation(insertLoc.getX(), i);
                 grid[insertLoc.getX()][i] = grid[insertLoc.getX()][i - 1];
             }
-        } else if (insertLoc.getY() == 6) {
+        } else if (insertLoc.getY() == 6) 
+        {
             t1 = getExtraTile();
             setExtraTile(getTile(new Point2D(opposTileX, opposTileY)));
             grid[opposTileX][opposTileY].removeFromDrawing(this);
 
-            for (int i = 0; i < 6; ++i) {
+            for (int i = 0; i < 6; ++i) 
+            {
                 grid[insertLoc.getX()][i + 1].moveToLocation(insertLoc.getX(), i);
                 grid[insertLoc.getX()][i] = grid[insertLoc.getX()][i + 1];
             }
@@ -231,12 +247,15 @@ public class Board extends Pane {
         t1.addToDrawing(this);
         t1.moveToLocation(insertLoc.getX(), insertLoc.getY());
         grid[insertLoc.getX()][insertLoc.getY()] = t1;
-        if (t1.isPlayerOnTile()) {
+        if (t1.isPlayerOnTile()) 
+        {
             Player[] players = t1.getPlayersOnTile();
-            if (players[0] != null) {
+            if (players[0] != null) 
+            {
                 players[0].setLocation(insertLoc);
             }
-            if (players[1] != null) {
+            if (players[1] != null) 
+            {
                 players[1].setLocation(insertLoc);
             }
         }
@@ -252,79 +271,106 @@ public class Board extends Pane {
      * @param dir
      * @return
      */
-    public boolean canMove(Point2D start, int dir) {
+    public boolean canMove(Point2D start, int dir) 
+    {
         int x1 = start.getX();
         int y1 = start.getY();
         int x2 = 0;
         int y2 = 0;
-        if (dir == 0) {
+        if (dir == 0) 
+        {
             x2 = x1;
             y2 = y1 - 1;
         }
-        if (dir == 1) {
+        if (dir == 1) 
+        {
             x2 = x1 + 1;
             y2 = y1;
         }
-        if (dir == 2) {
+        if (dir == 2) 
+        {
             x2 = x1;
             y2 = y1 + 1;
         }
-        if (dir == 3) {
+        if (dir == 3) 
+        {
             x2 = x1 - 1;
             y2 = y1;
         }
-        if (y2 < 0 || x2 < 0) {
+        if (y2 < 0 || x2 < 0) 
+        {
             return false;
-        } else {
+        } else 
+        {
             t1 = grid[x1][y1];
             t2 = grid[x2][y2];
-            if (y1 - y2 == -1 && t1.isConnectedInDirection(2) && t2.isConnectedInDirection(0)) {
+            if (y1 - y2 == -1 && t1.isConnectedInDirection(2) && t2.isConnectedInDirection(0)) 
                 return true;
-            } else if (x1 - x2 == 1 && t1.isConnectedInDirection(3) && t2.isConnectedInDirection(1)) {
+            else if (x1 - x2 == 1 && t1.isConnectedInDirection(3) && t2.isConnectedInDirection(1)) 
                 return true;
-            } else if (y1 - y2 == 1 && t1.isConnectedInDirection(0) && t2.isConnectedInDirection(2)) {
+            else if (y1 - y2 == 1 && t1.isConnectedInDirection(0) && t2.isConnectedInDirection(2)) 
                 return true;
-            } else if (x1 - x2 == -1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)) {
+            else if (x1 - x2 == -1 && t1.isConnectedInDirection(1) && t2.isConnectedInDirection(3)) 
                 return true;
-            } else {
+            else 
                 return false;
-            }
         }
     }
 
     /**
      * returns grid
+     * @return grid
      */
-    public Tile[][] getGrid() {
+    public Tile[][] getGrid() 
+    {
         return grid;
     }
 
     /**
      * @return the highlight
      */
-    public boolean isHighlight() {
+    public boolean isHighlight() 
+    {
         return highlight;
     }
 
     /**
      * @param highlight the highlight to set
      */
-    public void setHighlight(boolean highlight) {
+    public void setHighlight(boolean highlight) 
+    {
         this.highlight = highlight;
     }
 
     /**
      * @return the helperMode
      */
-    public boolean isHelperMode() {
+    public boolean isHelperMode() 
+    {
         return helperMode;
     }
 
     /**
      * @param helperMode the helperMode to set
      */
-    public void setHelperMode(boolean helperMode) {
+    public void setHelperMode(boolean helperMode) 
+    {
         this.helperMode = helperMode;
     }
 
+    /**
+     * @return the lastMove
+     */
+    public Point2D getLastMove() 
+    {
+        return lastMove;
+    }
+
+    /**
+     * @param lastMove the lastMove to set
+     */
+    public void setLastMove(Point2D lastMove) 
+    {
+        this.lastMove = lastMove;
+    }
 }

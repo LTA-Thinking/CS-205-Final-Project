@@ -1,5 +1,5 @@
 
-import java.util.*;
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /*
@@ -11,14 +11,15 @@ import javafx.scene.paint.Color;
  *
  * @author neal
  */
-public class Computer extends Player 
-{
+public class Computer extends Player {
+
     private Board board;
     private Point2D[] allMoveLoc;
     private Labyrinth labyrinth;
 
     /**
      * constructor
+     *
      * @param board
      * @param labyrinth
      * @param color
@@ -30,11 +31,14 @@ public class Computer extends Player
         this.labyrinth = labyrinth;
     }
 
+    /**
+     * computer make a move. 
+     * computer will test all possible moves, and pick the move that will bring 
+     * itself to his current treasure or the closest point 
+     */
     @Override
     public void takeTurn() 
     {
-//        System.out.println("treasure ; " + super.getCurrentTreasure().getTreasureLocation().getX() + "   " + super.getCurrentTreasure().getTreasureLocation().getY());
-
         Point2D lastMove = board.getLastMove();
         double distance = 999;
         Tile tile = board.getTile(new Point2D(0, 0));
@@ -51,40 +55,37 @@ public class Computer extends Player
                 {
                     board.insertTile(possibleMove[i]);
                     labyrinth.changeExtraTile();
-                    
+
                     ArrayList<Point2D> posLoc = super.allPossibleLoc();
                     for (int k = 0; k < posLoc.size(); ++k) 
                     {
-                        if (posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance 
+                        if (posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation()) < distance
                                 && board.getExtraTile().getTreasure() != super.getCurrentTreasure()) 
                         {
                             distance = posLoc.get(k).distance(super.getCurrentTreasure().getTreasureLocation());
                             tile = board.getTile(posLoc.get(k));
                             insertPoint = possibleMove[i];
                         }
-						else if(Math.random()>0.98)
-						{
-							distance = 1;
+                        else if (Math.random() > 0.98) 
+                        {
+                            distance = 1;
                             tile = board.getTile(posLoc.get(k));
                             insertPoint = possibleMove[i];
-						}
+                        }
                     }
                     board.insertTile(board.oppositeLoc(possibleMove[i]));
                     labyrinth.changeExtraTile();
                 }
             }
         }
-//        System.out.println("insert loc: " + insertPoint.getX() + "  " + insertPoint.getY());
+        
         board.insertTile(insertPoint);
         labyrinth.changeExtraTile();
         super.setLocation(tile.getLocation());
-//        System.out.println("current loc: " + super.getLocation().getX() + "  " + super.getLocation().getY());
-//        System.out.println("treasure ; " + super.getCurrentTreasure().getTreasureLocation().getX() + "   " + super.getCurrentTreasure().getTreasureLocation().getY());
-//        System.out.println("distance: " + distance);
-        if (distance == 0) {
+        
+        if (distance == 0) 
+        {
             System.out.println("got it");
-//            System.out.println("number of treasure: " + this.getTreasures().size());
-//            System.out.println("treasure at " + board.getTile(new Point2D(2,0)).getTreasure());
             tile.removeTreasure();
             setNextTreasure();
         }
