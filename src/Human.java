@@ -22,6 +22,7 @@ public class Human extends Player
    @Override
    public void getInsertTile(Point2D insertPoint)
    {
+   	 //If it's the part of the turn when the player can insert,
      	 if(getPhaseOfTurn()==1)
 	 {
 		  //Inserts the tile where the player clicks, as long as it's a legal insert. 
@@ -32,12 +33,12 @@ public class Human extends Player
 		  } 
 		  else
 		  {
-           		 Alert alert = new Alert(AlertType.WARNING);
-			 alert.setTitle("Illegal move!");
-			 alert.setHeaderText("");
-			 String s = "Cannot insert there.";
-			 alert.setContentText(s);
-			 alert.show();	 
+           		Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Illegal move!");
+			alert.setHeaderText("");
+			String s = "Cannot insert there.";
+			alert.setContentText(s);
+			alert.show();	 
 		  }
 	 }
    	 else
@@ -58,61 +59,63 @@ public class Human extends Player
    @Override
    public void getMoveTile(Tile moveTile)
    {
-       for(int i = 0; i < 7; ++i){
-            for(int j = 0; j < 7; ++j){
-                board.getTile(new Point2D(i,j)).unHighlight();
-            }
+   	for(int i = 0; i < 7; ++i)
+	{
+        	for(int j = 0; j < 7; ++j)
+		{
+        		board.getTile(new Point2D(i,j)).unHighlight();
+                }
         }
         board.setHighlight(false);
-	   if(getPhaseOfTurn() == 2)
-	   {
-		  //Move to the right location
-		  int x = moveTile.getXLocation();
-		  int y = moveTile.getYLocation();
-		  Point2D movePoint = new Point2D(x, y);
-		  if(super.pathExists(movePoint))
-		  {
-			 super.setLocation(movePoint);
-			 //Checks if the tile they moved to has the treasure they need.
-			 Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
+	if(getPhaseOfTurn() == 2)
+	{
+		//Move to the right location
+	  	int x = moveTile.getXLocation();
+		int y = moveTile.getYLocation();
+		Point2D movePoint = new Point2D(x, y);
+		if(super.pathExists(movePoint))
+		{
+			super.setLocation(movePoint);
+			//Checks if the tile they moved to has the treasure they need.
+			Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
 		  
-			 if(super.getLocation().equals(treasureLocation))
-			 {
+			if(super.getLocation().equals(treasureLocation))
+			{
 				super.location.removeTreasure();
 				super.setNextTreasure();
-			 }
+			}
 			 
-			 //Ends the turn.
-			 isTurn = false;
-			 super.setPhaseOfTurn(0);
-		  }
-		  else
-		  {
-			 Alert alert = new Alert(AlertType.WARNING);
-			 alert.setTitle("Illegal Move");
-			 alert.setHeaderText("");
-			 String s = "Cannot move there!";
-			 alert.setContentText(s);
-			 alert.show();
-		  }
-	   }
-      else
-      {
-         Alert alert = new Alert(AlertType.WARNING);
-			 alert.setTitle("Can't move now!");
-			 alert.setHeaderText("");
-			 String s = "Please insert the extra tile.";
-			 alert.setContentText(s);
-			 alert.show();
+			//Ends the turn.
+			isTurn = false;
+			super.setPhaseOfTurn(0);
+		 }
+		 else
+		 {
+		 	Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Illegal Move");
+			alert.setHeaderText("");
+			String s = "Cannot move there!";
+			alert.setContentText(s);
+			alert.show();
+		 }
+	}
+        else
+        {
+        	Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Can't move now!");
+		alert.setHeaderText("");
+		String s = "Please insert the extra tile.";
+		alert.setContentText(s);
+		alert.show();
       
       
-      }      
+       }      
    }
    
    @Override
    public boolean isCurrentPlayer()
    {
-      return isTurn;
+   	return isTurn;
    }
    
    /**
