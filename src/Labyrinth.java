@@ -43,7 +43,7 @@ public class Labyrinth extends Application {
     private Tile leftOverTile;
     private HBox extraTileHolder;
     private int turns = 0;
-    private Button helper = new Button("Helper Mode");
+    private Button helper = new Button("Helper mode");
 	private long startTime;
 	
     /**
@@ -755,10 +755,10 @@ public class Labyrinth extends Application {
             System.out.println("testing: " + board.isHelperMode());
             if (board.isHelperMode()) {
                 board.setHelperMode(false);
-                helper.setText("Normal mode");
+                helper.setText("Helper mode");
             } else {
                 board.setHelperMode(true);
-                helper.setText("Helper mode");
+                helper.setText("Normal mode");
             }
         });
 
