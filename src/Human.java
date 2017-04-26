@@ -17,15 +17,14 @@ public class Human extends Player
    }
    
    /**Inserts the extra tile where the player wants to on the board.
-     @param insertTile The tile to be inserted on the board.
+     @param insertPoint The place for the tile to be inserted on the board.
    */
    @Override
    public void getInsertTile(Point2D insertPoint)
    {
-     if(getPhaseOfTurn()==1)
+     	 if(getPhaseOfTurn()==1)
 	 {
-		  //Inserts the tile where the player clicks.
-		  
+		  //Inserts the tile where the player clicks, as long as it's a legal insert. 
 		  if(super.legalInsert(insertPoint))
 		  {
 			 board.insertTile(insertPoint);
@@ -33,25 +32,23 @@ public class Human extends Player
 		  } 
 		  else
 		  {
-           Alert alert = new Alert(AlertType.WARNING);
+           		 Alert alert = new Alert(AlertType.WARNING);
 			 alert.setTitle("Illegal move!");
 			 alert.setHeaderText("");
 			 String s = "Cannot insert there.";
 			 alert.setContentText(s);
-			 alert.show();
-			 
+			 alert.show();	 
 		  }
 	 }
-    else
-    {
-         Alert alert = new Alert(AlertType.WARNING);
-			 alert.setTitle("Cannot insert now!");
-			 alert.setHeaderText("");
-			 String s = "Please move your player.";
-			 alert.setContentText(s);
-			 alert.show();
-    
-    }
+   	 else
+    	 {
+         	Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Cannot insert now!");
+		alert.setHeaderText("");
+		String s = "Please move your player.";
+		alert.setContentText(s);
+		alert.show();
+    	 }
    }
    
    /**Moves the player where they want to move on the board. Then, if they 
