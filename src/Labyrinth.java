@@ -49,6 +49,7 @@ public class Labyrinth extends Application {
 	private long startTime;
 	private Image greyArrowButton, arrowButton;
 	private ImageView[][] arrowButtons = new ImageView[4][3];
+	private Label currentTurn;
 	
     /**
      * Starts the application, creates the players, and creates the board
@@ -90,6 +91,8 @@ public class Labyrinth extends Application {
         System.out.println("Treasures dealt, loading board...");
         setupDisplay(primaryStage);
         System.out.println("Board loaded, starting game...");
+		
+		displayHelp();
 
         changeTurn();
     }
@@ -294,8 +297,16 @@ public class Labyrinth extends Application {
             }
         });
 
+		currentTurn = new Label("Current Turn:\nPlayer One");
+		currentTurn.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY,null)));
+		currentTurn.setAlignment(Pos.CENTER);
+		currentTurn.setPrefWidth(Board.SQUARE_SIZE);
+		currentTurn.setPrefHeight(Board.SQUARE_SIZE);
+		
         topButtons.setSpacing(Board.SQUARE_SIZE);
-        topButtons.setPadding(new Insets(0, Board.SQUARE_SIZE * 2, 0, Board.SQUARE_SIZE * 2));
+        topButtons.setPadding(new Insets(0, Board.SQUARE_SIZE * 2, 0, 0));
+		
+		topButtons.getChildren().add(currentTurn);
         topButtons.getChildren().add(topLeft);
         topButtons.getChildren().add(topCenter);
         topButtons.getChildren().add(topRight);
@@ -980,8 +991,7 @@ public class Labyrinth extends Application {
             @Override
             public void handle(ActionEvent e)
 			{
-				Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "Welcome to Labyrinth! \n\nThe objective of the game is to gather all 12 treasures before your opponent does. The treasure you are currently pursuing will show up on the board as the same color as your player. In order to play, you first must insert the extra tile displayed on the right into the board. Click one of the arrow buttons to insert the tile there. But be careful! You can’t reverse another player’s move by putting the extra tile back where it just was. Also, if your player is pushed out of the board, they will be transferred to the other side. \n\nNext, you can move your piece as far as you choose to anywhere that you currently have a path to. You can do this simply by clicking a square on the board. Make sure you choose a square that you have a path to! Once you reach the square that has your treasure, you will pick it up and receive 10 points. Then, you’ll be assigned a new treasure. You win when you collect all 12 of your treasures.");
-				helpDisplay.showAndWait();
+				displayHelp();
             }
         });
 		
@@ -1064,13 +1074,13 @@ public class Labyrinth extends Application {
 			
 			if(currentPlayer == playerOne)
 			{
-				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!\nPlease hit the restart button if you want to play again.");
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player One Wins!");
 				gameOver.showAndWait();
 				winner = true;
 			}
 			else if(currentPlayer == playerTwo)
 			{
-				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!\nPlease hit the restart button if you want to play again.");
+				Alert gameOver = new Alert(Alert.AlertType.INFORMATION, "Player Two Wins!");
 				gameOver.showAndWait();
 				winner = false;
 			}
@@ -1088,11 +1098,17 @@ public class Labyrinth extends Application {
 
             if (currentPlayer == playerOne) 
 			{
+				currentTurn.setText("Current Turn:\nPlayer Two");
+				currentTurn.setBackground(new Background(new BackgroundFill(Color.BLUE,CornerRadii.EMPTY,null)));
+				
                 currentPlayer = playerTwo;
                 System.out.println("\nPlayer Two's Turn\n");
             } 
 			else 
 			{
+				currentTurn.setText("Current Turn:\nPlayer One");
+				currentTurn.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY,null)));
+				
                 currentPlayer = playerOne;
                 System.out.println("\nPlayer One's Turn\n");
             }
@@ -1257,6 +1273,15 @@ public class Labyrinth extends Application {
 		{
 			arrowButtons[2][(lastMove.getY()-1)/2].setImage(greyArrowButton);
 		}
+	}
+	
+	/**
+	 * Displays the information screen.
+	 */
+	public void displayHelp()
+	{
+		Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "Welcome to Labyrinth! \n\nThe objective of the game is to gather all 12 treasures before your opponent does. The treasure you are currently pursuing will show up on the board as the same color as your player. In order to play, you first must insert the extra tile displayed on the right into the board. Click one of the arrow buttons to insert the tile there. But be careful! You can\'t reverse another player\'s move by putting the extra tile back where it just was. Also, if your player is pushed out of the board, they will be transferred to the other side. \n\nNext, you can move your piece as far as you choose to anywhere that you currently have a path to. You can do this simply by clicking a square on the board. Make sure you choose a square that you have a path to! Once you reach the square that has your treasure, you will pick it up and receive 10 points. Then, you\'ll be assigned a new treasure. You win when you collect all 12 of your treasures.\n\nPlayer One starts the game. They are Red, and Player Two is Blue.");
+		helpDisplay.showAndWait();
 	}
 
     public static void main(String[] args) {
