@@ -47,6 +47,8 @@ public class Labyrinth extends Application {
     private HBox extraTileHolder;
     private int turns = 0;
 	private long startTime;
+	private Image greyArrowButton, arrowButton;
+	private ImageView[][] arrowButtons = new ImageView[4][3];
 	
     /**
      * Starts the application, creates the players, and creates the board
@@ -64,8 +66,8 @@ public class Labyrinth extends Application {
 
         String humanVsHuman = "Human vs Human";
         String humanVsCom = "Human vs Computer";
-        String comVsCom = "Computer vs Computer";
-        ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman, humanVsHuman, humanVsCom, comVsCom);
+  
+        ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman, humanVsHuman, humanVsCom);
 
         gameTypeChoice.showAndWait();
         String gameType = gameTypeChoice.getSelectedItem();
@@ -76,10 +78,7 @@ public class Labyrinth extends Application {
         } else if (gameType.equals(humanVsCom)) {
             playerOne = new Human(board, Color.RED);
             playerTwo = new Computer(board, this, Color.BLUE);
-        } else {
-            playerOne = new Computer(board, this, Color.RED);
-            playerTwo = new Computer(board, this, Color.BLUE);
-        }
+        } 
 
         System.out.println("Game type confirmed, dealing treasures...");
         dealCards();
@@ -111,8 +110,9 @@ public class Labyrinth extends Application {
         VBox boardHolder = new VBox();
 		boardHolder.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.MEDIUM)));
 
-        Image arrowButton = new Image("arrow_button.png");
+        arrowButton = new Image("arrow_button.png");
 		Image arrowButtonPressed = new Image("arrow_button_pressed.png");
+		greyArrowButton = new Image("arrow_button_greyed.png");
 
         //*********************************************Top buttons**************************
         HBox topButtons = new HBox();
@@ -139,8 +139,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			topLeft.setImage(arrowButtonPressed);
+			if(topLeft.getImage() != greyArrowButton)
+				topLeft.setImage(arrowButtonPressed);
         });
+		
         topLeft.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -151,8 +153,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			topLeft.setImage(arrowButton);
+			if(topLeft.getImage() != greyArrowButton)
+				topLeft.setImage(arrowButton);
         });
+		
         topLeft.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -183,8 +187,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			topCenter.setImage(arrowButtonPressed);
+			if(topCenter.getImage() != greyArrowButton)
+				topCenter.setImage(arrowButtonPressed);
         });
+		
         topCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -195,8 +201,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			topCenter.setImage(arrowButton);
+			if(topCenter.getImage() != greyArrowButton)
+				topCenter.setImage(arrowButton);
         });
+		
         topCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -227,8 +235,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			topRight.setImage(arrowButtonPressed);
+			if(topRight.getImage() != greyArrowButton)
+				topRight.setImage(arrowButtonPressed);
         });
+		
         topRight.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -239,8 +249,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			topRight.setImage(arrowButton);
+			if(topRight.getImage() != greyArrowButton)
+				topRight.setImage(arrowButton);
         });
+		
         topRight.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -261,6 +273,10 @@ public class Labyrinth extends Application {
         topButtons.getChildren().add(topLeft);
         topButtons.getChildren().add(topCenter);
         topButtons.getChildren().add(topRight);
+		
+		arrowButtons[0][0] = topLeft;
+		arrowButtons[0][1] = topCenter;
+		arrowButtons[0][2] = topRight;
 
         //*************************************Bottom buttons**************************
         HBox bottomButtons = new HBox();
@@ -284,8 +300,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			bottomLeft.setImage(arrowButtonPressed);
+			if(bottomLeft.getImage() != greyArrowButton)
+				bottomLeft.setImage(arrowButtonPressed);
         });
+		
         bottomLeft.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -296,8 +314,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			bottomLeft.setImage(arrowButton);
+			if(bottomLeft.getImage() != greyArrowButton)
+				bottomLeft.setImage(arrowButton);
         });
+		
         bottomLeft.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -328,8 +348,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			bottomCenter.setImage(arrowButtonPressed);
+			if(bottomCenter.getImage() != greyArrowButton)
+				bottomCenter.setImage(arrowButtonPressed);
         });
+		
         bottomCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -340,8 +362,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			bottomCenter.setImage(arrowButton);
+			if(bottomCenter.getImage() != greyArrowButton)
+				bottomCenter.setImage(arrowButton);
         });
+		
         bottomCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -372,8 +396,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			bottomRight.setImage(arrowButtonPressed);
+			if(bottomRight.getImage() != greyArrowButton)
+				bottomRight.setImage(arrowButtonPressed);
         });
+		
         bottomRight.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -384,8 +410,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			bottomRight.setImage(arrowButton);
+			if(bottomRight.getImage() != greyArrowButton)
+				bottomRight.setImage(arrowButton);
         });
+		
         bottomRight.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -406,6 +434,10 @@ public class Labyrinth extends Application {
         bottomButtons.getChildren().add(bottomLeft);
         bottomButtons.getChildren().add(bottomCenter);
         bottomButtons.getChildren().add(bottomRight);
+		
+		arrowButtons[1][0] = bottomLeft;
+		arrowButtons[1][1] = bottomCenter;
+		arrowButtons[1][2] = bottomRight;
 
         //*************************************Left hand buttons****************************
         VBox leftButtons = new VBox();
@@ -434,9 +466,11 @@ public class Labyrinth extends Application {
                     board.setLastMove(lastMove);
                 }
 				
-				leftTop.setImage(arrowButtonPressed);
+				if(leftTop.getImage() != greyArrowButton)
+					leftTop.setImage(arrowButtonPressed);
             }
         });
+		
         leftTop.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -449,9 +483,11 @@ public class Labyrinth extends Application {
                     board.setLastMove(lastMove);
                 }
 				
-				leftTop.setImage(arrowButton);
+				if(leftTop.getImage() != greyArrowButton)
+					leftTop.setImage(arrowButton);
             }
         });
+		
         leftTop.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -482,8 +518,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			leftCenter.setImage(arrowButtonPressed);
+			if(leftCenter.getImage() != greyArrowButton)
+				leftCenter.setImage(arrowButtonPressed);
         });
+		
         leftCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -494,8 +532,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			leftCenter.setImage(arrowButton);
+			if(leftCenter.getImage() != greyArrowButton)
+				leftCenter.setImage(arrowButton);
         });
+		
         leftCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -526,8 +566,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			leftBottom.setImage(arrowButtonPressed);
+			if(leftBottom.getImage() != greyArrowButton)
+				leftBottom.setImage(arrowButtonPressed);
         });
+		
         leftBottom.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -538,8 +580,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			leftBottom.setImage(arrowButton);
+			if(leftBottom.getImage() != greyArrowButton)
+				leftBottom.setImage(arrowButton);
         });
+		
         leftBottom.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -560,6 +604,10 @@ public class Labyrinth extends Application {
         leftButtons.getChildren().add(leftTop);
         leftButtons.getChildren().add(leftCenter);
         leftButtons.getChildren().add(leftBottom);
+		
+		arrowButtons[2][0] = leftTop;
+		arrowButtons[2][1] = leftCenter;
+		arrowButtons[2][2] = leftBottom;
 
         //************************************Right hand buttons**************************
         VBox rightButtons = new VBox();
@@ -586,8 +634,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			rightTop.setImage(arrowButtonPressed);
+			if(rightTop.getImage() != greyArrowButton)
+				rightTop.setImage(arrowButtonPressed);
         });
+		
         rightTop.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -598,8 +648,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			rightTop.setImage(arrowButton);
+			if(rightTop.getImage() != greyArrowButton)
+				rightTop.setImage(arrowButton);
         });
+		
         rightTop.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -630,8 +682,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			rightCenter.setImage(arrowButtonPressed);
+			if(rightCenter.getImage() != greyArrowButton)
+				rightCenter.setImage(arrowButtonPressed);
         });
+		
         rightCenter.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -642,8 +696,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			rightCenter.setImage(arrowButton);
+			if(rightCenter.getImage() != greyArrowButton)
+				rightCenter.setImage(arrowButton);
         });
+		
         rightCenter.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -674,8 +730,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			rightBottom.setImage(arrowButtonPressed);
+			if(rightBottom.getImage() != greyArrowButton)
+				rightBottom.setImage(arrowButtonPressed);
         });
+		
         rightBottom.setOnMouseExited((MouseEvent e) -> {
             if (currentPlayer.getPhaseOfTurn() == 1
                     && board.isHelperMode()
@@ -686,8 +744,10 @@ public class Labyrinth extends Application {
                 board.setLastMove(lastMove);
             }
 			
-			rightBottom.setImage(arrowButton);
+			if(rightBottom.getImage() != greyArrowButton)
+				rightBottom.setImage(arrowButton);
         });
+		
         rightBottom.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -708,6 +768,10 @@ public class Labyrinth extends Application {
         rightButtons.getChildren().add(rightTop);
         rightButtons.getChildren().add(rightCenter);
         rightButtons.getChildren().add(rightBottom);
+		
+		arrowButtons[3][0] = rightTop;
+		arrowButtons[3][1] = rightCenter;
+		arrowButtons[3][2] = rightBottom;
 
         //**********************************************************************************
         HBox centerSection = new HBox();
@@ -807,7 +871,7 @@ public class Labyrinth extends Application {
             @Override
             public void handle(ActionEvent e)
 			{
-				Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "Welcome to Labyrinth! The objective of the game is to gather all 12 treasures before your opponent does. The treasure you are currently pursuing will show up on the board as the same color as your player. In order to play, you first must insert the extra tile displayed on the right into the board. Click one of the arrow buttons to insert the tile there. But be careful! You can’t reverse another player’s move by putting the extra tile back where it just was. Also, if your player is pushed out of the board, they will be transferred to the other side. Next, you can move your piece as far as you choose to anywhere that you currently have a path to. You can do this simply by clicking a square on the board. Make sure you choose a square that you have a path to! Once you reach the square that has your treasure, you will pick it up and receive 10 points. Then, you’ll be assigned a new treasure. You win when you collect all 12 of your treasures.");//************ NEED BETTER MESSAGE *********
+				Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "Welcome to Labyrinth! The objective of the game is to gather all 12 treasures before your opponent does. The treasure you are currently pursuing will show up on the board as the same color as your player. In order to play, you first must insert the extra tile displayed on the right into the board. Click one of the arrow buttons to insert the tile there. But be careful! You can’t reverse another player’s move by putting the extra tile back where it just was. Also, if your player is pushed out of the board, they will be transferred to the other side. Next, you can move your piece as far as you choose to anywhere that you currently have a path to. You can do this simply by clicking a square on the board. Make sure you choose a square that you have a path to! Once you reach the square that has your treasure, you will pick it up and receive 10 points. Then, you’ll be assigned a new treasure. You win when you collect all 12 of your treasures.");
 				helpDisplay.showAndWait();
             }
         });
@@ -891,8 +955,9 @@ public class Labyrinth extends Application {
      * Tells the players to take their turns. Handles conditions for if the game
      * ends.
      */
-    public void changeTurn() {
-            if(currentPlayer.checkWin())
+    public void changeTurn() 
+	{
+        if(currentPlayer.checkWin())
 		{
 			boolean winner = false;
 			
@@ -922,25 +987,32 @@ public class Labyrinth extends Application {
 				//Stats.insertScore(playerOneScore,playerTwoScore,turns,gameTime,winner);
 			}
 		}
-        else {
+        else 
+		{
             turns++;
 
             displayPlayerOneTreasure.setText("" + playerOne.getScore());
             displayPlayerTwoTreasure.setText("" + playerTwo.getScore());
 
-            if (currentPlayer == playerOne) {
+            if (currentPlayer == playerOne) 
+			{
                 currentPlayer = playerTwo;
                 System.out.println("\nPlayer Two's Turn\n");
-            } else {
+            } 
+			else 
+			{
                 currentPlayer = playerOne;
                 System.out.println("\nPlayer One's Turn\n");
             }
 
             currentPlayer.takeTurn();
 
-            if (!currentPlayer.isCurrentPlayer()) {
+            if (!currentPlayer.isCurrentPlayer()) 
+			{
                 changeTurn();
             }
+			
+			greyOutButton();
         }
     }
 
@@ -1007,12 +1079,17 @@ public class Labyrinth extends Application {
             }
         }
 		
-		System.out.println("Corner Tiles: " + cornerTiles.size());
-		System.out.println(""+deck.size());
+		if(board.getExtraTile().getType() == Tile.T_TYPE)
+		{
+			deck.add(new Card(numCardsMade, board.getExtraTile()));
+			board.getExtraTile().setTreasure(deck.get(numCardsMade));
+			numCardsMade++;
+		}
 
         Collections.shuffle(cornerTiles);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
+		{
             Tile t = cornerTiles.remove(0);
             deck.add(new Card(numCardsMade, t));
             t.setTreasure(deck.get(numCardsMade));
@@ -1020,13 +1097,13 @@ public class Labyrinth extends Application {
         }
 
         Collections.shuffle(deck);
-		System.out.println(""+deck.size());
 
         int cardDelt;
         ArrayList<Card> playerOneCards = new ArrayList<Card>(12);
         ArrayList<Card> playerTwoCards = new ArrayList<Card>(12);
 
-        for (int slotFilled = 0; slotFilled < 12; slotFilled++) {
+        for (int slotFilled = 0; slotFilled < 12; slotFilled++) 
+		{
             playerOneCards.add(deck.remove(0));
             playerTwoCards.add(deck.remove(0));
         }
@@ -1040,8 +1117,10 @@ public class Labyrinth extends Application {
 		
 	}
 	
-    public void changeExtraTile() {
-        if (leftOverTile != null) {
+    public void changeExtraTile() 
+	{
+        if (leftOverTile != null) 
+		{
             leftOverTile.removeFromDrawing(extraTileHolder);
         }
 
@@ -1049,39 +1128,37 @@ public class Labyrinth extends Application {
         leftOverTile.addToDrawing(extraTileHolder);
         leftOverTile.moveToLocation(0, 0);
     }
-
-    /**
-     * Restarts the game by resetting the board and player data.
-     */
-    public void restart() {
-        board = new Board(100, 7, 7); // Fill in args
-        setUpTileButtons();
-
-        String humanVsHuman = "Human vs Human";
-        String humanVsCom = "Human vs Computer";
-        String comVsCom = "Computer vs Computer";
-        ChoiceDialog<String> gameTypeChoice = new ChoiceDialog<String>(humanVsHuman, humanVsHuman, humanVsCom, comVsCom);
-
-        gameTypeChoice.showAndWait();
-        String gameType = gameTypeChoice.getSelectedItem();
-
-        if (gameType.equals(humanVsHuman)) {
-            playerOne = new Human(board, Color.RED);
-            playerTwo = new Human(board, Color.BLUE);
-        } else if (gameType.equals(humanVsCom)) {
-            playerOne = new Human(board, Color.RED);
-            playerTwo = new Computer(board, this, Color.BLUE);
-        } else {
-            playerOne = new Computer(board, this, Color.RED);
-            playerTwo = new Computer(board, this, Color.BLUE);
-        }
-
-        currentPlayer = playerTwo;
-
-        dealCards();
-
-        changeTurn();
-    }
+	
+	public void greyOutButton()
+	{
+		for(int i=0;i<arrowButtons.length;i++)
+		{
+			for(int k=0;k<arrowButtons[0].length;k++)
+			{
+				arrowButtons[i][k].setImage(arrowButton);
+			}
+		}
+		
+		Point2D lastMove = board.getLastMove();
+		
+		if(lastMove.getY() == 0)
+		{
+			if(lastMove.getX() != 0)
+				arrowButtons[1][(lastMove.getX()-1)/2].setImage(greyArrowButton);
+		}
+		else if(lastMove.getY() == 6)
+		{
+			arrowButtons[0][(lastMove.getX()-1)/2].setImage(greyArrowButton);
+		}
+		else if(lastMove.getX() == 0)
+		{
+			arrowButtons[3][(lastMove.getY()-1)/2].setImage(greyArrowButton);
+		}
+		else if(lastMove.getX() == 6)
+		{
+			arrowButtons[2][(lastMove.getY()-1)/2].setImage(greyArrowButton);
+		}
+	}
 
     public static void main(String[] args) {
         Application.launch(args);
