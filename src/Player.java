@@ -217,7 +217,8 @@ public abstract class Player
     public boolean legalInsert(Point2D insert)
     {
        Point2D lastMove = board.getLastMove();
-		
+	
+       //Checks through the whole board to see if the last move will be reversed by the current insert.    
        if((lastMove.getX() == 0 && insert.getX() == 6) || (lastMove.getX() == 6 && insert.getX() == 0))
        {
           if(lastMove.getY() == insert.getY())
@@ -258,79 +259,97 @@ public abstract class Player
     /**
     * Removes the current treasure from the ArrayList and gets the next one. 
     * Then, updates the score by one.
-    *
     */
     public void setNextTreasure()
     {  
-        treasures.remove(currentTreasure);
-        score++;
-        if(treasures.size() != 0)
-        {
-            currentTreasure = this.treasures.get(0);
-			currentTreasure.setDisplayColor(color);
-        }  
+       treasures.remove(currentTreasure);
+       score++;
+	    
+       //If they are not on the last treasure, sets a new one.
+       if(treasures.size() != 0)
+       {
+          currentTreasure = this.treasures.get(0);
+	  currentTreasure.setDisplayColor(color);
+       }  
     }
     
+    /**
+    * Checks if a player has won or not.
+    * @return Whether or not the player has won.
+    */
     public boolean checkWin()
     {
+       //If the player has no treasures left, they win.
        if(treasures.size()==0)
        {
-           return true;
+          return true;
        }
-       return false;
-        
+       return false;  
     }
 
     /**
-     * @param treasures the treasures to set
-     */
-    public void setTreasures(ArrayList<Card> treasures) {
-        this.treasures = treasures;
-        currentTreasure = this.treasures.get(0);
-		currentTreasure.setDisplayColor(color);
+    * Sets the treasures to the ArrayList of treasures passed in.
+    * Also sets the current treasure.
+    * @param treasures The treasures to set.
+    */
+    public void setTreasures(ArrayList<Card> treasures) 
+    {
+       this.treasures = treasures;
+       currentTreasure = this.treasures.get(0);
+       currentTreasure.setDisplayColor(color);
     }
 
     /**
-     * @return the isCurrentPlayer
-     */
-    public boolean isCurrentPlayer() {
-        return isCurrentPlayer;
+    * Gets whether or not it's the player's turn.
+    * @return If the player is the current player or not.
+    */
+    public boolean isCurrentPlayer()
+    {
+       return isCurrentPlayer;
     }
 
     /**
-     * @param isCurrentPlayer the isCurrentPlayer to set
-     */
-    public void setIsCurrentPlayer(boolean isCurrentPlayer) {
-        this.isCurrentPlayer = isCurrentPlayer;
+    * Sets the player to be the current player.
+    * @param isCurrentPlayer Whether or not the player is the current player.
+    */
+    public void setIsCurrentPlayer(boolean isCurrentPlayer) 
+    {
+       this.isCurrentPlayer = isCurrentPlayer;
     }
 	
-	/**
-	 * Returns the node to display coresponding to the player.
-	 */
-	public Rectangle getDisplay()
-	{
-		return displayPlayer;
-	}
-
-	/**
-	 * Returns the player's score;
-	 */
-	public int getScore()
-	{
-		return score;
-	}
-
     /**
-     * @return the phaseOfTurn
-     */
-    public int getPhaseOfTurn() {
-        return phaseOfTurn;
+    * Returns the node to display corresponding to the player.
+    * @return The player's display.
+    */
+    public Rectangle getDisplay()
+    {
+       return displayPlayer;
     }
 
     /**
-     * @param phaseOfTurn the phaseOfTurn to set
-     */
-    public void setPhaseOfTurn(int phaseOfTurn) {
-        this.phaseOfTurn = phaseOfTurn;
+    * Returns the player's score.
+    * @return The player's score.
+    */
+    public int getScore()
+    {
+       return score;
+    }
+
+    /**
+    * Gets the phase of the player's turn.
+    * @return the phaseOfTurn
+    */
+    public int getPhaseOfTurn()
+    {
+       return phaseOfTurn;
+    }
+
+    /**
+    * Sets the player's turn phase.
+    * @param phaseOfTurn What phase it should be set to.
+    */
+    public void setPhaseOfTurn(int phaseOfTurn) 
+    {
+       this.phaseOfTurn = phaseOfTurn;
     }
 }
