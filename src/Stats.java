@@ -1,7 +1,8 @@
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
+import java.net.URLClassLoader;
+import java.net.URL;
 
 /**
  * A Java MySQL PreparedStatement INSERT.
@@ -11,9 +12,8 @@ import java.util.Calendar;
  */
 public class Stats{
 	
-	private Connection conn;
-	private final String myDriver = "com.mysql.jdbc.Driver";
-	private final String myUrl = "jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9170217";
+	private static final String myDriver = "com.mysql.jdbc.Driver";
+	private static final String myUrl = "jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9170217";
 
 /*
 	public void connect() throws ClassNotFoundException, SQLException
@@ -24,10 +24,13 @@ public class Stats{
       Connection conn = DriverManager.getConnection(myUrl, "sql9170217", "TwjduVDLc7");    
   }
  */
-  public boolean insertStats(){
+  public static boolean insertStats(int humanScore,int comScore,int moves,boolean winner,long gameTime)
+  {
 	  try
 	    {
-		  Class.forName(myDriver);
+		  ClassLoader classLoader = new URLClassLoader(new URL[]{new URL("mysql-connector-java-5.1.41-bin.jar")});
+		  Class.forName(myDriver,true,classLoader);
+		  
 	      Connection conn = DriverManager.getConnection(myUrl, "sql9170217", "TwjduVDLc7");
 	      // create a sql date object so we can use it in our INSERT statement
 	      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -39,14 +42,19 @@ public class Stats{
 		// create the mysql insert preparedstatement
 	      PreparedStatement preparedStmt = conn.prepareStatement(query);
 	      
-	      preparedStmt.setInt (1, 7);
-	      preparedStmt.setInt (2,7);
-	      preparedStmt.setInt (3, 7);
-	      preparedStmt.setString (4, "me");
-	      preparedStmt.setLong (5, 700);
-	      preparedStmt.setInt (6, 31);
+	      preparedStmt.setInt (1, humanScore);
+	      preparedStmt.setInt (2,comScore);
+	      preparedStmt.setInt (3, moves);
+		  
+		  if(winner)
+			preparedStmt.setString (4, "human");
+		  else
+			preparedStmt.setString(4, "computer");
+	      
+		  preparedStmt.setLong (5, gameTime);
+	      preparedStmt.setInt (6, 0);
 	      preparedStmt.setTimestamp (7, timestamp);
-	      preparedStmt.setString (8, "Ivan");
+	      preparedStmt.setString (8, "null");
 	      
 
 	      // execute the preparedstatement
@@ -65,7 +73,8 @@ public class Stats{
 	  
   }
   
-  public boolean playerStats() throws SQLException, ClassNotFoundException{
+  public static long[] playerStats() throws SQLException, ClassNotFoundException
+  {
 	  Class.forName(myDriver);
       Connection conn = DriverManager.getConnection(myUrl, "sql9170217", "TwjduVDLc7");
       
@@ -80,11 +89,11 @@ public class Stats{
       ResultSet rs = st.executeQuery(query);
       
       // iterate through the java resultset
-      while (rs.next())
-      {
+      //while (rs.next())
+      //{
         long fldPlayerTreasures = rs.getLong("pt");       
         long fldTotalMoves = rs.getLong("tm");
-        Long fldGameTime = rs.getLong("gt");
+        long fldGameTime = rs.getLong("gt");
         long fldUndos = rs.getLong("u");
            
         
@@ -92,9 +101,14 @@ public class Stats{
         //System.out.format("%s, %s, %s, %s, %s, %s\n", id, firstName, lastName, dateCreated, isAdmin, numPoints);
         System.out.format("%s,%s,%s,%s,%s,%s,%s,%s\n", " Avg Player Treasures", fldPlayerTreasures, " Avg Total Game Moves",fldTotalMoves, 
         		" Avg Game Time (600=6:00 min)",fldGameTime, " Avg Player Undos",fldUndos);
-      }
-      st.close();
-      return true;
+		
+		st.close();		
+		
+		long[] data = {fldPlayerTreasures,fldTotalMoves,fldGameTime};
+		
+		return data;
+      //}
+      
     }
 
   

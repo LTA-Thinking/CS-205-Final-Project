@@ -13,11 +13,14 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.scene.control.ChoiceDialog;
@@ -43,7 +46,6 @@ public class Labyrinth extends Application {
     private Tile leftOverTile;
     private HBox extraTileHolder;
     private int turns = 0;
-    private Button helper = new Button("Helper mode");
 	private long startTime;
 	
     /**
@@ -726,9 +728,31 @@ public class Labyrinth extends Application {
 
         rotateButtons.getChildren().add(rotateCCW);
         rotateButtons.getChildren().add(rotateCW);
-
+		
+		rotateButtons.setPrefWidth(Board.SQUARE_SIZE);
+		rotateButtons.setAlignment(Pos.CENTER);
+		rotateButtons.setSpacing(15);
+		rotateButtons.setPadding(new Insets(0, 0, 10, 0));
+		
+		Label playerOneName = new Label("Player One");
+		playerOneName.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY,null)));
+		playerOneName.setPrefWidth(Board.SQUARE_SIZE);
+		playerOneName.setAlignment(Pos.CENTER);
+		
+		Label playerTwoName = new Label("Player Two");
+		playerTwoName.setBackground(new Background(new BackgroundFill(Color.BLUE,CornerRadii.EMPTY,null)));
+		playerTwoName.setPrefWidth(Board.SQUARE_SIZE);
+		playerTwoName.setAlignment(Pos.CENTER);
+		
         displayPlayerOneTreasure = new Label("0");
+		displayPlayerOneTreasure.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY,null)));
+		displayPlayerOneTreasure.setPrefWidth(Board.SQUARE_SIZE);
+		displayPlayerOneTreasure.setAlignment(Pos.CENTER);
+		
         displayPlayerTwoTreasure = new Label("0");
+		displayPlayerTwoTreasure.setBackground(new Background(new BackgroundFill(Color.BLUE,CornerRadii.EMPTY,null)));
+		displayPlayerTwoTreasure.setPrefWidth(Board.SQUARE_SIZE);
+		displayPlayerTwoTreasure.setAlignment(Pos.CENTER);
 
         VBox sidePanel = new VBox();
         sidePanel.setPadding(new Insets(10));
@@ -737,62 +761,80 @@ public class Labyrinth extends Application {
         extraTileHolder = new HBox();
         changeExtraTile();
 
-        rotateCCW.setOnAction(new EventHandler<ActionEvent>() {
+        rotateCCW.setOnAction(new EventHandler<ActionEvent>() 
+		{
             @Override
-            public void handle(ActionEvent e) {
+            public void handle(ActionEvent e) 
+			{
                 leftOverTile.rotateCCW();
             }
         });
 
-        rotateCW.setOnAction(new EventHandler<ActionEvent>() {
+        rotateCW.setOnAction(new EventHandler<ActionEvent>() 
+		{
             @Override
-            public void handle(ActionEvent e) {
+            public void handle(ActionEvent e) 
+			{
                 leftOverTile.rotateCW();
             }
         });
 
+		Button helper = new Button("Helper mode");
+		helper.setPrefWidth(Board.SQUARE_SIZE);
+		helper.setAlignment(Pos.CENTER);
+		
         helper.setOnAction((ActionEvent e) -> {
             System.out.println("testing: " + board.isHelperMode());
-            if (board.isHelperMode()) {
+			
+            if (board.isHelperMode()) 
+			{
                 board.setHelperMode(false);
                 helper.setText("Helper mode");
-            } else {
+            } 
+			else 
+			{
                 board.setHelperMode(true);
                 helper.setText("Normal mode");
             }
         });
 
-        Button runTest = new Button("Run Test");
-        runTest.setOnAction(new EventHandler<ActionEvent>() {
+        Button helpMenu = new Button("Instructions");
+		helpMenu.setPrefWidth(Board.SQUARE_SIZE);
+		helpMenu.setAlignment(Pos.CENTER);
+		
+        helpMenu.setOnAction(new EventHandler<ActionEvent>() 
+		{
             @Override
-            public void handle(ActionEvent e) {
-                //**************************************** CALL TEST METHODS HERE ********************************
-                if (board.isHighlight()) {
-                    ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
-                    for (int i = 0; i < posLoc.size(); ++i) {
-                        board.getTile(posLoc.get(i)).unHighlight();
-                    }
-                    board.setHighlight(false);
-                } else {
-                    ArrayList<Point2D> posLoc = currentPlayer.allPossibleLoc();
-                    for (int i = 0; i < posLoc.size(); ++i) {
-                        board.getTile(posLoc.get(i)).highlight();
-                    }
-                    board.setHighlight(true);
-                }
-
+            public void handle(ActionEvent e)
+			{
+				Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "This is a message to tell you how to play the game.");//************ NEED BETTER MESSAGE *********
+				helpDisplay.showAndWait();
             }
         });
+		
+		Button displayStats = new Button("Statistics");
+		displayStats.setPrefWidth(Board.SQUARE_SIZE);
+		displayStats.setAlignment(Pos.CENTER);
+		
+		displayStats.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				displayStats();
+			}
+		});
 
         sidePanel.getChildren().add(extraTileHolder);
         sidePanel.getChildren().add(rotateButtons);
-        sidePanel.getChildren().add(new Label("Player One:"));
+        sidePanel.getChildren().add(playerOneName);
         sidePanel.getChildren().add(displayPlayerOneTreasure);
-        sidePanel.getChildren().add(new Label("Player Two:"));
+        sidePanel.getChildren().add(playerTwoName);
         sidePanel.getChildren().add(displayPlayerTwoTreasure);
 
-        sidePanel.getChildren().add(runTest);
+        sidePanel.getChildren().add(helpMenu);
         sidePanel.getChildren().add(helper);
+		sidePanel.getChildren().add(displayStats);
 
         mainPane.setRight(sidePanel);
 
@@ -964,6 +1006,9 @@ public class Labyrinth extends Application {
 
             }
         }
+		
+		System.out.println("Corner Tiles: " + cornerTiles.size());
+		System.out.println(""+deck.size());
 
         Collections.shuffle(cornerTiles);
 
@@ -975,6 +1020,7 @@ public class Labyrinth extends Application {
         }
 
         Collections.shuffle(deck);
+		System.out.println(""+deck.size());
 
         int cardDelt;
         ArrayList<Card> playerOneCards = new ArrayList<Card>(12);
@@ -989,6 +1035,11 @@ public class Labyrinth extends Application {
         playerTwo.setTreasures(playerTwoCards);
     }
 
+	public void displayStats()
+	{
+		
+	}
+	
     public void changeExtraTile() {
         if (leftOverTile != null) {
             leftOverTile.removeFromDrawing(extraTileHolder);
