@@ -807,7 +807,13 @@ public class Labyrinth extends Application {
             @Override
             public void handle(ActionEvent e)
 			{
-				Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "This is a message to tell you how to play the game.");//************ NEED BETTER MESSAGE *********
+				Alert helpDisplay = new Alert(Alert.AlertType.INFORMATION, "Welcome to Labyrinth!
+
+The objective of the game is to gather all 12 treasures before your opponent does. The treasure you are currently pursuing will show up on the board as the same color as your player. 
+
+In order to play, you first must insert the extra tile displayed on the right into the board. Click one of the arrow buttons to insert the tile there. But be careful! You can’t reverse another player’s move by putting the extra tile back where it just was. Also, if your player is pushed out of the board, they will be transferred to the other side. 
+
+Next, you can move your piece as far as you choose to anywhere that you currently have a path to. You can do this simply by clicking a square on the board. Make sure you choose a square that you have a path to! Once you reach the square that has your treasure, you will pick it up and receive 10 points. Then, you’ll be assigned a new treasure. You win when you collect all 12 of your treasures. ");//************ NEED BETTER MESSAGE *********
 				helpDisplay.showAndWait();
             }
         });
