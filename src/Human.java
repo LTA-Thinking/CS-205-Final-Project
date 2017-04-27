@@ -4,7 +4,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 
 /**
-   The Human class represents the human player in a game of Labyrinth.
+* The Human class represents the human player in a game of Labyrinth.
+* @author McKenna Todd
 */
 public class Human extends Player
 {
@@ -18,8 +19,8 @@ public class Human extends Player
    }
    
    /**
-     Inserts the extra tile where the player wants to on the board.
-     @param insertPoint The place for the tile to be inserted on the board.
+   * Inserts the extra tile where the player wants to on the board.
+   * @param insertPoint The place for the tile to be inserted on the board.
    */
    @Override
    public void getInsertTile(Point2D insertPoint)
@@ -57,9 +58,9 @@ public class Human extends Player
    }   
    
    /**
-      Moves the player where they want to move on the board. Then, if they 
-      got their treasure, sets the next treasure. It then ends the turn.
-      @param moveTile The tile that the player wants to move to.
+   * Moves the player where they want to move on the board. Then, if they 
+   * got their treasure, sets the next treasure. It then ends the turn.
+   * @param moveTile The tile that the player wants to move to.
    */
    @Override
    public void getMoveTile(Tile moveTile)
@@ -124,9 +125,9 @@ public class Human extends Player
    }
    
    /**
-      The isCurrentPlayer method returns whether or not it 
-      is this player's turn.
-      @return If it's the player's turn or not.
+   * The isCurrentPlayer method returns whether or not it 
+   * is this player's turn.
+   * @return If it's the player's turn or not.
    */
    @Override
    public boolean isCurrentPlayer()
@@ -135,7 +136,7 @@ public class Human extends Player
    }
    
    /**
-      The takeTurn method enacts the turn for the human player.
+   * The takeTurn method enacts the turn for the human player.
    */
    @Override
    public void takeTurn()
