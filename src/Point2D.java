@@ -12,6 +12,7 @@ public class Point2D
 {
     private int x;
     private int y;
+	
     public Point2D(int x, int y)
     {
         this.x = x;
@@ -21,40 +22,54 @@ public class Point2D
     /**
      * @return the x
      */
-    public int getX() {
+    public int getX() 
+	{
         return x;
     }
 
     /**
      * @param x the x to set
      */
-    public void setX(int x) {
+    public void setX(int x) 
+	{
         this.x = x;
     }
 
     /**
      * @return the y
      */
-    public int getY() {
+    public int getY() 
+	{
         return y;
     }
 
     /**
      * @param y the y to set
      */
-    public void setY(int y) {
+    public void setY(int y) 
+	{
         this.y = y;
     }
     
-    
-    public boolean equals(Point2D e){
+    /**
+	 * @param e the point2d to compare this to.
+	 */
+    public boolean equals(Point2D e)
+	{
         return (this.getX() == e.getX() && this.getY() == e.getY());
     }
     
-    public double distance(Point2D e){
+	/**
+	 * @param e the point2d to find the distance to.
+	 */
+    public double distance(Point2D e)
+	{
         return Math.sqrt((this.getX()-e.getX())*(this.getX()-e.getX()) + (this.getY()-e.getY())*(this.getY()-e.getY()));
     }
 	
+	/**
+	 * Turns the point2d into a string.
+	 */
 	public String toString()
 	{
 		return " (X: " + x + ", Y: " + y + ") ";

@@ -26,35 +26,35 @@ public class Human extends Player
    public void getInsertTile(Point2D insertPoint)
    {
       //If it's the part of the turn when the player can insert,
-      if(getPhaseOfTurn()==1)
-      {
-         //Inserts the tile where the player clicks, as long as it's a legal insert. 
-	 if(super.legalInsert(insertPoint))
-         {
-	    board.insertTile(insertPoint);
-	    super.setPhaseOfTurn(2);
-	 }
-         //Otherwise, lets the user know they can't insert there. 
-	 else
-	 {
-            Alert alert = new Alert(AlertType.WARNING);
-	    alert.setTitle("Illegal move!");
-	    alert.setHeaderText("");
-	    String s = "Cannot insert there.";
-	    alert.setContentText(s);
-	    alert.show();	 
-         }
-      }
-      //If the player already inserted, tells them to move.
-      else
-      {
-         Alert alert = new Alert(AlertType.WARNING);
-         alert.setTitle("Cannot insert now!");
-         alert.setHeaderText("");
-         String s = "Please move your player.";
-         alert.setContentText(s);
-         alert.show();
-      }
+		if(getPhaseOfTurn()==1)
+		{
+			 //Inserts the tile where the player clicks, as long as it's a legal insert. 
+			if(super.legalInsert(insertPoint))
+			{
+				board.insertTile(insertPoint);
+				super.setPhaseOfTurn(2);
+			}
+			 //Otherwise, lets the user know they can't insert there. 
+			else
+			{
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Illegal move!");
+				alert.setHeaderText("");
+				String s = "Cannot insert there.";
+				alert.setContentText(s);
+				alert.show();	 
+			}
+		}
+		//If the player already inserted, tells them to move.
+		else
+		{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Cannot insert now!");
+			alert.setHeaderText("");
+			String s = "Please move your player.";
+			alert.setContentText(s);
+			alert.show();
+		}
    }   
    
    /**
@@ -79,37 +79,37 @@ public class Human extends Player
       if(getPhaseOfTurn() == 2)
       {
          //Gets the location the player clicked.
-	 int x = moveTile.getXLocation();
-         int y = moveTile.getYLocation();
-	 Point2D movePoint = new Point2D(x, y);
-         
+		 int x = moveTile.getXLocation();
+		 int y = moveTile.getYLocation();
+		 Point2D movePoint = new Point2D(x, y);
+			 
          //If a path exists to that point,
          if(super.pathExists(movePoint))
          {
-            //Moves the player there.
-	    super.setLocation(movePoint);
-	    //Checks if the tile they moved to has the treasure they need.
-	    Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
-	    if(super.getLocation().equals(treasureLocation))
-	    {
-               //If it did, sets the next treasure.
-               super.location.removeTreasure();
-	       super.setNextTreasure();
-	    }
-	   
-	    //Ends the turn.
-	    isTurn = false;
-	    super.setPhaseOfTurn(0);
-         }
+				//Moves the player there.
+			super.setLocation(movePoint);
+			//Checks if the tile they moved to has the treasure they need.
+			Point2D treasureLocation = super.getCurrentTreasure().getTreasureLocation();
+			if(super.getLocation().equals(treasureLocation))
+			{
+			   //If it did, sets the next treasure.
+			   super.location.removeTreasure();
+			   super.setNextTreasure();
+			}
+		   
+			//Ends the turn.
+			isTurn = false;
+			super.setPhaseOfTurn(0);
+		}
          //Alerts the player if they try to move illegally.
-	 else
-	 {
-  	    Alert alert = new Alert(AlertType.WARNING);
-	    alert.setTitle("Illegal Move");
-	    alert.setHeaderText("");
-	    String s = "Cannot move there!";	
-	    alert.setContentText(s);
- 	    alert.show();
+		 else
+		 {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Illegal Move");
+			alert.setHeaderText("");
+			String s = "Cannot move there!";	
+			alert.setContentText(s);
+			alert.show();
          }
       }
       //Alerts the player that they have to insert the tile before moving.
@@ -118,7 +118,7 @@ public class Human extends Player
          Alert alert = new Alert(AlertType.WARNING);
          alert.setTitle("Can't move now!");
          alert.setHeaderText("");
-	 String s = "Please insert the extra tile.";
+		 String s = "Please insert the extra tile.";
          alert.setContentText(s);
          alert.show();  
       }      

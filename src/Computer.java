@@ -11,7 +11,8 @@ import javafx.scene.paint.Color;
  *
  * @author neal
  */
-public class Computer extends Player {
+public class Computer extends Player 
+{
 
     private Board board;
     private Point2D[] allMoveLoc;
@@ -47,6 +48,7 @@ public class Computer extends Player {
             new Point2D(1, 0), new Point2D(3, 0), new Point2D(5, 0), new Point2D(6, 1),
             new Point2D(6, 3), new Point2D(6, 5), new Point2D(1, 6), new Point2D(3, 6),
             new Point2D(5, 6)};
+			
         for (int i = 0; i < possibleMove.length; ++i) 
         {
             if (!board.oppositeLoc(lastMove).equals(possibleMove[i])) 

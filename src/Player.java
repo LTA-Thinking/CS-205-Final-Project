@@ -221,29 +221,29 @@ public abstract class Player
        //Checks through the whole board to see if the last move will be reversed by the current insert.    
        if((lastMove.getX() == 0 && insert.getX() == 6) || (lastMove.getX() == 6 && insert.getX() == 0))
        {
-          if(lastMove.getY() == insert.getY())
-	  {
-             return false;
-          }
-	  else
-          {
-             return true;
-          }
+			if(lastMove.getY() == insert.getY())
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
        }
        else if((lastMove.getY() == 0 && insert.getY() == 6) || (lastMove.getY() == 6 && insert.getY() == 0))
        {
-          if(lastMove.getX() == insert.getX())
-	  {
-             return false;
-          }
-	  else
-    	  {
-             return true;
-          }
+			if(lastMove.getX() == insert.getX())
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
        }
        else
        {
-          return true;
+			return true;
        }
     }
 
@@ -268,8 +268,8 @@ public abstract class Player
        //If they are not on the last treasure, sets a new one.
        if(treasures.size() != 0)
        {
-          currentTreasure = this.treasures.get(0);
-	  currentTreasure.setDisplayColor(color);
+			currentTreasure = this.treasures.get(0);
+			currentTreasure.setDisplayColor(color);
        }  
     }
     
